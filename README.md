@@ -29,6 +29,10 @@
 | `docs/13_LEVI_BRIDGE.md` | LEVI/AERI 的隔离集成策略 |
 | `docs/14_AGENT_EXECUTION.md` | Coding Agent 执行总规范 |
 | `docs/15_OPEN_DECISIONS.md` | 需要集群/机器人确认的可变假设 |
+| `docs/16_BENCHMARK_READINESS.md` | RoboMME 等 benchmark 许可/可用性矩阵（未经独立核验） |
+| `docs/17_POLICY_EVAL_CONTRACT.md` | M2 PolicyAdapter/访问边界/可复现评测契约 |
+| `docs/18_M1_ADVERSARIAL_REVIEW.md` | M1 对抗性复审：发现、修复、v2 规格 |
+| `reviews/` | 复审的证伪脚本与原始输出 |
 | `agents/MASTER_IMPLEMENTATION_PROMPT.md` | 给 Codex/Claude Code 的直接执行 Prompt |
 | `paper/outline.md` | 英文论文草案提纲 |
 | `src/ucvla/` | 无外部 ML 依赖：contracts、toy、M1 episode 数据底座/SODH/splits/audit/symbolic readers |

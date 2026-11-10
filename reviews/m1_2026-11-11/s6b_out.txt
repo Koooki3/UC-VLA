@@ -1,0 +1,4 @@
+pair ids identical between real and static-layout generator: True
+pair-both outcome identical in 792/792 (pair x policy x budget) cells
+fraction of static-layout episodes whose layout never changes: 1.0
+G0 on static-layout (no cup ever moves) suite: passed = False Counter({'duplicate_content': 2})

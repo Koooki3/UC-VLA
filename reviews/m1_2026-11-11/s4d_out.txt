@@ -1,0 +1,6 @@
+interleave pair-both-correct / episode-acc, pooled over test_id+test_ood+test_cf
+  repo(hash, uses complete flag)   last_k     k=1: pb=0.00 acc=0.22 | k=2: pb=0.00 acc=0.28 | k=4: pb=0.10 acc=0.29 | k=8: pb=0.56 acc=0.67 | k=16: pb=0.88 acc=0.91
+  repo(hash, uses complete flag)   uniform_k  k=1: pb=0.00 acc=0.24 | k=2: pb=0.10 acc=0.44 | k=4: pb=0.12 acc=0.51 | k=8: pb=0.51 acc=0.73 | k=16: pb=0.95 acc=0.98
+  assume0_if_unseen                last_k     k=1: pb=0.00 acc=0.20 | k=2: pb=0.00 acc=0.20 | k=4: pb=0.12 acc=0.30 | k=8: pb=0.59 acc=0.65 | k=16: pb=0.88 acc=0.93
+  assume0_if_unseen                uniform_k  k=1: pb=0.00 acc=0.24 | k=2: pb=0.20 acc=0.45 | k=4: pb=0.22 acc=0.59 | k=8: pb=0.61 acc=0.80 | k=16: pb=0.95 acc=0.98
+memoryless episode acc, interleave: repo hash = hash=0.27  order[0]=0.20  order[1]=0.33  

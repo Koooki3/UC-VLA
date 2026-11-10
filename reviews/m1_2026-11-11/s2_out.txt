@@ -1,0 +1,66 @@
+
+=== object_correspondence ===
+  L1 alpha-renamed full content          val                  n= 16 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_id              n= 18 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_counterfactual  n= 32 train-twin= 0.06 twin-with-same-label= 0.06
+  L2 alpha-renamed, arm/noise dropped    val                  n= 16 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    test_id              n= 18 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    test_counterfactual  n= 32 train-twin= 0.06 twin-with-same-label= 0.06
+  exact decision-obs digests shared by >1 split: 5/75
+
+=== process_count ===
+  L1 alpha-renamed full content          val                  n= 16 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_id              n= 18 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_counterfactual  n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    val                  n= 16 train-twin= 0.06 twin-with-same-label= 0.06
+  L2 alpha-renamed, arm/noise dropped    test_id              n= 18 train-twin= 0.17 twin-with-same-label= 0.17
+  L2 alpha-renamed, arm/noise dropped    test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    test_counterfactual  n= 32 train-twin= 0.12 twin-with-same-label= 0.12
+  exact decision-obs digests shared by >1 split: 11/39
+
+=== task_interleave ===
+  L1 alpha-renamed full content          val                  n= 16 train-twin= 0.88 twin-with-same-label= 0.88
+  L1 alpha-renamed full content          test_id              n= 18 train-twin= 0.94 twin-with-same-label= 0.94
+  L1 alpha-renamed full content          test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_counterfactual  n= 32 train-twin= 0.97 twin-with-same-label= 0.97
+  L2 alpha-renamed, arm/noise dropped    val                  n= 16 train-twin= 0.88 twin-with-same-label= 0.88
+  L2 alpha-renamed, arm/noise dropped    test_id              n= 18 train-twin= 0.94 twin-with-same-label= 0.94
+  L2 alpha-renamed, arm/noise dropped    test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    test_counterfactual  n= 32 train-twin= 0.97 twin-with-same-label= 0.97
+  exact decision-obs digests shared by >1 split: 4/74
+
+=== irrelevant_history ===
+  L1 alpha-renamed full content          val                  n= 16 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_id              n= 18 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L1 alpha-renamed full content          test_counterfactual  n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    val                  n= 16 train-twin= 0.12 twin-with-same-label= 0.12
+  L2 alpha-renamed, arm/noise dropped    test_id              n= 18 train-twin= 0.33 twin-with-same-label= 0.33
+  L2 alpha-renamed, arm/noise dropped    test_ood             n= 32 train-twin= 0.00 twin-with-same-label= 0.00
+  L2 alpha-renamed, arm/noise dropped    test_counterfactual  n= 32 train-twin= 0.22 twin-with-same-label= 0.22
+  exact decision-obs digests shared by >1 split: 2/2
+
+=== cups abstract scene script (layout names removed) overlap across splits ===
+  abstract scripts: 87 shared across >1 split: 1
+  (n,horizon) cells and splits: {(3, 3): ['test_counterfactual', 'test_id', 'train', 'val'], (3, 4): ['test_counterfactual', 'test_id', 'train'], (3, 5): ['test_counterfactual', 'test_id', 'train'], (3, 6): ['test_counterfactual', 'train', 'val'], (3, 7): ['test_counterfactual', 'test_id', 'train'], (3, 8): ['train'], (4, 3): ['test_counterfactual', 'train'], (4, 4): ['test_counterfactual', 'test_id', 'train', 'val'], (4, 5): ['test_id', 'train'], (4, 6): ['test_counterfactual', 'test_id', 'train'], (4, 7): ['test_counterfactual', 'test_id', 'train', 'val'], (4, 8): ['test_counterfactual', 'test_id', 'train', 'val'], (4, 13): ['test_ood'], (4, 15): ['test_ood'], (4, 16): ['test_ood'], (4, 18): ['test_ood'], (4, 20): ['test_ood'], (5, 14): ['test_ood'], (5, 15): ['test_ood'], (5, 17): ['test_ood']}
+
+=== interleave abstract-space size ===
+  p=3: abstract scenes (j,pause) per pair = 2 x pause options; name-orderings are renaming-equivalent
+  p=4: abstract scenes (j,pause) per pair = 3 x pause options; name-orderings are renaming-equivalent
+  p=5: abstract scenes (j,pause) per pair = 4 x pause options; name-orderings are renaming-equivalent
+  (p,pause,regime) -> splits: {(3, 2, 'heldout_mapping'): ['test_counterfactual'], (3, 2, 'in_dist'): ['test_id', 'train'], (3, 3, 'heldout_mapping'): ['test_counterfactual'], (3, 3, 'in_dist'): ['test_id', 'train', 'val'], (3, 4, 'heldout_mapping'): ['test_counterfactual'], (3, 4, 'in_dist'): ['test_id', 'train', 'val'], (3, 5, 'heldout_mapping'): ['test_counterfactual'], (3, 5, 'in_dist'): ['train'], (3, 6, 'heldout_mapping'): ['test_counterfactual'], (3, 6, 'in_dist'): ['train'], (4, 2, 'heldout_mapping'): ['test_counterfactual'], (4, 2, 'in_dist'): ['train', 'val'], (4, 3, 'in_dist'): ['test_id', 'train', 'val'], (4, 4, 'heldout_mapping'): ['test_counterfactual'], (4, 4, 'in_dist'): ['train'], (4, 5, 'in_dist'): ['test_id', 'train', 'val'], (4, 6, 'heldout_mapping'): ['test_counterfactual'], (4, 6, 'in_dist'): ['train'], (4, 10, 'ood'): ['test_ood'], (4, 11, 'ood'): ['test_ood'], (4, 12, 'ood'): ['test_ood'], (4, 13, 'ood'): ['test_ood'], (4, 14, 'ood'): ['test_ood'], (5, 10, 'ood'): ['test_ood'], (5, 11, 'ood'): ['test_ood'], (5, 12, 'ood'): ['test_ood'], (5, 14, 'ood'): ['test_ood'], (5, 15, 'ood'): ['test_ood'], (5, 16, 'ood'): ['test_ood']}
+
+=== vocabulary overlap: heldout mapping vs seen mappings ===
+  heldout names ['gold_cup', 'gray_mug', 'lime_tin', 'pink_jar', 'teal_box']
+  full-name overlap: set()
+  heldout adjectives ['gold', 'gray', 'lime', 'pink', 'teal'] seen-adj overlap ['gold', 'gray', 'lime', 'pink', 'teal']
+  heldout nouns ['box', 'cup', 'jar', 'mug', 'tin'] seen-noun overlap ['box', 'cup', 'jar', 'mug', 'tin']
+  fraction of heldout name atoms (adj+noun) seen in train: 10 / 10
+   train {'idm-0': 21, 'idm-1': 23, 'idm-2': 20, 'idm-3': 20, 'idm-4': 31, 'idm-5': 21, 'idm-6': 20}
+   val {'idm-0': 1, 'idm-1': 8, 'idm-2': 6, 'idm-3': 4, 'idm-4': 4, 'idm-5': 6, 'idm-6': 3}
+   test_id {'idm-0': 5, 'idm-1': 5, 'idm-2': 5, 'idm-3': 8, 'idm-4': 4, 'idm-5': 3, 'idm-6': 6}
+   test_ood {'idm-0': 10, 'idm-1': 9, 'idm-2': 8, 'idm-3': 11, 'idm-4': 9, 'idm-5': 8, 'idm-6': 9}
+   test_counterfactual {'idm-7': 64}

@@ -1,0 +1,20 @@
+
+--- baseline frozen generator (reveal in first half)
+  [repo] object_correspondence  k=2: W=0.00 U=0.16 | k=4: W=0.31 U=0.57 | k=8: W=0.67 U=0.81 | k=16: W=0.94 U=0.90
+
+--- PATCHED: reveal tick in LAST half of the shuffle (everything else identical)
+  [repo] object_correspondence  k=2: W=0.56 U=0.22 | k=4: W=0.81 U=0.51 | k=8: W=0.94 U=0.77 | k=16: W=1.00 U=0.90
+
+--- count, frozen generator (presses uniform over ticks)
+  [repo scale-up] process_count          k=2: W=0.12 U=0.21 | k=4: W=0.27 U=0.31 | k=8: W=0.53 U=0.51 | k=16: W=0.77 U=0.75
+  [unscaled] process_count          k=2: W=0.04 U=0.00 | k=4: W=0.19 U=0.12 | k=8: W=0.41 U=0.41 | k=16: W=0.71 U=0.69
+
+--- count, PATCHED: presses only in last 60% of ticks (K,total unchanged)
+  [repo scale-up] process_count          k=2: W=0.00 U=0.15 | k=4: W=0.17 U=0.29 | k=8: W=0.43 U=0.59 | k=16: W=0.69 U=0.81
+  [unscaled] process_count          k=2: W=0.13 U=0.00 | k=4: W=0.43 U=0.13 | k=8: W=0.65 U=0.45 | k=16: W=1.00 U=0.69
+
+--- budget unit: tokens per retained tick (front+wrist) per family
+  object_correspondence  mean tokens per tick (both cams) = 6.72  -> 'k ticks' budget costs 6.7*k tokens; wrist camera share 15% of tokens, constant 'gripper:open'
+  process_count          mean tokens per tick (both cams) = 4.00  -> 'k ticks' budget costs 4.0*k tokens; wrist camera share 25% of tokens, constant 'gripper:open'
+  task_interleave        mean tokens per tick (both cams) = 3.00  -> 'k ticks' budget costs 3.0*k tokens; wrist camera share 33% of tokens, constant 'gripper:open'
+  irrelevant_history     mean tokens per tick (both cams) = 4.14  -> 'k ticks' budget costs 4.1*k tokens; wrist camera share 24% of tokens, constant 'gripper:open'

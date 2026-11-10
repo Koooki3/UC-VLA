@@ -35,6 +35,8 @@ flowchart LR
 - Create SODH paired generator, split manifest, negative controls, image-only shortcut audit.
 - DoD: deterministic replay with no future information at any cutoff; duplicate detector passes; one benchmark adapter usable.
 
+**Post-review amendment (2026-11-11, `docs/18`):** G0 was extended to audit the full decision view (g0/2) after an independent-context review showed five leaks passing g0/1; SODH v1 is frozen as a *test fixture*, not scientific evidence; SODH v2 (spec in `docs/18`) is required before M3. **M1 DoD remains open** (see unresolved list below).
+
 **Delivered (all `mode: synthetic`, symbolic frames; plan in `TASK_PLAN.md`):**
 - [x] `episode.py`: `EpisodeRecord` schema v1, multi-camera/time-aligned frames, commanded vs executed vs (never stored) predicted actions, source types, hash-bound frames/events, `CausalView` + deterministic `replay()` (I1).
 - [x] `alignment.py`: integer clock-domain maps, causal sample-and-hold with staleness bound, order-independent merge; unknown clock domain is an error.
@@ -57,7 +59,14 @@ flowchart LR
 - Only self-review so far; no independent reviewer sign-off (`docs/14`). No G1+ gate evaluated.
 - Mechanical lint-only edits to pre-existing `contracts.py`/`memory.py`/`toy.py` (unused import, `collections.abc`, `min()`); behaviour and tests unchanged.
 
-### M2 — Fixed baselines + VLA reader
+### M2 — Fixed baselines + VLA reader  (status 2026-11-11: **CPU-only infrastructure implemented; M2 DoD NOT met**)
+
+**Delivered (CPU, synthetic; contract in `docs/17`):** `context.py` (budgeted providers + harness-side validation), `policy.py` (PolicyAdapter, access boundary), `readers.py` (OracleDecoder strict/clock, ObsOnlyLookup, BagOfTokensNB), `harness.py` (single evaluation path, train-only fitting, predicted→commanded→executed logging), `causal_eval.py` (history swap, critical vs matched non-critical deletion, coverage/evidence-position), `stattests.py` (exact sign test, Holm), `runrecord.py` + `scripts/run_m2_eval.py` + `scripts/repro_check.py` (real git SHA, data/config hashes, fresh-process reproducibility, evaluation ledger), `benchmark_contract.py` (source conformance; HDF5/LeRobot importers raise `NotImplementedError`).
+
+**Not done / blocked:** OpenPI adapter and any real VLA (no checkpoint/licence/GPU authorisation); D&R/Mem4Act reproduction; fixed-latent learned baseline; RoboMME or any real-data importer (licence/data approval, `docs/16`); SODH v2 (needed before any comparative memory claim). The M2 DoD sentence "intervention changes policy on SODH" is met only for hand-written decoders, which is a decoder self-check, not a result.
+
+(original M2 text follows)
+
 - Reproduce Memoryless, uniform, full history, fixed latent; D&R/Mem4Act when released/compatible.
 - Implement one OpenPI checkpoint adapter with original action normalization and camera layout.
 - DoD: exact checkpoints/config fingerprints, smoke eval, training trace and matched costs; intervention changes policy on SODH.

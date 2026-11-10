@@ -1,0 +1,42 @@
+== vocabulary / key novelty per family: tokens appearing in ood or cf but not in train
+ object_correspondence: new object names in test_ood vs train/val/test_id: 4 of 28; new frame keys: ['slot4']; new phases []; new option strings (non-name part): ['pick_slot_4']
+     OOD-only names: ['blue_tin', 'gold_tin', 'green_tin', 'teal_tin']
+ process_count: new object names in test_ood vs train/val/test_id: 0 of 0; new frame keys: []; new phases []; new option strings (non-name part): []
+     OOD-only names: []
+ task_interleave: new object names in test_ood vs train/val/test_id: 4 of 28; new frame keys: []; new phases []; new option strings (non-name part): []
+     OOD-only names: ['blue_mug', 'gold_tin', 'pink_tin', 'red_tin']
+
+== structural stats ID vs OOD (what actually changed)
+ object_correspondence  in_dist          len=  7.5 horizon=  5.5 n_obj=3.59 {'reveal_rel': 0.229}
+ object_correspondence  ood              len= 18.9 horizon= 16.9 n_obj=4.38 {'reveal_rel': 0.257}
+ object_correspondence  heldout_mapping  len=  6.8 horizon=  4.8 n_obj=3.50 {'reveal_rel': 0.177}
+ process_count          in_dist          len=  9.8 horizon=  3.5 n_obj=2.00 {'press_density': 0.358, 'K': 3.482, 'adjacent_press': 0.571}
+ process_count          ood              len= 24.3 horizon=  8.9 n_obj=2.00 {'press_density': 0.363, 'K': 8.938, 'adjacent_press': 0.938}
+ process_count          heldout_mapping  len= 10.4 horizon=  3.9 n_obj=2.00 {'press_density': 0.333, 'K': 3.875, 'adjacent_press': 0.438}
+ task_interleave        in_dist          len=  8.4 horizon=  3.9 n_obj=3.50 {'pause_frac': 0.45}
+ task_interleave        ood              len= 17.9 horizon= 12.6 n_obj=4.38 {'pause_frac': 0.698}
+ task_interleave        heldout_mapping  len=  8.5 horizon=  4.0 n_obj=3.50 {'pause_frac': 0.455}
+
+== length-extrapolating rule: hand-written FullHistory decoder, zero adaptation, pair-both-correct per split
+ train                {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_id              {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_ood             {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_counterfactual  {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+
+== independent length-agnostic rules (own code, not baselines.py), all splits
+ train                {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ val                  {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_id              {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_ood             {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_counterfactual  {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+
+== name-blind test: random per-episode bijection of every object name; repo FullHistory decoder
+ train                {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ val                  {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_id              {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_ood             {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+ test_counterfactual  {'object_correspondence': 1.0, 'process_count': 1.0, 'task_interleave': 1.0, 'irrelevant_history': 1.0}
+   (1.0 everywhere => the decoder treats names as opaque symbols; test_counterfactual probes nothing about identity beyond string inequality)
+
+== process_count: policy that never reads any object name (strip all names incl. params.button / instruction)
+  accuracy on heldout-mapping process_count: 1.0 (n=32) -> 'new object identity' is vacuous for this family

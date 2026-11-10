@@ -52,3 +52,7 @@ Use consistent underlying scene/action distributions across methods; detect trai
 ## Metric unit
 
 Per-episode success with confidence intervals, history-dependent decision accuracy, group-matched paired success difference, cost per episode, p50/p95/p99 latency, memory storage, evidence retrieval precision/recall, state and event identity errors, calibration ECE/Brier, unsafe action frequency, recovery when original evidence is present/absent.
+
+## Status note (2026-11-11, after adversarial review; see `docs/18`)
+
+Implemented SODH **v1** is synthetic/symbolic and **frozen as a unit-test fixture**. In v1, `test_ood` means *longer horizon and larger object count only*, `test_counterfactual` means *unseen name combinations of seen atoms*, and `process_count` counts one `pressed` tick as one press. None of these supports a claim of structural/identity generalisation. The `test_ood` distractor/layout/delay shifts listed above are **planned for SODH v2**, together with tracking-based cups, a generated evidence-position axis and an alpha-invariant duplicate gate.

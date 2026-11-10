@@ -322,6 +322,50 @@ def history_swap_audit(adapter: SODHAdapter) -> dict[str, float]:
     return res
 
 
+_NOISE_KEYS = {"arm", "noise"}
+
+
+def _alpha_key(e: EpisodeRecord) -> str:
+    """Name-invariant canonical form of the history plus the answer's relative position."""
+    names: dict[str, str] = {}
+    canon = []
+    for f in e.frames:
+        if f.camera_id != "cam_front":
+            continue
+        row = []
+        for k, v in sorted(f.visible.items()):
+            if k in _NOISE_KEYS:
+                continue
+            parts = [names.setdefault(w, f"o{len(names)}") if "_" in w and w[:1].isalpha()
+                     and w not in ("pose_final",) and not w.startswith("pose_") else w
+                     for w in v.replace("under:", "under: ").split(" ")]
+            row.append((k, " ".join(parts)))
+        canon.append(row)
+    return digest([e.task, canon, _position(e), len(e.queries[0].options)])
+
+
+def alpha_twin_rates(adapter: SODHAdapter) -> dict[str, dict[str, float]]:
+    """Share of non-train episodes whose alpha-renamed history (arm/noise dropped) and relative
+    answer also occur in TRAIN. High values mean a name-invariant learner can memorise the test
+    set (review finding M4). Informational for v1 (frozen), a gate for later versions."""
+    train: dict[str, set[str]] = defaultdict(set)
+    for p in adapter.pairs("train"):
+        for eid in (p.episode_a, p.episode_b):
+            train[p.family].add(_alpha_key(adapter.episode(eid)))
+    out: dict[str, dict[str, float]] = {}
+    for split in SPLITS:
+        if split == "train":
+            continue
+        hit: Counter[str] = Counter()
+        tot: Counter[str] = Counter()
+        for p in adapter.pairs(split):
+            for eid in (p.episode_a, p.episode_b):
+                tot[p.family] += 1
+                hit[p.family] += _alpha_key(adapter.episode(eid)) in train[p.family]
+        out[split] = {fam: hit[fam] / tot[fam] for fam in sorted(tot)}
+    return out
+
+
 def g0_report(adapter: SODHAdapter, pairs: Sequence[PairRecord],
               episodes: Sequence[EpisodeRecord], assignment: Mapping[str, str]) -> dict[str, Any]:
     """Executable G0. ``passed`` is False if ANY check fails; failures are listed, not hidden."""
@@ -355,6 +399,7 @@ def g0_report(adapter: SODHAdapter, pairs: Sequence[PairRecord],
     return {
         "gate": "G0", "audit_version": AUDIT_VERSION, "mode": "synthetic", "passed": not errors,
         "constant_answer_floor": constant_floor(adapter),
+        "alpha_twin_rate_informational": alpha_twin_rates(adapter),
         "scope": "symbolic generator well-formedness only; not a model or benchmark result",
         "obs_only": obs, "structural_pair_diffs": diffs, "history_swap": swap,
         "reference_policies": ref,

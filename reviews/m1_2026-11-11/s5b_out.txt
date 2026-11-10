@@ -1,0 +1,6 @@
+F findings: [('metadata_shortcut', 'object_correspondence: feature options acc 0.48 vs prior 0.32')]
+F2 (cups only) passed: False [('metadata_shortcut', 'object_correspondence: feature options acc 0.48 vs prior 0.32')]
+G: check_pairs findings: 0 | structural diffs: {0.0}
+G: recomputed decision-obs digests equal within pair? 88 / 352 (stored digests claim all equal)
+G: full g0 passed: False
+G with a constant-guess memoryless reader: passed = False ['obs_only_solves']

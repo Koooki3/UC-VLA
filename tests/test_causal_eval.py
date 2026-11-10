@@ -80,3 +80,33 @@ def test_independent_oracle_recomputes_every_label_from_privileged_state(suite):
         else:
             exp = f"pick_{priv['flag']}"
         assert got == exp
+
+
+def test_frame_derived_oracle_recomputes_labels_without_the_generators_names(suite):
+    """Second independent oracle: labels from RAW FRAMES via slot-permutation tracking, press
+    counting and placed-event counting (review M6). Cups: follow the ball cup through the swaps
+    by its *slot*, not by looking its name up in the final layout."""
+    for ep in suite.episodes:
+        q = ep.queries[0]
+        front = [f.visible for f in ep.frames if f.camera_id == "cam_front"]
+        got = ep.target_for(q.query_id)
+        if q.task == "cups_ball":
+            n = int(q.params["n_slots"])
+            reveal = next(i for i, v in enumerate(front) if v["ball"].startswith("under:"))
+            cup = front[reveal]["ball"][6:]
+            slot = next(k for k in range(n) if front[reveal][f"slot{k}"] == cup)
+            for prev, cur in zip(front[reveal:], front[reveal + 1:]):
+                moved = [k for k in range(n) if prev[f"slot{k}"] != cur[f"slot{k}"]]
+                if slot in moved:
+                    slot = next(k for k in moved if k != slot)
+            exp = f"pick_slot_{slot}"
+        elif q.task == "button_count":
+            pressed = sum(v["button"] == "pressed" for v in front)
+            exp = "press" if pressed < int(q.params["target_count"]) else "stop"
+        elif q.task == "resume_sequence":
+            order = q.params["phase_order"].split(",")
+            placed = {v["placing"] for v in front if v["placing"] != "none"}
+            exp = f"place_{order[len(placed)]}"
+        else:
+            exp = f"pick_{front[-1]['flag']}"
+        assert got == exp, (q.task, got, exp)

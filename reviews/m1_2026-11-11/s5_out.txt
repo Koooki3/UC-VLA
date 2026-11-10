@@ -1,0 +1,50 @@
+== control: unmodified frozen suite
+   G0 passed=True findings={}
+   obs_only (clean): {'irrelevant_history': 1.0, 'object_correspondence': 0.26, 'process_count': 0.5, 'task_interleave': 0.3}
+
+== A_proprio_at_decision_tick
+   G0 passed=True findings={}
+   policy 'leak reader': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+
+== B_commanded_action_before_cutoff
+   G0 passed=True findings={}
+   policy 'leak reader': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+
+== C_observed_event_at_cutoff
+   G0 passed=True findings={}
+   policy 'leak reader': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+
+== D_episode_id_suffix_encodes_option_index
+   G0 passed=True findings={}
+   policy 'leak reader': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+
+== E_history_copy_hint_in_tick_t-1
+   G0 passed=True findings={}
+   policy 'leak reader': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+   policy 'reads aux of history[-1] only (== LongWindow(1))': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+
+== G_final_frame_jitter_stale_pair_records
+   G0 passed=False findings={'obs_only_solves:error': 1, 'memoryless_solves:error': 11}
+   policy 'leak reader': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+   obs_only audit on leaked data: {'irrelevant_history': 1.0, 'object_correspondence': 0.32, 'process_count': 0.58, 'task_interleave': 0.34}
+   caught by: ["obs_only_solves: process_count: {'obs_only_acc': 0.5816326530612245, 'conflict_fraction': 1.0, 'n_episodes'", 'memoryless_solves: train/object_correspondence', 'memoryless_solves: train/process_count']
+
+== I_wrist_camera_gripper_encodes_label
+   G0 passed=False findings={'metadata_shortcut:error': 3, 'structural_diff:error': 1, 'obs_only_solves:error': 1, 'memoryless_solves:error': 11}
+   policy 'leak reader': id: ep_acc=1.00 pair_both=1.00  ood: ep_acc=1.00 pair_both=1.00  cf: ep_acc=1.00 pair_both=1.00
+   caught by: ['metadata_shortcut: irrelevant_history: feature secondary_cameras acc 0.84 vs prior 0.49', 'metadata_shortcut: object_correspondence: feature secondary_cameras acc 0.73 vs prior 0.32', 'metadata_shortcut: process_count: feature secondary_cameras acc 0.84 vs prior 0.50']
+
+== F_options_permuted_so_mate_a_target_is_first (identical in both mates)
+   G0 passed=False findings={'metadata_shortcut:error': 1}
+   obs_only: {'irrelevant_history': 1.0, 'object_correspondence': 0.29, 'process_count': 0.5, 'task_interleave': 0.29}
+   policy 'always options[0]': id: ep_acc=0.50 pair_both=0.00  ood: ep_acc=0.50 pair_both=0.00  cf: ep_acc=0.50 pair_both=0.00
+   chance (1/n_options): cups ~0.28, interleave ~0.30; theoretical cap for any obs-only policy = 0.50
+
+== J_label_prior: cups ball-cup always lands in slot_0 for one mate (patched generator, regenerated + re-split)
+   G0 passed = True  findings: Counter({'label_imbalance:warn': 3})
+      warn label_imbalance ('object_correspondence', 'test_counterfactual'): majority label 0.50
+      warn label_imbalance ('object_correspondence', 'test_ood'): majority label 0.50
+      warn label_imbalance ('object_correspondence', 'train'): majority label 0.50
+   'always pick_slot_0' on test_id: acc=0.50 (n=18); chance=1/n_slots ~0.28
+   'always pick_slot_0' on test_ood: acc=0.50 (n=32); chance=1/n_slots ~0.28
+   'always pick_slot_0' on test_counterfactual: acc=0.50 (n=32); chance=1/n_slots ~0.28

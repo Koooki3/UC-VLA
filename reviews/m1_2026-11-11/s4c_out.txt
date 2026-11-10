@@ -1,0 +1,12 @@
+paired uniform-minus-window comparisons whose 95% cluster-bootstrap CI excludes 0: {'test_ood': 2, 'test_counterfactual': 1} of {'test_id': 15, 'test_ood': 15, 'test_counterfactual': 15}
+sign pattern per family/split (uniform-window by k=1,2,4,8,16):
+  test_id object_correspondence [0.11, 0.11, 0.44, 0.0, 0.0]
+  test_id process_count [-0.22, 0.33, 0.0, -0.11, 0.0]
+  test_id task_interleave [0.0, 0.22, 0.0, 0.0, 0.0]
+  test_ood object_correspondence [0.25, 0.06, 0.19, 0.38, -0.12]
+  test_ood process_count [0.0, -0.12, 0.06, 0.0, -0.06]
+  test_ood task_interleave [0.0, 0.06, 0.19, 0.0, 0.19]
+  test_counterfactual object_correspondence [0.19, 0.31, 0.12, 0.06, 0.0]
+  test_counterfactual process_count [-0.19, 0.06, 0.06, 0.06, 0.0]
+  test_counterfactual task_interleave [0.0, 0.06, -0.12, -0.12, 0.0]
+pairs per cell: {('test_id', 'irrelevant_history'): 9, ('test_id', 'object_correspondence'): 9, ('test_id', 'process_count'): 9, ('test_id', 'task_interleave'): 9}

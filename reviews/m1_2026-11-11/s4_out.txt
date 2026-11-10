@@ -1,0 +1,42 @@
+[4.0] reimplemented decoder vs repo _read mismatches: 704/2816
+
+[4.1] fraction of episodes whose full history already fits in the budget (curve point trivially == FullHistory)
+  test_id {'object_correspondence': {1: 0.0, 2: 0.0, 4: 0.11, 8: 0.89, 16: 1.0}, 'process_count': {1: 0.0, 2: 0.0, 4: 0.22, 8: 0.67, 16: 1.0}, 'task_interleave': {1: 0.0, 2: 0.0, 4: 0.0, 8: 0.78, 16: 1.0}}
+  test_ood {'object_correspondence': {1: 0.0, 2: 0.0, 4: 0.0, 8: 0.0, 16: 0.38}, 'process_count': {1: 0.0, 2: 0.0, 4: 0.0, 8: 0.0, 16: 0.06}, 'task_interleave': {1: 0.0, 2: 0.0, 4: 0.0, 8: 0.0, 16: 0.5}}
+  test_counterfactual {'object_correspondence': {1: 0.0, 2: 0.0, 4: 0.31, 8: 0.94, 16: 1.0}, 'process_count': {1: 0.0, 2: 0.0, 4: 0.06, 8: 0.44, 16: 1.0}, 'task_interleave': {1: 0.0, 2: 0.0, 4: 0.0, 8: 0.75, 16: 1.0}}
+
+[4.2] repo decoder: pair-both-correct (window / uniform) per budget
+  test_id              object_correspondence  k=1: W=0.00/U=0.11  k=2: W=0.00/U=0.11  k=4: W=0.44/U=0.89  k=8: W=1.00/U=1.00  k=16: W=1.00/U=1.00
+  test_id              process_count          k=1: W=0.22/U=0.00  k=2: W=0.11/U=0.44  k=4: W=0.44/U=0.44  k=8: W=0.89/U=0.78  k=16: W=1.00/U=1.00
+  test_id              task_interleave        k=1: W=0.00/U=0.00  k=2: W=0.00/U=0.22  k=4: W=0.11/U=0.11  k=8: W=1.00/U=1.00  k=16: W=1.00/U=1.00
+  test_ood             object_correspondence  k=1: W=0.00/U=0.25  k=2: W=0.00/U=0.06  k=4: W=0.00/U=0.19  k=8: W=0.06/U=0.44  k=16: W=0.81/U=0.69
+  test_ood             process_count          k=1: W=0.06/U=0.06  k=2: W=0.12/U=0.00  k=4: W=0.06/U=0.12  k=8: W=0.12/U=0.12  k=16: W=0.31/U=0.25
+  test_ood             task_interleave        k=1: W=0.00/U=0.00  k=2: W=0.00/U=0.06  k=4: W=0.00/U=0.19  k=8: W=0.00/U=0.00  k=16: W=0.69/U=0.88
+  test_counterfactual  object_correspondence  k=1: W=0.00/U=0.19  k=2: W=0.00/U=0.31  k=4: W=0.50/U=0.62  k=8: W=0.94/U=1.00  k=16: W=1.00/U=1.00
+  test_counterfactual  process_count          k=1: W=0.25/U=0.06  k=2: W=0.12/U=0.19  k=4: W=0.31/U=0.38  k=8: W=0.56/U=0.62  k=16: W=1.00/U=1.00
+  test_counterfactual  task_interleave        k=1: W=0.00/U=0.00  k=2: W=0.00/U=0.06  k=4: W=0.19/U=0.06  k=8: W=0.88/U=0.75  k=16: W=1.00/U=1.00
+
+[4.3] coverage decomposition: is differing-tick retained? P(pair_both | covered), P(pair_both | not covered), repo decoder, k in {2,4,8}
+  object_correspondence  window   k=2 cov: n=0 ok=0.00 | uncov: n=41 ok=0.00  k=4 cov: n=12 ok=1.00 | uncov: n=29 ok=0.00  k=8 cov: n=25 ok=1.00 | uncov: n=16 ok=0.00
+  object_correspondence  uniform  k=2 cov: n=7 ok=1.00 | uncov: n=34 ok=0.00  k=4 cov: n=21 ok=1.00 | uncov: n=20 ok=0.00  k=8 cov: n=32 ok=1.00 | uncov: n=9 ok=0.00
+  process_count          window   k=2 cov: n=10 ok=0.50 | uncov: n=31 ok=0.00  k=4 cov: n=17 ok=0.59 | uncov: n=24 ok=0.00  k=8 cov: n=23 ok=0.83 | uncov: n=18 ok=0.00
+  process_count          uniform  k=2 cov: n=11 ok=0.64 | uncov: n=30 ok=0.00  k=4 cov: n=16 ok=0.75 | uncov: n=25 ok=0.00  k=8 cov: n=25 ok=0.76 | uncov: n=16 ok=0.00
+  task_interleave        window   k=2 cov: n=0 ok=0.00 | uncov: n=41 ok=0.00  k=4 cov: n=6 ok=0.67 | uncov: n=35 ok=0.00  k=8 cov: n=24 ok=0.96 | uncov: n=17 ok=0.00
+  task_interleave        uniform  k=2 cov: n=12 ok=0.33 | uncov: n=29 ok=0.00  k=4 cov: n=21 ok=0.24 | uncov: n=20 ok=0.00  k=8 cov: n=32 ok=0.66 | uncov: n=9 ok=0.00
+
+[4.4] process_count: decoder variants. pair-both (window/uniform); test_id+test_ood+cf pooled
+  repo(scale-up)           k=1: W=0.18 U=0.04 | k=2: W=0.12 U=0.21 | k=4: W=0.27 U=0.31 | k=8: W=0.53 U=0.51 | k=16: W=0.77 U=0.75 || FULL id/ood/cf = [1.0, 1.0, 1.0]
+  unscaled                 k=1: W=0.00 U=0.00 | k=2: W=0.04 U=0.00 | k=4: W=0.19 U=0.12 | k=8: W=0.41 U=0.41 | k=16: W=0.71 U=0.69 || FULL id/ood/cf = [1.0, 1.0, 1.0]
+  edge+scale               k=1: W=0.18 U=0.04 | k=2: W=0.12 U=0.21 | k=4: W=0.10 U=0.15 | k=8: W=0.15 U=0.14 | k=16: W=0.15 U=0.12 || FULL id/ood/cf = [0.0, 0.0, 0.38]
+  edge_full(all history)   k=1: W=0.00 U=0.00 | k=2: W=0.00 U=0.00 | k=4: W=0.04 U=0.04 | k=8: W=0.08 U=0.10 | k=16: W=0.12 U=0.12 || FULL id/ood/cf = [0.0, 0.0, 0.38]
+
+[4.5] interleave: fallback variants (hash vs positional-prior) -> episode accuracy, k=2,4
+  hash            last_k     episode_acc k=1:0.22 k=2:0.28 k=4:0.29 k=8:0.67
+  hash            uniform_k  episode_acc k=1:0.24 k=2:0.44 k=4:0.51 k=8:0.73
+  prior-order[1]  last_k     episode_acc k=1:0.33 k=2:0.33 k=4:0.39 k=8:0.70
+  prior-order[1]  uniform_k  episode_acc k=1:0.38 k=2:0.44 k=4:0.57 k=8:0.76
+
+[4.6] process_count: under a rising-edge reading of 'pressed', are mates still distinguishable?
+  in_dist          pairs with equal rising-edge count (history indistinguishable under edge semantics): 34/56 = 0.61
+  ood              pairs with equal rising-edge count (history indistinguishable under edge semantics): 7/16 = 0.44
+  heldout_mapping  pairs with equal rising-edge count (history indistinguishable under edge semantics): 7/16 = 0.44

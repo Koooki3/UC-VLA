@@ -1,0 +1,35 @@
+
+=== object_correspondence: train n=78 prior class=1 ===
+   val: tree2=0.31 prior=0.38 n=16 | test_id: tree2=0.22 prior=0.28 n=18 | test_ood: tree2=0.22 prior=0.22 n=32 | test_counterfactual: tree2=0.28 prior=0.41 n=32
+   val: tree3=0.31 prior=0.38 n=16 | test_id: tree3=0.22 prior=0.28 n=18 | test_ood: tree3=0.22 prior=0.22 n=32 | test_counterfactual: tree3=0.28 prior=0.41 n=32
+   val: tree5=0.31 prior=0.38 n=16 | test_id: tree5=0.33 prior=0.28 n=18 | test_ood: tree5=0.16 prior=0.22 n=32 | test_counterfactual: tree5=0.28 prior=0.41 n=32
+   tree5 pair-both-correct 2/49; mates given different predictions 17/49
+
+=== process_count: train n=78 prior class=stop ===
+   val: tree2=0.56 prior=0.50 n=16 | test_id: tree2=0.56 prior=0.50 n=18 | test_ood: tree2=0.44 prior=0.50 n=32 | test_counterfactual: tree2=0.28 prior=0.50 n=32
+   val: tree3=0.44 prior=0.50 n=16 | test_id: tree3=0.44 prior=0.50 n=18 | test_ood: tree3=0.50 prior=0.50 n=32 | test_counterfactual: tree3=0.31 prior=0.50 n=32
+   val: tree5=0.50 prior=0.50 n=16 | test_id: tree5=0.44 prior=0.50 n=18 | test_ood: tree5=0.56 prior=0.50 n=32 | test_counterfactual: tree5=0.31 prior=0.50 n=32
+   tree5 pair-both-correct 17/49; mates given different predictions 39/49
+
+=== task_interleave: train n=78 prior class=1 ===
+   val: tree2=0.31 prior=0.31 n=16 | test_id: tree2=0.44 prior=0.39 n=18 | test_ood: tree2=0.25 prior=0.28 n=32 | test_counterfactual: tree2=0.28 prior=0.34 n=32
+   val: tree3=0.12 prior=0.31 n=16 | test_id: tree3=0.22 prior=0.39 n=18 | test_ood: tree3=0.25 prior=0.28 n=32 | test_counterfactual: tree3=0.19 prior=0.34 n=32
+   val: tree5=0.25 prior=0.31 n=16 | test_id: tree5=0.33 prior=0.39 n=18 | test_ood: tree5=0.12 prior=0.28 n=32 | test_counterfactual: tree5=0.16 prior=0.34 n=32
+   tree5 pair-both-correct 0/49; mates given different predictions 35/49
+
+=== task_interleave relative-position prior (no history used) ===
+ train                p=3: n=44 dist={0: 10, 1: 22, 2: 12} best-fixed-position acc=0.50 chance=0.33
+ train                p=4: n=34 dist={0: 4, 1: 13, 2: 13, 3: 4} best-fixed-position acc=0.38 chance=0.25
+ val                  p=3: n=4 dist={0: 1, 1: 2, 2: 1} best-fixed-position acc=0.50 chance=0.33
+ val                  p=4: n=12 dist={0: 1, 1: 3, 2: 5, 3: 3} best-fixed-position acc=0.42 chance=0.25
+ test_id              p=3: n=8 dist={0: 3, 1: 4, 2: 1} best-fixed-position acc=0.50 chance=0.33
+ test_id              p=4: n=10 dist={1: 3, 2: 5, 3: 2} best-fixed-position acc=0.50 chance=0.25
+ test_ood             p=4: n=20 dist={0: 3, 1: 6, 2: 7, 3: 4} best-fixed-position acc=0.35 chance=0.25
+ test_ood             p=5: n=12 dist={0: 1, 1: 3, 2: 5, 3: 3} best-fixed-position acc=0.42 chance=0.20
+ test_counterfactual  p=3: n=16 dist={0: 7, 1: 8, 2: 1} best-fixed-position acc=0.50 chance=0.33
+ test_counterfactual  p=4: n=16 dist={0: 2, 1: 3, 2: 6, 3: 5} best-fixed-position acc=0.38 chance=0.25
+ analytic p=3: P(done=i)=[0.25, 0.5, 0.25]  max=0.500 vs 1/p=0.333
+ analytic p=4: P(done=i)=[0.167, 0.333, 0.333, 0.167]  max=0.333 vs 1/p=0.250
+ analytic p=5: P(done=i)=[0.125, 0.25, 0.25, 0.25, 0.125]  max=0.250 vs 1/p=0.200
+object_correspondence label dist {0: 46, 1: 55, 2: 47, 3: 26, 4: 2}
+process_count label dist {'press': 88, 'stop': 88}

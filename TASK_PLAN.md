@@ -44,3 +44,27 @@ G0 is implemented as an executable report (`audit_sodh.py`) that exits non-zero 
 - RoboMME / LeRobot / HDF5 adapters `not implemented` (no dataset, license review pending, `docs/15`).
 - **LEVI bridge deliberately not implemented**: the operator advised (2026-11-11) against LEVI adaptation work; this deviates from the M1 text in `agents/MASTER_IMPLEMENTATION_PROMPT.md` and is recorded as deferred in `docs/09`/`docs/15`. `SourceType.COMMANDED` and the clock-alignment utilities remain, independent of LEVI.
 - Python 3.14 (system) is outside `pyproject` range; a uv-managed 3.12 `.venv` is used.
+
+
+---
+
+# TASK_PLAN — M2 (CPU-only) and post-review work, 2026-11-11
+
+Scope: operator decisions of 2026-11-11 (git init approved; benchmark readiness review approved; M2 CPU-only approved; adversarial M1 review; LEVI and GPU out of scope). Done in this order: git baseline → parallel (benchmark research, M1 review) → M2 infrastructure → review fixes.
+
+## Objective and falsifiable questions
+Make policy comparisons attributable to *history*, rule-identical across agents, and bit-reproducible, before any model exists. Falsifiers (each has a test): a history-free agent with pair-success > 0 on a relevant family; an agent receiving non-context information (parity digest differs); an illegal/over-budget context accepted; a run that differs across fresh processes; a planted leak in any decoded channel that G0 misses.
+
+## Acceptance tests (all passing, 109 tests)
+`tests/test_harness.py` (M1-parity of provider+decoder, illegal contexts, matched budgets measured by harness, parity digests, no label/privileged fields in PolicyInput, seed/id independence, predicted/commanded/executed logging, train-only fitting), `tests/test_causal_eval.py` (swap/deletion attribution incl. history-free negative controls, two independent label oracles), `tests/test_g0_mutants.py`, `tests/test_stattests_contract.py` (exact tests, conformance with negative controls, importers fail loudly, fresh-process reproducibility).
+
+## Alternatives considered
+Subagent-free serial work was not used: two read-only subagents ran in parallel (review, licence research) because 5-hour quota readout was unavailable and the briefs were bounded. Learned baselines on GPU, OpenPI loading and real importers were rejected as unauthorised. Merging M1's `SymbolicPolicy` into the new harness was *not* done: it is kept as a frozen reference and proven equivalent by a parity test.
+
+## Reproducibility impact
+New: run_id content address, real git SHA + dirty flag (`attribution_warning` if dirty), evaluation ledger for test-split use, `FROZEN.json` guard for SODH v1, write-once data.
+
+## Gates and exit conditions
+G0/2 passes on v1 (as a fixture). M2 DoD **not** met (no VLA adapter). Exit: if SODH v2 cannot be made so that a knowledge-free learner and the decoder-variant sweep agree on an effect's sign, stop making memory-selection claims from synthetic data and pivot to an intervention-benchmark/negative-result framing (docs/07 G2).
+
+## Next phase (needs operator go-ahead): SODH v2 → H1-style matched-budget pilot on CPU toy learners → licence-cleared real-benchmark schema check.

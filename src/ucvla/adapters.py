@@ -13,7 +13,6 @@ from typing import Protocol
 from ucvla.baselines import ContextPolicy
 from ucvla.episode import CausalView, EpisodeRecord
 from ucvla.sodh import PairRecord
-from ucvla.stats import wilson
 
 ADAPTER_STATUS: Mapping[str, str] = {
     "sodh_symbolic": "implemented (synthetic, symbolic frames)",
@@ -97,11 +96,11 @@ def summarize(outcomes: Sequence[PairOutcome]) -> dict[str, dict[str, float]]:
     for family, rows in sorted(groups.items()):
         n = len(rows)
         correct = sum(r.correct_a + r.correct_b for r in rows)
-        acc, lo, hi = wilson(correct, 2 * n)
+        acc = correct / (2 * n)  # no CI here: mates share the observation, cluster CIs live in harness
         flips = [r for r in rows if r.targets_differ]
         summary[family] = {
             "n_pairs": n,
-            "episode_acc": acc, "episode_acc_lo": lo, "episode_acc_hi": hi,
+            "episode_acc": acc,
             "pair_both_correct": sum(r.correct_a and r.correct_b for r in rows) / n,
             "decision_flip_rate": (sum(r.decisions_differ for r in flips) / len(flips)
                                    if flips else float("nan")),
