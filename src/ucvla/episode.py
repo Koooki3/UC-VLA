@@ -397,3 +397,23 @@ class CausalView:
             "task": q.task, "instruction": q.instruction, "options": q.options,
             "params": q.params}
         return digest({"task": self.task, "ticks": [t.cameras for t in ticks], "query": query})
+
+    def channel_digests(self, include_history: bool = False) -> dict[str, str]:
+        """Per-channel content hashes of the WHOLE view (ids and absolute times excluded).
+
+        Used by the auditor: two mates of a clean pair may differ only in ``history``.
+        """
+        ticks = self.ticks if include_history else self.ticks[-1:]
+        q = self.query
+        rel = self.cutoff_ns
+        return {
+            "task": digest(self.task),
+            "ticks": digest([t.cameras for t in ticks]),
+            "proprio": digest([s.values for s in self.proprio]),
+            "commanded": digest([(c.issued_at_ns - rel, c.action) for c in self.commanded]),
+            "executed": digest([(e.executed_at_ns - rel, e.measured_action) for e in self.executed]),
+            "events": digest([(e.window_end_ns - rel, e.kind, e.payload, e.source_type)
+                              for e in self.events]),
+            "query": digest(None if q is None else
+                            [q.task, q.instruction, q.options, q.params]),
+        }

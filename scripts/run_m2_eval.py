@@ -15,7 +15,12 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from ucvla.adapters import SODHAdapter
 from ucvla.canonical import canonical_json, digest, sha256_hex
-from ucvla.causal_eval import access_parity_digest, causal_attribution, uses_history
+from ucvla.causal_eval import (
+    access_parity_digest,
+    causal_attribution,
+    coverage_report,
+    uses_history,
+)
 from ucvla.context import AllHistory, ContextBudget, LastK, NoHistory, UniformK
 from ucvla.dataset_io import read_dataset
 from ucvla.harness import Agent, evaluate, fit_agent, pair_metrics, results_digest
@@ -31,14 +36,17 @@ BUDGETS = (1, 2, 4, 8, 16)
 
 def agent_suite() -> list[tuple[Agent, ContextBudget | None]]:
     suite: list[tuple[Agent, ContextBudget | None]] = [
-        (Agent(AllHistory(), OracleDecoder()), None),     # unbounded reference, never matched
-        (Agent(NoHistory(), OracleDecoder()), ContextBudget("ticks", 0)),
+        (Agent(AllHistory(), OracleDecoder("strict")), None),  # decoder self-check, unbounded
+        (Agent(AllHistory(), OracleDecoder("clock")), None),
+        (Agent(NoHistory(), OracleDecoder("strict")), ContextBudget("ticks", 0)),
         (Agent(NoHistory(), ObsOnlyLookup()), ContextBudget("ticks", 0)),
         (Agent(AllHistory(), BagOfTokensNB()), None),
     ]
     for k in BUDGETS:
         b = ContextBudget("ticks", k)
-        suite += [(Agent(LastK(k), OracleDecoder()), b), (Agent(UniformK(k), OracleDecoder()), b)]
+        for v in ("strict", "clock"):
+            suite += [(Agent(LastK(k), OracleDecoder(v)), b),
+                      (Agent(UniformK(k), OracleDecoder(v)), b)]
     return suite
 
 
@@ -51,7 +59,7 @@ def main() -> None:
 
     eps, pairs, asg = read_dataset(DATA)
     adapter = SODHAdapter(eps, pairs, asg)
-    rows, per_pair, attribution, fits, all_results = [], {}, {}, {}, []
+    rows, per_pair, attribution, coverage, fits, all_results = [], {}, {}, {}, {}, []
     suite = agent_suite()
     for agent, budget in suite:
         fits[agent.name] = fit_agent(adapter, agent, args.run_seed, "train", budget)
@@ -67,27 +75,34 @@ def main() -> None:
                     for fam, row in causal_attribution(adapter, agent, split, args.run_seed,
                                                        budget).items()}
             for split in ("test_id", "test_ood")}
+        if budget is not None and budget.limit:
+            coverage[agent.name] = {split: coverage_report(adapter, agent, split, args.run_seed,
+                                                           budget) for split in TEST_SPLITS}
     # paired exact tests: uniform_k vs last_k at the same tick budget, pair-both-correct, Holm
     tests, raw_p = {}, {}
     for split in TEST_SPLITS:
         for fam in sorted(RELEVANT_FAMILIES):
             for k in BUDGETS:
-                u = per_pair[(f"uniform_{k}+oracle_decoder", split, fam)]
-                w = per_pair[(f"last_{k}+oracle_decoder", split, fam)]
-                ids = sorted(u)
-                key = f"{split}/{fam}/k={k}"
-                tests[key] = sign_test([all(u[i]) for i in ids], [all(w[i]) for i in ids])
-                raw_p[key] = tests[key]["p"]
+                for v in ("strict", "clock"):
+                    u = per_pair[(f"uniform_{k}+oracle_decoder_{v}", split, fam)]
+                    w = per_pair[(f"last_{k}+oracle_decoder_{v}", split, fam)]
+                    ids = sorted(u)
+                    key = f"{split}/{fam}/k={k}/{v}"
+                    tests[key] = sign_test([all(u[i]) for i in ids], [all(w[i]) for i in ids])
+                    raw_p[key] = tests[key]["p"]
     for key, adj in holm(raw_p).items():
         tests[key]["p_holm"] = adj
     parity = {s: access_parity_digest(adapter, [a for a, _ in suite[:3]], s) for s in TEST_SPLITS}
     report = {
         "mode": "synthetic",
-        "warning": ("oracle_decoder rows measure information sufficiency of the retained context; "
+        "warning": ("oracle_decoder rows are DECODER SELF-CHECKS / information-sufficiency probes; "
                     "they are not method performance. No UC-VLA claim follows from this report."),
         "metric_note": "pair_both_correct is the history-sensitive metric; chance for any "
                        "observation-only policy is 0 on history-relevant families",
-        "fits": fits, "results": rows, "attribution": attribution,
+        "fits": fits, "results": rows, "attribution": attribution, "coverage": coverage,
+        "decoder_variants_note": "strict vs clock decoders bracket how much a ranking depends on "
+                                 "decoder priors; a ranking that flips between them is not a "
+                                 "memory result",
         "uniform_vs_last_sign_tests": tests, "access_parity": parity,
     }
     report_sha = sha256_hex(canonical_json(report).encode("ascii"))

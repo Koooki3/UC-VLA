@@ -15,13 +15,22 @@ def attribution(adapter, agent, split="test_id"):
 
 @pytest.mark.parametrize("split", ["test_id", "test_ood", "test_counterfactual"])
 def test_history_using_agent_is_attributed_to_history(adapter, split):
-    res = attribution(adapter, Agent(AllHistory(), OracleDecoder()), split)
+    res = attribution(adapter, Agent(AllHistory(), OracleDecoder("strict")), split)
     for fam in RELEVANT_FAMILIES:
-        assert uses_history(res[fam]), (fam, res[fam])
-        assert res[fam]["swap_follows_partner"] == 1.0
+        assert uses_history(res[fam], min_swap=0.6, min_drop=0.15), (fam, res[fam])
         assert res[fam]["del_critical"] < res[fam]["original_on_crit_subset"]
         assert res[fam]["del_noncritical"] == res[fam]["original_on_crit_subset"]
+    assert res["object_correspondence"]["swap_follows_partner"] == 1.0
+    assert res["process_count"]["swap_follows_partner"] == 1.0
     assert res["irrelevant_history"]["swap_invariance"] == 1.0  # negative control
+
+
+def test_free_clock_information_changes_the_picture(adapter):
+    """Clock decoder follows swapped history perfectly (completeness is free) but its scale-up
+    makes it fragile to non-critical deletion: decoder priors move the attribution numbers."""
+    res = attribution(adapter, Agent(AllHistory(), OracleDecoder("clock")), "test_id")
+    assert all(res[f]["swap_follows_partner"] == 1.0 for f in RELEVANT_FAMILIES)
+    assert res["process_count"]["drop_noncritical"] > 0.1
 
 
 @pytest.mark.parametrize("agent", [Agent(NoHistory(), OracleDecoder()),

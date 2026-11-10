@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from ucvla.adapters import ADAPTER_STATUS, SODHAdapter
-from ucvla.audit import g0_report
+from ucvla.audit import AUDIT_VERSION, g0_report
 from ucvla.canonical import canonical_json
 from ucvla.dataset_io import source_tree_sha256, write_dataset
 from ucvla.runenv import env_info, git_info
@@ -51,7 +51,7 @@ def main() -> None:
     }) + "\n", encoding="ascii")
     adapter = SODHAdapter(suite.episodes, suite.pairs, assignment)
     report = g0_report(adapter, suite.pairs, suite.episodes, assignment)
-    (args.out / "g0_report.json").write_text(
+    (args.out / f"g0_report.{AUDIT_VERSION.replace('/', '-')}.json").write_text(
         json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"wrote {args.out}  split={split_manifest['split_manifest_id']}  "
           f"episodes={manifest['counts']['episodes']}  G0={'PASS' if report['passed'] else 'FAIL'}")

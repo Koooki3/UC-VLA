@@ -19,7 +19,7 @@ from ucvla.context import ContextBudget, ContextProvider, ViewTick, build_contex
 from ucvla.episode import CausalView, CommandedAction, EpisodeRecord, ExecutedAction
 from ucvla.policy import PolicyAdapter, PolicyInput, PolicyObservation, TaskSpec, TrainablePolicy
 from ucvla.sodh import TICK_NS, PairRecord
-from ucvla.stats import wilson
+from ucvla.stats import bootstrap_mean_ci
 
 FIT_SPLITS = ("train",)
 
@@ -143,8 +143,9 @@ def pair_metrics(results: Sequence[EpisodeResult]) -> dict[str, dict[str, float]
     out = {}
     for family, pairs in sorted(fam.items()):
         n_ep = sum(len(p) for p in pairs)
-        k = sum(r.correct for p in pairs for r in p)
-        acc, lo, hi = wilson(k, n_ep)
+        # cluster = pair: mates share the decision observation, so episodes are not independent
+        acc, lo, hi = bootstrap_mean_ci(
+            [sum(r.correct for r in p) / len(p) for p in pairs], seed=0, n_boot=400)
         out[family] = {
             "n_pairs": len(pairs), "episode_acc": acc, "acc_lo": lo, "acc_hi": hi,
             "pair_both_correct": sum(all(r.correct for r in p) for p in pairs) / len(pairs),

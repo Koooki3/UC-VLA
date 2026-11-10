@@ -29,12 +29,29 @@ def _guess(inp: PolicyInput, ticks: Sequence[Mapping[str, Mapping[str, str]]]) -
     return t.options[int(h[:8], 16) % len(t.options)]
 
 
+TICK_NS = 100_000_000  # control period of the synthetic clock (public task constant)
+
+
 @dataclass
 class OracleDecoder:
-    name: str = "oracle_decoder"
+    """variant "strict": uses only retained ticks, never infers absence of evidence.
+    variant "clock":  additionally uses elapsed time from the observation clock (free side
+    information) for completeness and for scaling subsampled press counts.
+    The two bracket how much a result depends on decoder priors (review finding B2)."""
+
+    variant: str = "strict"
+
+    def __post_init__(self) -> None:
+        if self.variant not in ("strict", "clock"):
+            raise ValueError("variant must be 'strict' or 'clock'")
+
+    @property
+    def name(self) -> str:
+        return f"oracle_decoder_{self.variant}"
 
     def spec(self) -> Mapping[str, Any]:
-        return {"class": "OracleDecoder", "role": "information-sufficiency probe, not a method"}
+        return {"class": "OracleDecoder", "variant": self.variant,
+                "role": "decoder self-check / information-sufficiency probe, not a method"}
 
     def reset(self, episode_seed: int) -> None:
         return None
@@ -42,8 +59,9 @@ class OracleDecoder:
     def infer(self, inp: PolicyInput) -> ActionChunk:
         t, ctx = inp.task, inp.context
         kept = ctx.ticks
-        total = ctx.history_len
-        complete = len(kept) == total
+        clock = self.variant == "clock"
+        total = round(inp.observation.time_ns / TICK_NS) - 1 if clock else len(kept)
+        complete = clock and len(kept) == total
         now = inp.observation.cameras[FRONT]
         front = [k.cameras[FRONT] for k in kept]
         guess = _guess(inp, [k.cameras for k in kept])
@@ -54,10 +72,11 @@ class OracleDecoder:
         elif t.task == "button_count":
             k_target = int(t.params["target_count"])
             if not kept:
-                out = "press" if total == 0 else guess
+                out = "press" if (clock and total == 0) else guess
             else:
                 pressed = sum(1 for f in front if f["button"] == "pressed")
-                out = "press" if round(pressed * total / len(kept)) < k_target else "stop"
+                n_hat = round(pressed * total / len(kept)) if clock else pressed
+                out = "press" if n_hat < k_target else "stop"
         elif t.task == "resume_sequence":
             order = t.params["phase_order"].split(",")
             done = [f["placing"] for f in front if f["placing"] != "none"]

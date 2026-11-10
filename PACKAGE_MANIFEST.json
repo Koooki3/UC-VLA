@@ -224,8 +224,8 @@
     },
     {
       "path": "scripts/generate_sodh.py",
-      "bytes": 2798,
-      "sha256": "7d25f984197edb01efd304a8b20b9f5e57768783f78ed264e7f150db01ea43db"
+      "bytes": 2848,
+      "sha256": "2d453745e7a5f5a39318744217d38ba072296673af0a113e9ab5a855e55bdd3f"
     },
     {
       "path": "scripts/package_manifest.py",
@@ -239,8 +239,8 @@
     },
     {
       "path": "scripts/run_m2_eval.py",
-      "bytes": 5440,
-      "sha256": "e9fb1c1e1e634492a8f7b5a347dff392b037d8e1966d98724172fe74ccdb1513"
+      "bytes": 6214,
+      "sha256": "1eda07ca70b7c0981242880de8939c8997a90941cad514efe6a2676fe5fc518a"
     },
     {
       "path": "scripts/run_symbolic_baselines.py",
@@ -274,8 +274,8 @@
     },
     {
       "path": "src/ucvla/audit.py",
-      "bytes": 10185,
-      "sha256": "414bc261f917b7fcf0517d9b4b7bc62b3112d50343b0c45d9f42baa302ee82fb"
+      "bytes": 17478,
+      "sha256": "285ddbf93665cd6a9712e407e8e497ca95db971ab569d05cb3355ce749db641c"
     },
     {
       "path": "src/ucvla/baselines.py",
@@ -294,13 +294,13 @@
     },
     {
       "path": "src/ucvla/causal_eval.py",
-      "bytes": 5555,
-      "sha256": "9fb24a819ed9adbaa23028e5fa48280bcec374153c7c03047082ed77e0c6ffe2"
+      "bytes": 7966,
+      "sha256": "1e235a02711ccde43fd170a03196cb72f9bffbda8a0d692242c132f34e84218c"
     },
     {
       "path": "src/ucvla/context.py",
-      "bytes": 4893,
-      "sha256": "6242da4f5aec9eb0ea3c6bcfb9ce527143d813e60410ad878ca8c06632b565fb"
+      "bytes": 4788,
+      "sha256": "9c58d6273652311d629533a375c4e3028e8ef4333da7732c577e5bcf23621602"
     },
     {
       "path": "src/ucvla/contracts.py",
@@ -314,13 +314,13 @@
     },
     {
       "path": "src/ucvla/episode.py",
-      "bytes": 16183,
-      "sha256": "f870890bd4e21ad3589502e640f3f9dcb34ba388dab2aa9e80b029e82973180c"
+      "bytes": 17225,
+      "sha256": "329f2bf4db0358907839d475198596a2291fac21c3ad2d80886f5561eeab263d"
     },
     {
       "path": "src/ucvla/harness.py",
-      "bytes": 7119,
-      "sha256": "2167662796020011a63fe6d8ae08beb3b23883b927b0dc0a990578ca0fb07ad7"
+      "bytes": 7261,
+      "sha256": "bd0d99d79797560bb2c961cae70b099dce0d3d72dfdb03e214fcc415c25969c3"
     },
     {
       "path": "src/ucvla/memory.py",
@@ -334,8 +334,8 @@
     },
     {
       "path": "src/ucvla/readers.py",
-      "bytes": 6686,
-      "sha256": "a79108ed41b9efe196ead12694e099578945665a0e4bac03fa50c408cbffdacd"
+      "bytes": 7586,
+      "sha256": "edde58ecb3197d02f47ad23be35717b2d3b31334ff19e929966e64d204bc4e26"
     },
     {
       "path": "src/ucvla/runenv.py",
@@ -389,8 +389,8 @@
     },
     {
       "path": "tests/test_causal_eval.py",
-      "bytes": 3350,
-      "sha256": "39a20aabd5bb7890901386bd667131820bc371d3b995196ebd0b427e6dbd6613"
+      "bytes": 3946,
+      "sha256": "47efc956cbbde271fc379a02d4ae1f7b02e171f217b102c263cfac71b672521e"
     },
     {
       "path": "tests/test_contracts.py",
@@ -413,9 +413,14 @@
       "sha256": "51a9ce0aac873e749404836662ffcf0a2de03dd5b2912e0085f3059bb8b9f1b6"
     },
     {
+      "path": "tests/test_g0_mutants.py",
+      "bytes": 4548,
+      "sha256": "279b289094bb9f74675cf720ef9496ca73b2597210107edeadddc9b585264d07"
+    },
+    {
       "path": "tests/test_harness.py",
-      "bytes": 7959,
-      "sha256": "47a647bf42a40a0f4b679746716e48b91df06fb59cd993887e4f234f749919bb"
+      "bytes": 7987,
+      "sha256": "821e8ec007b1f8334466f01c0d4f62a6dbdfa74ca83194a406ace0a25ecb05ce"
     },
     {
       "path": "tests/test_protocol.py",

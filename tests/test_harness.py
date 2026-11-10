@@ -32,10 +32,10 @@ TEST_SPLITS = ("test_id", "test_ood", "test_counterfactual")
 def test_harness_reproduces_m1_symbolic_policies_exactly(adapter):
     """Refactor equivalence: provider+oracle decoder == M1 SymbolicPolicy for every episode."""
     pairs = [
-        (Agent(NoHistory(), OracleDecoder()), memoryless()),
-        (Agent(AllHistory(), OracleDecoder()), full_history()),
-        *[(Agent(LastK(k), OracleDecoder()), long_window(k)) for k in (1, 3, 6)],
-        *[(Agent(UniformK(k), OracleDecoder()), uniform_subsample(k)) for k in (1, 3, 6)],
+        (Agent(NoHistory(), OracleDecoder("clock")), memoryless()),
+        (Agent(AllHistory(), OracleDecoder("clock")), full_history()),
+        *[(Agent(LastK(k), OracleDecoder("clock")), long_window(k)) for k in (1, 3, 6)],
+        *[(Agent(UniformK(k), OracleDecoder("clock")), uniform_subsample(k)) for k in (1, 3, 6)],
     ]
     for split in ("train", *TEST_SPLITS):
         for agent, m1 in pairs:

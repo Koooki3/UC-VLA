@@ -44,7 +44,6 @@ class Context:
     """What the harness hands the policy besides the current observation."""
 
     ticks: tuple[ViewTick, ...]  # raw past observations, strictly before the current tick
-    history_len: int  # number of past observation ticks that have elapsed (a clock count)
     cutoff_ns: int
     kind: str = "raw_ticks"
 
@@ -76,7 +75,7 @@ def build_context(provider: ContextProvider, history: tuple[ViewTick, ...], curr
             raise ValueError("max_cost must be bounded")
         if max_cost.cost(chosen) > max_cost.limit:
             raise AccessViolation(f"context cost exceeds matched budget {max_cost}")
-    return Context(chosen, len(history), current_ns)
+    return Context(chosen, current_ns)
 
 
 @dataclass(frozen=True)

@@ -104,8 +104,55 @@ def access_parity_digest(adapter: SODHAdapter, agents: Sequence[Agent], split: s
                 inp, _, _ = make_input(adapter.view(eid), agent.provider, max_cost)
                 parts.append([inp.observation.time_ns, inp.observation.cameras,
                               inp.task.task, inp.task.instruction, inp.task.options,
-                              inp.task.params, inp.context.history_len])
+                              inp.task.params])
         out[agent.name] = digest(parts)
     return out
 
 
+
+
+def evidence_position(ep: EpisodeRecord) -> str | None:
+    """early/mid/late: where the median critical tick sits between first observation and decision
+    (post-hoc, evaluator-side; confounded with horizon in v1, an explicit axis in later versions)."""
+    crit = sorted(critical_times(ep))
+    if not crit:
+        return None
+    first, last = ep.tick_times()[0], ep.queries[0].time_ns
+    f = (crit[len(crit) // 2] - first) / (last - first)
+    return "early" if f < 1 / 3 else "mid" if f < 2 / 3 else "late"
+
+
+def coverage_report(adapter: SODHAdapter, agent: Agent, split: str, run_seed: int,
+                    max_cost: ContextBudget | None = None) -> dict[str, dict[str, Any]]:
+    """Pair-both-correct conditioned on whether the agent's context contained ALL critical ticks
+    of both mates, and by evidence position. Separates 'memory covered the evidence' (a property
+    of where the generator put it) from 'the policy used it'."""
+    rows: dict[str, list[tuple[bool, str, bool]]] = defaultdict(list)
+    for p in adapter.pairs(split):
+        if not p.history_relevant:
+            continue
+        flags, oks, pos = [], [], []
+        for eid in (p.episode_a, p.episode_b):
+            ep = adapter.episode(eid)
+            view = ep.causal_view(ep.queries[0].time_ns)
+            inp, _, _ = make_input(view, agent.provider, max_cost)
+            kept = {t.time_ns for t in inp.context.ticks}
+            flags.append(critical_times(ep) <= kept)
+            d, _, _ = decide(agent, view, run_seed, eid, max_cost)
+            oks.append(d == ep.target_for(ep.queries[0].query_id))
+            pos.append(evidence_position(ep) or "none")
+        rows[p.family].append((all(flags), pos[0], all(oks)))
+    out: dict[str, dict[str, Any]] = {}
+    for fam, rs in sorted(rows.items()):
+        cov = [ok for c, _, ok in rs if c]
+        unc = [ok for c, _, ok in rs if not c]
+        entry: dict[str, Any] = {
+            "n_pairs": len(rs), "n_covered": len(cov),
+            "pair_both_covered": sum(cov) / len(cov) if cov else None,
+            "pair_both_uncovered": sum(unc) / len(unc) if unc else None, "by_position": {}}
+        for bin_ in ("early", "mid", "late"):
+            sel = [ok for _, pb, ok in rs if pb == bin_]
+            entry["by_position"][bin_] = {"n": len(sel), "pair_both": sum(sel) / len(sel)
+                                          if sel else None}
+        out[fam] = entry
+    return out

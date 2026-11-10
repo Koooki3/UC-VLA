@@ -7,6 +7,8 @@ real benchmarks (image-level shortcut audits are ``planned``).
 
 from __future__ import annotations
 
+import math
+import re
 from collections import Counter, defaultdict
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import replace
@@ -19,7 +21,10 @@ from ucvla.episode import EpisodeRecord
 from ucvla.sodh import RELEVANT_FAMILIES, PairRecord
 from ucvla.splits import SPLITS, Finding, check_splits
 
+AUDIT_VERSION = "g0/2"
 LEAK_MARGIN = 0.15
+PRIOR_MARGIN = 0.12
+PROBE_Z = 3.3
 MIN_EVAL = 20
 CONTROL_MIN_ACC = 0.9
 
@@ -45,33 +50,184 @@ LOOKUP: Mapping[str, Callable[[EpisodeRecord], Any]] = {
 }
 
 
+def _full_view(ep: EpisodeRecord) -> Any:
+    return ep.causal_view(ep.queries[0].time_ns)
+
+
 def check_pairs(adapter: SODHAdapter, pairs: Sequence[PairRecord]) -> list[Finding]:
-    """A4: relevant pairs share the decision observation but not the answer; controls share both."""
+    """Pair validity recomputed from the episodes (stored digests are never trusted).
+
+    Relevant pairs: every channel of the decision view (all cameras, proprio, commands,
+    executions, online events, query) is identical, only the history and the answer differ.
+    Controls: identical decision view AND identical answer.
+    """
     out = []
     for p in pairs:
-        same_obs = p.o_t_digest_a == p.o_t_digest_b
         a, b = adapter.episode(p.episode_a), adapter.episode(p.episode_b)
+        va, vb = _full_view(a), _full_view(b)
+        if (va.digest(False), vb.digest(False)) != (p.o_t_digest_a, p.o_t_digest_b):
+            out.append(Finding("error", "stale_pair_record",
+                               f"{p.pair_id}: stored digests differ from recomputed"))
+        da, db = va.channel_digests(), vb.channel_digests()
+        differing = sorted(k for k in da if da[k] != db[k])
+        if differing:
+            out.append(Finding("error", "obs_differs",
+                               f"{p.pair_id}: decision view differs in {differing}"))
+        ta = a.target_for(a.queries[0].query_id)
+        tb = b.target_for(b.queries[0].query_id)
+        if (ta, tb) != (p.target_a, p.target_b):
+            out.append(Finding("error", "stale_pair_record", f"{p.pair_id}: targets differ"))
         if p.history_relevant:
-            if not same_obs:
-                out.append(Finding("error", "obs_differs", f"{p.pair_id}: decision obs differ"))
-            if p.target_a == p.target_b:
+            if ta == tb:
                 out.append(Finding("error", "same_target", f"{p.pair_id}: no divergent action"))
             if a.frames[:-2] == b.frames[:-2]:
                 out.append(Finding("error", "no_history_diff", f"{p.pair_id}: identical history"))
-        elif not same_obs or p.target_a != p.target_b:
+        elif ta != tb:
             out.append(Finding("error", "control_pair_broken", p.pair_id))
     return out
 
 
+_ID_GRAMMAR = {
+    "episode": re.compile(r"^ep-[0-9a-f]{16}$"),
+}
+
+
 def id_leak_findings(episodes: Sequence[EpisodeRecord]) -> list[Finding]:
+    """Identifiers must follow the opaque SODH grammar (no label-bearing suffixes)."""
     out = []
     for e in episodes:
+        eid = e.episode_id
         target = e.target_for(e.queries[0].query_id)
-        ids = [e.episode_id, e.queries[0].query_id, *(f.frame_id for f in e.frames),
-               *(ev.event_id for ev in e.events)]
-        if any(target in i for i in ids):
-            out.append(Finding("error", "id_leak", f"{e.episode_id}: identifier contains label"))
+        ok = bool(_ID_GRAMMAR["episode"].match(eid))
+        ok &= e.queries[0].query_id == f"{eid}-q0"
+        ok &= all(re.fullmatch(re.escape(eid) + r"-f\d+-(front|wrist)", f.frame_id)
+                  for f in e.frames)
+        ok &= all(re.fullmatch(re.escape(eid) + r"-a\d+", ev.event_id) for ev in e.events)
+        if not ok or target in eid:
+            out.append(Finding("error", "id_leak", f"{eid}: identifier outside opaque grammar"))
     return out
+
+
+def _label(e: EpisodeRecord) -> str:
+    return e.target_for(e.queries[0].query_id)
+
+
+def _position(e: EpisodeRecord) -> int:
+    """Index of the answer in the task's *natural* order (phase order if given, else options)."""
+    q = e.queries[0]
+    lab = _label(e)
+    order = q.params.get("phase_order")
+    if order:
+        return order.split(",").index(lab.removeprefix("place_"))
+    return q.options.index(lab)
+
+
+def _probe_tokens(ep: EpisodeRecord) -> dict[str, str]:
+    """Single-feature views of the decision-time information, one token type per channel/slot."""
+    v = _full_view(ep)
+    toks: dict[str, str] = {}
+    n = len(v.ticks)
+    for pos in range(min(n, 14)):  # position counted from the decision tick backwards
+        for cam, d in v.ticks[n - 1 - pos].cameras.items():
+            for k, val in d.items():
+                toks[f"end-{pos}:{cam}:{k}"] = val
+    for pos in range(min(n, 4)):  # and from the start
+        for cam, d in v.ticks[pos].cameras.items():
+            for k, val in d.items():
+                toks[f"start+{pos}:{cam}:{k}"] = val
+    for chan, dig in v.channel_digests(include_history=False).items():
+        if chan not in ("task", "ticks", "query"):
+            toks[f"chan:{chan}"] = dig
+    for k, val in (v.query.params if v.query else {}).items():
+        toks[f"param:{k}"] = val
+    toks["chan:n_options"] = str(len(v.query.options) if v.query else 0)
+    return toks
+
+
+def token_label_probe(adapter: SODHAdapter) -> list[Finding]:
+    """Generic single-token shortcut probe over EVERY channel, not a hand-picked feature list.
+
+    For each (family, token type): lookup value -> majority train label, evaluated on all
+    non-train splits; flagged when it beats the label-prior baseline by margin and z > PROBE_Z.
+    Low power on weak leaks (see docs/18); it complements, not replaces, the structural checks.
+    """
+    out = []
+    for family in sorted({p.family for p in adapter.pairs("train")} & set(RELEVANT_FAMILIES)):
+        # controls (history-irrelevant by design) are meant to be solvable from the observation
+        train = [adapter.episode(e) for p in adapter.pairs("train") if p.family == family
+                 for e in (p.episode_a, p.episode_b)]
+        test = [adapter.episode(e) for s in SPLITS if s != "train" for p in adapter.pairs(s)
+                if p.family == family for e in (p.episode_a, p.episode_b)]
+        if len(test) < MIN_EVAL or not train:
+            continue
+        prior = Counter(_label(e) for e in train).most_common(1)[0][0]
+        chance = sum(1 / len(e.queries[0].options) for e in test) / len(test)
+        base = max(sum(_label(e) == prior for e in test) / len(test), chance)
+        tr = [(_probe_tokens(e), _label(e)) for e in train]
+        te = [(_probe_tokens(e), _label(e)) for e in test]
+        types = sorted({k for t, _ in tr for k in t})
+        for ty in types:
+            tab: dict[str, Counter[str]] = defaultdict(Counter)
+            for t, y in tr:
+                if ty in t:
+                    tab[t[ty]][y] += 1
+            hit = sum((tab[t[ty]].most_common(1)[0][0] if ty in t and t[ty] in tab else prior) == y
+                      for t, y in te)
+            acc = hit / len(te)
+            sd = math.sqrt(max(base * (1 - base), 1e-9) / len(te))
+            if acc - base > LEAK_MARGIN and (acc - base) / sd > PROBE_Z:
+                out.append(Finding("error", "token_shortcut",
+                                   f"{family}: {ty} acc {acc:.2f} vs prior {base:.2f}"))
+    return out
+
+
+def label_prior_findings(adapter: SODHAdapter, margin: float = PRIOR_MARGIN) -> list[Finding]:
+    """Constant-position shortcuts: "always answer position c" vs chance, pooled over #options.
+
+    Position = index of the answer in the task's natural order. Per (family, split) and pooled
+    over all non-train splits; flagged when the hit rate beats mean(1/k) by ``margin`` and z > 3.
+    """
+    out = []
+    rows: dict[tuple[str, str], list[tuple[int, int]]] = defaultdict(list)
+    for s in SPLITS:
+        for p in adapter.pairs(s):
+            for eid in (p.episode_a, p.episode_b):
+                e = adapter.episode(eid)
+                row = (_position(e), len(e.queries[0].options))
+                rows[(p.family, s)].append(row)
+                if s != "train":
+                    rows[(p.family, "all_non_train")].append(row)
+    for (fam, split), rs in sorted(rows.items()):
+        for c in range(max(k for _, k in rs)):
+            sel = [(pos, k) for pos, k in rs if k > c]
+            n = len(sel)
+            if n < MIN_EVAL:
+                continue
+            chance = sum(1 / k for _, k in sel) / n
+            rate = sum(pos == c for pos, _ in sel) / n
+            z = (rate - chance) / math.sqrt(chance * (1 - chance) / n)
+            if rate - chance > margin and z > 3.0:
+                out.append(Finding("error", "label_prior",
+                                   f"{fam}/{split}: answer position {c} rate {rate:.2f} vs "
+                                   f"chance {chance:.2f} (n={n})"))
+    return out
+
+
+def constant_floor(adapter: SODHAdapter) -> dict[str, float]:
+    """Best fixed option-index predictor per family on non-train splits (floor beside memoryless)."""
+    res: dict[str, float] = {}
+    by_fam: dict[str, list[tuple[int, int]]] = defaultdict(list)
+    for s in SPLITS:
+        if s == "train":
+            continue
+        for p in adapter.pairs(s):
+            for eid in (p.episode_a, p.episode_b):
+                e = adapter.episode(eid)
+                by_fam[p.family].append((_position(e), len(e.queries[0].options)))
+    for fam, rows in sorted(by_fam.items()):
+        best = max(sum(1 for i, _ in rows if i == c) for c in range(max(n for _, n in rows)))
+        res[fam] = best / len(rows)
+    return res
 
 
 def structural_pair_diffs(adapter: SODHAdapter, pairs: Sequence[PairRecord]) -> dict[str, float]:
@@ -170,7 +326,8 @@ def g0_report(adapter: SODHAdapter, pairs: Sequence[PairRecord],
               episodes: Sequence[EpisodeRecord], assignment: Mapping[str, str]) -> dict[str, Any]:
     """Executable G0. ``passed`` is False if ANY check fails; failures are listed, not hidden."""
     findings = [*check_splits(episodes, pairs, assignment), *check_pairs(adapter, pairs),
-                *id_leak_findings(episodes), *metadata_lookup_audit(adapter)]
+                *id_leak_findings(episodes), *metadata_lookup_audit(adapter),
+                *token_label_probe(adapter), *label_prior_findings(adapter)]
     diffs = structural_pair_diffs(adapter, pairs)
     findings += [Finding("error", "structural_diff", f"{k} differs inside {v:.0%} of pairs")
                  for k, v in diffs.items() if v > 0]
@@ -196,7 +353,8 @@ def g0_report(adapter: SODHAdapter, pairs: Sequence[PairRecord],
                     findings.append(Finding("error", "reader_unsolvable", f"{s}/{fam}"))
     errors = [f for f in findings if f.level == "error"]
     return {
-        "gate": "G0", "mode": "synthetic", "passed": not errors,
+        "gate": "G0", "audit_version": AUDIT_VERSION, "mode": "synthetic", "passed": not errors,
+        "constant_answer_floor": constant_floor(adapter),
         "scope": "symbolic generator well-formedness only; not a model or benchmark result",
         "obs_only": obs, "structural_pair_diffs": diffs, "history_swap": swap,
         "reference_policies": ref,
