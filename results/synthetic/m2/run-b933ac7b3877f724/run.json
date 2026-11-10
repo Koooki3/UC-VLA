@@ -1,0 +1,348 @@
+{
+  "agents": [
+    {
+      "budget": [
+        "ticks",
+        null
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "all_history"
+    },
+    {
+      "budget": [
+        "ticks",
+        null
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "all_history"
+    },
+    {
+      "budget": [
+        "ticks",
+        0
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "no_history"
+    },
+    {
+      "budget": [
+        "ticks",
+        0
+      ],
+      "policy": {
+        "class": "ObsOnlyLookup",
+        "fit_digest": "5c72c7b0932ec17d96b94ddf28bfd6636cdbf1b713f015c1d6adf50c568a360a"
+      },
+      "provider": "no_history"
+    },
+    {
+      "budget": [
+        "ticks",
+        null
+      ],
+      "policy": {
+        "alpha": 1.0,
+        "class": "BagOfTokensNB",
+        "fit_digest": "33c228e793ff41cfad2cd1d6be45228f475ba707cd2dcb6ccf64672fe4e2929a"
+      },
+      "provider": "all_history"
+    },
+    {
+      "budget": [
+        "ticks",
+        1
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "last_1"
+    },
+    {
+      "budget": [
+        "ticks",
+        1
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "uniform_1"
+    },
+    {
+      "budget": [
+        "ticks",
+        1
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "last_1"
+    },
+    {
+      "budget": [
+        "ticks",
+        1
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "uniform_1"
+    },
+    {
+      "budget": [
+        "ticks",
+        2
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "last_2"
+    },
+    {
+      "budget": [
+        "ticks",
+        2
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "uniform_2"
+    },
+    {
+      "budget": [
+        "ticks",
+        2
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "last_2"
+    },
+    {
+      "budget": [
+        "ticks",
+        2
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "uniform_2"
+    },
+    {
+      "budget": [
+        "ticks",
+        4
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "last_4"
+    },
+    {
+      "budget": [
+        "ticks",
+        4
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "uniform_4"
+    },
+    {
+      "budget": [
+        "ticks",
+        4
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "last_4"
+    },
+    {
+      "budget": [
+        "ticks",
+        4
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "uniform_4"
+    },
+    {
+      "budget": [
+        "ticks",
+        8
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "last_8"
+    },
+    {
+      "budget": [
+        "ticks",
+        8
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "uniform_8"
+    },
+    {
+      "budget": [
+        "ticks",
+        8
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "last_8"
+    },
+    {
+      "budget": [
+        "ticks",
+        8
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "uniform_8"
+    },
+    {
+      "budget": [
+        "ticks",
+        16
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "last_16"
+    },
+    {
+      "budget": [
+        "ticks",
+        16
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "strict"
+      },
+      "provider": "uniform_16"
+    },
+    {
+      "budget": [
+        "ticks",
+        16
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "last_16"
+    },
+    {
+      "budget": [
+        "ticks",
+        16
+      ],
+      "policy": {
+        "class": "OracleDecoder",
+        "role": "decoder self-check / information-sufficiency probe, not a method",
+        "variant": "clock"
+      },
+      "provider": "uniform_16"
+    }
+  ],
+  "code_tree_sha256": "974d51aa978e3e11811511a8ec63a4a75399509b475eb5b07df48fe825364991",
+  "data": {
+    "config_sha256": "953a02584b1a09777c6a561823fde205003c0292511f5525d37ec4f74a03738e",
+    "dataset": "sodh_v1",
+    "manifest_sha256": "5a903fd3ee0c7e48dbeafe84f54033b11e2dfcb4cb9ecdbf8b8305ad533e00d5",
+    "split_manifest_id": "sodh-split-c57fb89bf0a3"
+  },
+  "env": {
+    "gpu": null,
+    "implementation": "CPython",
+    "machine": "x86_64",
+    "packages": {
+      "hypothesis": "6.170.15",
+      "pytest": "9.2.0",
+      "pyyaml": "6.0.3"
+    },
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "python": "3.12.15",
+    "robot": null
+  },
+  "eval_config": {
+    "budget_unit": "ticks",
+    "budgets_ticks": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "splits": [
+      "test_id",
+      "test_ood",
+      "test_counterfactual"
+    ]
+  },
+  "git_branch": "main",
+  "git_commit": "be3fb69441e018aba49d3675f17fa74bea6d8cfb",
+  "git_dirty": false,
+  "kind": "m2_symbolic_eval",
+  "metrics_sha256": "57b14498d0887c4aac7346de2d424afd0b502e9c0c878abfe23a9204161a6671",
+  "mode": "synthetic",
+  "results_sha256": "fa4f9eb7fbd8d6bf57378444705c26d5f8a86d116d67449d22c53334954589f5",
+  "run_id": "run-b933ac7b3877f724",
+  "run_seed": 0,
+  "schema": "ucvla.run/1"
+}
