@@ -1,0 +1,91 @@
+{
+  "findings": [],
+  "gate": "G0",
+  "history_swap": {
+    "irrelevant_history.swap_follows_history": 1.0,
+    "memoryless.swap_invariance": 1.0,
+    "object_correspondence.swap_follows_history": 1.0,
+    "process_count.swap_follows_history": 1.0,
+    "task_interleave.swap_follows_history": 1.0
+  },
+  "mode": "synthetic",
+  "obs_only": {
+    "irrelevant_history": {
+      "conflict_fraction": 0.0,
+      "n_episodes": 98,
+      "obs_only_acc": 1.0
+    },
+    "object_correspondence": {
+      "conflict_fraction": 1.0,
+      "n_episodes": 98,
+      "obs_only_acc": 0.25510204081632654
+    },
+    "process_count": {
+      "conflict_fraction": 1.0,
+      "n_episodes": 98,
+      "obs_only_acc": 0.5
+    },
+    "task_interleave": {
+      "conflict_fraction": 1.0,
+      "n_episodes": 98,
+      "obs_only_acc": 0.29591836734693877
+    }
+  },
+  "passed": true,
+  "reference_policies": {
+    "full_history": {
+      "test_counterfactual.irrelevant_history.pair_both_correct": 1.0,
+      "test_counterfactual.object_correspondence.pair_both_correct": 1.0,
+      "test_counterfactual.process_count.pair_both_correct": 1.0,
+      "test_counterfactual.task_interleave.pair_both_correct": 1.0,
+      "test_id.irrelevant_history.pair_both_correct": 1.0,
+      "test_id.object_correspondence.pair_both_correct": 1.0,
+      "test_id.process_count.pair_both_correct": 1.0,
+      "test_id.task_interleave.pair_both_correct": 1.0,
+      "test_ood.irrelevant_history.pair_both_correct": 1.0,
+      "test_ood.object_correspondence.pair_both_correct": 1.0,
+      "test_ood.process_count.pair_both_correct": 1.0,
+      "test_ood.task_interleave.pair_both_correct": 1.0,
+      "train.irrelevant_history.pair_both_correct": 1.0,
+      "train.object_correspondence.pair_both_correct": 1.0,
+      "train.process_count.pair_both_correct": 1.0,
+      "train.task_interleave.pair_both_correct": 1.0,
+      "val.irrelevant_history.pair_both_correct": 1.0,
+      "val.object_correspondence.pair_both_correct": 1.0,
+      "val.process_count.pair_both_correct": 1.0,
+      "val.task_interleave.pair_both_correct": 1.0
+    },
+    "memoryless": {
+      "test_counterfactual.irrelevant_history.pair_both_correct": 1.0,
+      "test_counterfactual.object_correspondence.pair_both_correct": 0.0,
+      "test_counterfactual.process_count.pair_both_correct": 0.0,
+      "test_counterfactual.task_interleave.pair_both_correct": 0.0,
+      "test_id.irrelevant_history.pair_both_correct": 1.0,
+      "test_id.object_correspondence.pair_both_correct": 0.0,
+      "test_id.process_count.pair_both_correct": 0.0,
+      "test_id.task_interleave.pair_both_correct": 0.0,
+      "test_ood.irrelevant_history.pair_both_correct": 1.0,
+      "test_ood.object_correspondence.pair_both_correct": 0.0,
+      "test_ood.process_count.pair_both_correct": 0.0,
+      "test_ood.task_interleave.pair_both_correct": 0.0,
+      "train.irrelevant_history.pair_both_correct": 1.0,
+      "train.object_correspondence.pair_both_correct": 0.0,
+      "train.process_count.pair_both_correct": 0.0,
+      "train.task_interleave.pair_both_correct": 0.0,
+      "val.irrelevant_history.pair_both_correct": 1.0,
+      "val.object_correspondence.pair_both_correct": 0.0,
+      "val.process_count.pair_both_correct": 0.0,
+      "val.task_interleave.pair_both_correct": 0.0
+    }
+  },
+  "scope": "symbolic generator well-formedness only; not a model or benchmark result",
+  "structural_pair_diffs": {
+    "instruction": 0.0,
+    "last_time_ns": 0.0,
+    "n_frames": 0.0,
+    "n_ticks": 0.0,
+    "options": 0.0,
+    "params": 0.0,
+    "secondary_cameras": 0.0
+  }
+}

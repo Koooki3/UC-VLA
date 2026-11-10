@@ -1,0 +1,14 @@
+experiment_id: E10_matched_baselines
+mode: requires_implementation
+benchmarks: [robomme, sodh]
+methods: [memoryless, uniform, full_history, fixed_latent, dnr_reproduction, mem4act_reproduction]
+primary_budget_axis: hot_memory_tokens
+secondary_budget_axis: end_to_end_latency
+candidate_budgets_tokens: [16, 32, 64, 128]
+training_seeds: [11, 29, 47]
+evaluation_seed_manifest: null
+common_backbone_checkpoint: null
+training_budget_steps: null
+min_required_comparisons: [memoryless, uniform, fixed_latent, dnr_reproduction]
+test_locked: true
+no_test_tuning: true

@@ -1,0 +1,12 @@
+experiment_id: E20_future_utility
+mode: requires_implementation
+benchmarks: [sodh, robomme, robomme_plus]
+hypothesis: H1
+methods: [fixed_latent, action_mi, future_value_compression]
+simulator_resettable: true
+intervention_unit: evidence_group
+random_number_coupling: common_seed
+oracle_q_training_only: true
+online_privileged_state: false
+value_model_calibration_required: true
+checkpoint: null

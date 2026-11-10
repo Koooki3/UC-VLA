@@ -1,0 +1,9 @@
+experiment_id: E30_recovery_budget_rolling
+mode: requires_implementation
+hypotheses: [H2, H3, H4]
+methods: [future_fixed, future_recovery, future_adaptive, future_adaptive_rolling]
+corruption: [drop_relevant_evidence, wrong_identity, unavailable_retrieval]
+plan_staleness: [target_changed, goal_changed, safety_changed]
+metrics: [task_success, recovery_success, false_stop, p95_ms, gpu_hours, memory_bytes]
+physical_actuation: false
+operator_hardware_deadline_ms: null

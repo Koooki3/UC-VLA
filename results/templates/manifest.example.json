@@ -1,0 +1,17 @@
+{
+  "run_id": null,
+  "experiment_id": null,
+  "mode": null,
+  "git_commit": null,
+  "policy_checkpoint_sha256": null,
+  "dataset_manifest_sha256": null,
+  "train_seed": null,
+  "test_seed_manifest_sha256": null,
+  "evaluation_protocol_revision": null,
+  "hardware": null,
+  "code_dependencies_sha256": null,
+  "online_privileged_state": false,
+  "test_tuning": false,
+  "operator_authorization_ref": null,
+  "note": "Template is deliberately invalid until real values are supplied"
+}

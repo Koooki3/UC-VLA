@@ -1,0 +1,28 @@
+# Research template; placeholders are non-executable and intentionally not site configured.
+project: uc-vla
+status: design_only
+model:
+  family: openpi_candidate
+  checkpoint: null
+  checkpoint_sha256: null
+  freeze_backbone_initially: true
+memory:
+  scheme: fixed_latent_baseline
+  candidate_budgets_tokens: [16, 32, 64, 128]
+  evidence_provenance_required: true
+  causal_cutoff_required: true
+  versioned_plan_guard: true
+training:
+  precision: bf16_if_supported
+  seeds: [11, 29, 47]
+  dataset_manifest: null
+  world_state_only_train_labels: true
+inference:
+  control_deadline_ms: null # set from measured hardware and safety analysis
+  cold_retrieval_in_fast_path: false
+  physical_actuation: false
+evaluation:
+  primary_suites: [robomme, robomme_plus, sodh]
+  heldout_ood: true
+  same_seed_pairing: true
+  report_real_latency: true

@@ -1,0 +1,12 @@
+{
+  "mode": "m1_cpu_only",
+  "vendored_third_party_code": [],
+  "runtime_dependencies": [{"name": "pyyaml", "license": "MIT", "use": "config loading only"}],
+  "dev_dependencies": [
+    {"name": "pytest", "license": "MIT"},
+    {"name": "hypothesis", "license": "MPL-2.0"},
+    {"name": "ruff", "license": "MIT"}
+  ],
+  "referenced_not_integrated": ["Physical-Intelligence/openpi", "RoboMME/robomme_benchmark", "D&R", "Mem4Act", "Koooki3/LEVI"],
+  "note": "No third-party source copied, no checkpoints or datasets downloaded. Pin exact commits and review licenses before any integration (docs/01, docs/13)."
+}

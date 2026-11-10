@@ -1,0 +1,27 @@
+{
+  "config_file": "configs/sodh/sodh_v1.yaml",
+  "config_file_sha256": "32483b4cb253c4e665070ba897346442544f0c3206107c7ec745f0a546bfa465",
+  "config_sha256": "953a02584b1a09777c6a561823fde205003c0292511f5525d37ec4f74a03738e",
+  "counts": {
+    "episodes": 704,
+    "pairs": 352
+  },
+  "data_files_sha256": {
+    "assignment.json": "42768f781d767eb646c9d32973d225903f348fdf3a08172113f3bf6056ed61bb",
+    "episodes.jsonl": "d2939472a0d5ac5cb113348d7b662d1cfde2eb208ce52c6505fe18b39a2fbdc9",
+    "pairs.jsonl": "4d8c06e56332e0fc153590dcb6fe6153e0f060285b93068270c332c5d88acb11",
+    "split_manifest.json": "5008ecd461e8fa367e6d500e20b1ac6e07a9a1a5c7617fd91d57cbd08e062dc3"
+  },
+  "dataset": "sodh_v1",
+  "frozen_on": "2026-11-11",
+  "g0": {
+    "audit_version": "g0/1",
+    "passed": true,
+    "report_sha256": "e3c2a4c9029c4289000381768cec640fe130a1d505cc7609f29191d2460c94fc",
+    "scope": "symbolic generator well-formedness only"
+  },
+  "mode": "synthetic",
+  "rule": "Test splits, generator config and v1 data are immutable. Any change requires a new id (sodh_v2), never an edit. Model/baseline results must not influence these files.",
+  "split_manifest_id": "sodh-split-c57fb89bf0a3",
+  "tag": "m1-synthetic-baseline"
+}

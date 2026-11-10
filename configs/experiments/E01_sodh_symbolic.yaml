@@ -1,0 +1,15 @@
+experiment_id: E01_sodh_symbolic
+mode: synthetic
+milestone: M1
+model: none            # hand-written symbolic readers, not learned
+robot: none
+gpu: none
+config: configs/sodh/sodh_v1.yaml
+entrypoints:
+  - python scripts/generate_sodh.py        # writes results/synthetic/sodh_v1 (write-once) + G0 report
+  - python scripts/audit_sodh.py           # independent re-verification, exit 1 on any G0 failure
+  - python scripts/run_symbolic_baselines.py   # matched-budget reader sweep, cluster bootstrap CIs
+outputs: results/synthetic/sodh_v1
+gates: [G0]
+claim_scope: data_validity_only   # says nothing about learned models, VLA, or real benchmarks
+test_locked: true                 # test splits are used only for audit/evaluation, never tuning

@@ -1,0 +1,41 @@
+# SODH v1 generator protocol. mode: synthetic (symbolic frames, no pixels, no VLA).
+# FROZEN once split manifest sodh-v1-* is registered: a change requires a new version id.
+master_seed: 20261111
+generator_version: sodh/1
+n_identity_mappings: 8       # disjoint object vocabularies idm-0..idm-7
+heldout_mappings: [7]        # never appear in train/val/test_id/test_ood -> test_counterfactual
+split_fractions: [0.70, 0.15, 0.15]   # train / val / test_id, applied to in_dist pairs per family
+leak: null                   # planted-shortcut modes exist only for auditor tests; must be null
+families:
+  object_correspondence:     # horizon = number of cup swaps
+    n_objects_id: [3, 4]
+    n_objects_ood: [4, 5]
+    horizon_id: [3, 8]
+    horizon_ood: [12, 20]
+    pairs_in_dist: 56
+    pairs_ood: 16
+    pairs_heldout: 16
+  process_count:             # horizon = target press count K
+    n_objects_id: [2, 2]
+    n_objects_ood: [2, 2]
+    horizon_id: [2, 5]
+    horizon_ood: [7, 10]
+    pairs_in_dist: 56
+    pairs_ood: 16
+    pairs_heldout: 16
+  task_interleave:           # horizon = length of the interruption (ticks); n_objects = phases
+    n_objects_id: [3, 4]
+    n_objects_ood: [4, 5]
+    horizon_id: [2, 6]
+    horizon_ood: [10, 16]
+    pairs_in_dist: 56
+    pairs_ood: 16
+    pairs_heldout: 16
+  irrelevant_history:        # negative control: label is a function of the current frame
+    n_objects_id: [2, 2]
+    n_objects_ood: [2, 2]
+    horizon_id: [3, 8]
+    horizon_ood: [12, 20]
+    pairs_in_dist: 56
+    pairs_ood: 16
+    pairs_heldout: 16

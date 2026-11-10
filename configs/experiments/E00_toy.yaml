@@ -1,0 +1,7 @@
+experiment_id: E00_toy
+mode: synthetic_symbolic_contract_test
+model: none
+robot: none
+gpu: none
+entrypoint: python scripts/dry_run.py
+claim_scope: contract_smoke_only
