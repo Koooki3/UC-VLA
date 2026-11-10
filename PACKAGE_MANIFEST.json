@@ -168,6 +168,16 @@
       "sha256": "02b05ed0c0908cc095c0dffc3844b5eeb5ef09d86424b603aa34d878a63dbec4"
     },
     {
+      "path": "docs/16_BENCHMARK_READINESS.md",
+      "bytes": 18498,
+      "sha256": "89d40bfc2bf84f182bea31a1f06e2cb9202d78d55aa2fa7059c01bb3e9f90d29"
+    },
+    {
+      "path": "docs/17_POLICY_EVAL_CONTRACT.md",
+      "bytes": 4287,
+      "sha256": "97c202c7025bc7f71a013c76f191c2eb1f450bf8b9464bdcd9ec69ec9835af1d"
+    },
+    {
       "path": "paper/outline.md",
       "bytes": 1450,
       "sha256": "13164fccb5d11f24fd48cf378d6ba9c77d45f3237f8cfea9a530d8f89a139c78"
@@ -223,6 +233,16 @@
       "sha256": "177ceef4a364f4bb8b3a583acc0203cd476f775acc567ee153276d6d8a5432f7"
     },
     {
+      "path": "scripts/repro_check.py",
+      "bytes": 1336,
+      "sha256": "9b46b263dca5171141ffcf07ff5c6c983855eee1e672dc05cb9ae17780f3a710"
+    },
+    {
+      "path": "scripts/run_m2_eval.py",
+      "bytes": 5440,
+      "sha256": "e9fb1c1e1e634492a8f7b5a347dff392b037d8e1966d98724172fe74ccdb1513"
+    },
+    {
       "path": "scripts/run_symbolic_baselines.py",
       "bytes": 3080,
       "sha256": "cb3cbd269b044fb5aca60760dc768ccf475750395914520d7de2c69c5c25d5ef"
@@ -263,9 +283,24 @@
       "sha256": "ca1d39268ad18887653f062d9c0030c717ac111703a318a4014a91a044020bbc"
     },
     {
+      "path": "src/ucvla/benchmark_contract.py",
+      "bytes": 6486,
+      "sha256": "42ec6e0ba2404ef686c7058ff36b4bcf4911736a7f87a28ffb4041f8f7debd0d"
+    },
+    {
       "path": "src/ucvla/canonical.py",
       "bytes": 3556,
       "sha256": "da527da6976497e1c02aca17bb0c1ab5508bd0cff09d81e3a63bbc135d72e1b4"
+    },
+    {
+      "path": "src/ucvla/causal_eval.py",
+      "bytes": 5555,
+      "sha256": "9fb24a819ed9adbaa23028e5fa48280bcec374153c7c03047082ed77e0c6ffe2"
+    },
+    {
+      "path": "src/ucvla/context.py",
+      "bytes": 4893,
+      "sha256": "6242da4f5aec9eb0ea3c6bcfb9ce527143d813e60410ad878ca8c06632b565fb"
     },
     {
       "path": "src/ucvla/contracts.py",
@@ -283,14 +318,34 @@
       "sha256": "f870890bd4e21ad3589502e640f3f9dcb34ba388dab2aa9e80b029e82973180c"
     },
     {
+      "path": "src/ucvla/harness.py",
+      "bytes": 7119,
+      "sha256": "2167662796020011a63fe6d8ae08beb3b23883b927b0dc0a990578ca0fb07ad7"
+    },
+    {
       "path": "src/ucvla/memory.py",
       "bytes": 4265,
       "sha256": "be75be3186c3aa8f0737b9b90e98e37995ec9b7779bbfa40f578b7113a42bdcb"
     },
     {
+      "path": "src/ucvla/policy.py",
+      "bytes": 2509,
+      "sha256": "3ffcbebebf4a08dac9d39fec72b0a0fb334f722948f922c50fbb1dcd443d950e"
+    },
+    {
+      "path": "src/ucvla/readers.py",
+      "bytes": 6686,
+      "sha256": "a79108ed41b9efe196ead12694e099578945665a0e4bac03fa50c408cbffdacd"
+    },
+    {
       "path": "src/ucvla/runenv.py",
       "bytes": 1650,
       "sha256": "36f44eab6a850a4e33bbd718d8dca94a0d180bc1f14ffb94980f97245b1172cd"
+    },
+    {
+      "path": "src/ucvla/runrecord.py",
+      "bytes": 2812,
+      "sha256": "7f76ecda9d399c3a0059792e32fc0a7f724b81ac5ce32ee093439a90a31eda65"
     },
     {
       "path": "src/ucvla/sodh.py",
@@ -306,6 +361,11 @@
       "path": "src/ucvla/stats.py",
       "bytes": 1622,
       "sha256": "b9bd9beb5e09a0e56699b539a41c94e6b67d090a5e6cda45c9e667cffa985b8d"
+    },
+    {
+      "path": "src/ucvla/stattests.py",
+      "bytes": 1242,
+      "sha256": "5c23aab85cb79d56e88bcf4f015cd2414a3b4a793f7efc04dad059aaadb34f83"
     },
     {
       "path": "src/ucvla/toy.py",
@@ -328,6 +388,11 @@
       "sha256": "0392e84d86ee0c99e2eb48ffc4aa4c68ae40c942c759276973a09b88265d7f32"
     },
     {
+      "path": "tests/test_causal_eval.py",
+      "bytes": 3350,
+      "sha256": "39a20aabd5bb7890901386bd667131820bc371d3b995196ebd0b427e6dbd6613"
+    },
+    {
       "path": "tests/test_contracts.py",
       "bytes": 3750,
       "sha256": "f6c37a2e37736b48d151cbd90c70db11356ecdc5c03fb76404c84c4fcfb9904a"
@@ -348,6 +413,11 @@
       "sha256": "51a9ce0aac873e749404836662ffcf0a2de03dd5b2912e0085f3059bb8b9f1b6"
     },
     {
+      "path": "tests/test_harness.py",
+      "bytes": 7959,
+      "sha256": "47a647bf42a40a0f4b679746716e48b91df06fb59cd993887e4f234f749919bb"
+    },
+    {
       "path": "tests/test_protocol.py",
       "bytes": 624,
       "sha256": "ffbdc04cd81758171e81831eaea2dc96a7b57bdfe4b5c1814c64ccd189404905"
@@ -361,6 +431,11 @@
       "path": "tests/test_splits.py",
       "bytes": 3971,
       "sha256": "ea89f0aba367ea423913bac6b22ca8fd7d68bc86eaf578ec66f143fb5546495b"
+    },
+    {
+      "path": "tests/test_stattests_contract.py",
+      "bytes": 3141,
+      "sha256": "b30eda212f7545387c4db2fa89f054e58b3f54ba3771d12193553465518e0f8d"
     },
     {
       "path": "third_party_manifest.json",
