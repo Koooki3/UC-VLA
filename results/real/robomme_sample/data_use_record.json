@@ -1,0 +1,29 @@
+{
+ "archive_sha256_expected_and_verified": "b936e52b6f63dccadba998e83f3e480e5cb74130185c3b022826416469bf0565",
+ "date": "2026-11-11",
+ "downloaded_bytes": 964971180,
+ "extracted": {
+  "bytes": 21074856224,
+  "members_in_archive": 1,
+  "name": "record_dataset_StopCube.h5",
+  "sha256": "f8be65f89eda55f41e51a148576f8ada4898d1a463abe87fd73cd0d471e1cadd",
+  "symlinks": 0
+ },
+ "kind": "data_use_record",
+ "licence_checks": {
+  "code_LICENSE": "stock Apache-2.0 text; copyright line unfilled '[yyyy] [name of copyright owner]' (verified by direct fetch)",
+  "dataset_card": "license: apache-2.0 (verified by direct fetch of the card at the pinned revision)",
+  "gating": "none observed (HTTP 200 without login)",
+  "status": "stated permissive; residual ambiguity: unnamed copyright holder; operator clearance still 'unverified' in code"
+ },
+ "local_paths": "datasets/robomme_sample/{raw,extracted,metadata} (untracked)",
+ "operator_authorisation": "2026-11-11: limited approval, single RoboMME task sample <=1 GiB, schema/provenance checks only; no test data; not mixed into SODH v2",
+ "source": {
+  "file": "record_dataset_StopCube.h5.tar.xz",
+  "hf_repo": "Yinpei/robomme_data_h5",
+  "revision": "a5e4e25ffe8af34f64944f9533d06455ce5f8337",
+  "url": "https://huggingface.co/datasets/Yinpei/robomme_data_h5/resolve/a5e4e25ffe8af34f64944f9533d06455ce5f8337/record_dataset_StopCube.h5.tar.xz"
+ },
+ "split_provenance": "all 100 sample seeds are in the official TRAIN metadata and in neither VAL nor TEST (official env_metadata JSON, sha256 prefixes a25b595c/e4273c56/51939196)",
+ "usage": "schema/HDF5 importer validation only; not used for training or tuning; kept outside git (datasets/, gitignored); not mixed with any SODH data"
+}

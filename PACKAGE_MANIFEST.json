@@ -199,8 +199,8 @@
     },
     {
       "path": "docs/22_ROBOMME_SAMPLE.md",
-      "bytes": 14138,
-      "sha256": "e22f5cd6d1a912cb13591e3f5b5bb4a060028d7043f62f762f26764c46226bc4"
+      "bytes": 17786,
+      "sha256": "a742cc3c087deddfb36582995032313ba1d50630c863958f129fa623c190feb5"
     },
     {
       "path": "paper/outline.md",
@@ -216,6 +216,16 @@
       "path": "references.bib",
       "bytes": 2341,
       "sha256": "bce184935205b4c53040438618f221b0d7ccbfb23ce156eec2d94389b88ac2a2"
+    },
+    {
+      "path": "results/real/robomme_sample/data_use_record.json",
+      "bytes": 1729,
+      "sha256": "11b09586cdc1f071b77c4ba76391e2af4d374090a3553b1a835504f086fa7d60"
+    },
+    {
+      "path": "results/real/robomme_sample/schema_validation.json",
+      "bytes": 33623,
+      "sha256": "55fe2a2a90119102d66c0349a48e755cfec80e23d2f52086115c8466a52a685c"
     },
     {
       "path": "results/templates/manifest.example.json",
@@ -443,6 +453,11 @@
       "sha256": "718a370686a7d8f3045f973009a8b7494f7e09a72b273af03d6e417275ba8be8"
     },
     {
+      "path": "scripts/validate_robomme_sample.py",
+      "bytes": 5132,
+      "sha256": "364e2a751be06695d2c7a4aa597d38ce798554d9e938dadb509150fd4aa05436"
+    },
+    {
       "path": "src/ucvla/__init__.py",
       "bytes": 93,
       "sha256": "b8801d67a5dfba3fdc40043dbb1e3eff4109e45cd259326fc47b0a33a4cd077c"
@@ -511,6 +526,11 @@
       "path": "src/ucvla/harness.py",
       "bytes": 7455,
       "sha256": "49c65f49905cbe356bf35de2f5ec0d07bffa93922d678b249bb4969617402eba"
+    },
+    {
+      "path": "src/ucvla/hdf5_import.py",
+      "bytes": 8509,
+      "sha256": "98aaf867fceb336f7ea7d8dc7f05c03eb8f5145d6a5a8744dbb5aacc2c3c8cfe"
     },
     {
       "path": "src/ucvla/memory.py",
@@ -631,6 +651,11 @@
       "path": "tests/test_harness.py",
       "bytes": 7987,
       "sha256": "821e8ec007b1f8334466f01c0d4f62a6dbdfa74ca83194a406ace0a25ecb05ce"
+    },
+    {
+      "path": "tests/test_hdf5_import.py",
+      "bytes": 7109,
+      "sha256": "fb3bb36cdbf47f3d61aca3c1dca41168741679543c0b951ec64d6d76759c09f1"
     },
     {
       "path": "tests/test_protocol.py",
