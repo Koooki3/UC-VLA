@@ -1,9 +1,9 @@
 """Step 6: mutation test of the M1 test-suite + G0 (copies live in the scratchpad; repo untouched)."""
 import shutil, subprocess, sys, os
 from pathlib import Path
-R = Path("/tmp/claude-1000/-home-kooki3-UC-VLA/9124c0fa-b067-4e71-a68e-aa4a5bd30524/scratchpad/review")
+R = Path("<scratch>/review")
 BASE = R / "mut_base"
-PY = "/home/kooki3/UC-VLA/.venv/bin/python"
+PY = "$UCVLA_ROOT/.venv/bin/python"
 TESTS = ["tests/test_audit.py", "tests/test_sodh.py", "tests/test_splits.py", "tests/test_episode.py",
          "tests/test_dataset_io.py", "tests/test_alignment.py"]
 MUT = {

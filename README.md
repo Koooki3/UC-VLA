@@ -31,6 +31,12 @@
 | `docs/15_OPEN_DECISIONS.md` | 需要集群/机器人确认的可变假设 |
 | `docs/16_BENCHMARK_READINESS.md` | RoboMME 等 benchmark 许可/可用性矩阵（未经独立核验） |
 | `docs/17_POLICY_EVAL_CONTRACT.md` | M2 PolicyAdapter/访问边界/可复现评测契约 |
+| `docs/19_SODH_V2_SPEC.md` | SODH v2 预注册研究规格（实现前冻结） |
+| `docs/20_MODEL_LICENSE_REVIEW.md` | OpenPI/π0.5/Gemma 许可与来源审查（检查点保持 NO-GO；非法律意见） |
+| `docs/21_G0_POWER_REPORT.md` | G0 弱泄漏检测功效（含盲区） |
+| `docs/22_ROBOMME_SAMPLE.md` | RoboMME 单任务样本访问报告与 schema 验证 |
+| `docs/23_V1_V2_CONSTRUCT_VALIDITY.md` | v1/v2 构念效度差异、四项记忆指标、F7/B2b |
+| `docs/24_OPEN_SOURCE_READINESS.md` | 开源准备（未创建远程） |
 | `docs/18_M1_ADVERSARIAL_REVIEW.md` | M1 对抗性复审：发现、修复、v2 规格 |
 | `reviews/` | 复审的证伪脚本与原始输出 |
 | `agents/MASTER_IMPLEMENTATION_PROMPT.md` | 给 Codex/Claude Code 的直接执行 Prompt |
@@ -48,7 +54,8 @@ python3 -m pip install -e '.[dev]'
 python3 -m pytest -q
 python3 scripts/doctor.py
 python3 scripts/dry_run.py
-python3 scripts/generate_sodh.py && python3 scripts/audit_sodh.py   # M1: synthetic SODH + G0
+python3 scripts/generate_sodh.py && python3 scripts/audit_sodh.py   # M1: synthetic SODH v1 (frozen fixture) + G0
+python3 scripts/generate_sodh2.py && python3 scripts/run_v2_eval.py  # SODH v2 + four memory metrics (synthetic)
 ```
 
 `dry_run.py` tests only a *hand-written symbolic toy baseline*. It does **not** demonstrate learned intelligence, VLA integration, RL, or benchmark improvements. No remote jobs are submitted.

@@ -1,0 +1,27 @@
+# 24 | Open-source readiness (preparation only — no remote created, nothing pushed)
+
+Status 2026-11-11. The operator has NOT approved creating or configuring a remote. `git remote -v` is empty and must stay empty until approval.
+
+## 1. Inventory and licences
+`third_party_manifest.json` (machine-readable): no third-party code vendored; runtime dependency PyYAML (MIT); optional h5py/numpy (BSD-3, importer only); dev tools pytest/hypothesis/ruff. **External data:** one RoboMME StopCube training sample (apache-2.0 per card, copyright holder unnamed in LICENSE, operator clearance pending), kept untracked, never redistributed, usage recorded in `results/real/robomme_sample/data_use_record.json`. **Models:** none downloaded or loaded; pi0/pi0.5 and derivatives NO-GO (`docs/20`). Project's own licence: **undecided** (operator decision; a licence file is intentionally absent).
+
+## 2. Scans (`scripts/repo_scan.py --strict`, run in CI and smoke)
+Tracked files only: secrets (AWS/HF/GitHub/OpenAI-style tokens, private keys, key=value assignments) → **0**; absolute home/Users/WSL paths and personal identifiers → **0** after cleaning the archived review scripts (placeholders `$UCVLA_ROOT`/`<scratch>`); files > 2 MB → 0 (largest tracked: `sodh_v2/pairs.jsonl`, 1.4 MB). Limits: regex heuristics, no entropy scan, no history scan. **Known identifiers still present by design:** the git author identity of local commits (from the global git config) and the public repository name `Koooki3/LEVI` in `README.md`/`docs/13` (original scaffold text). Before any publication the operator must decide whether to keep the author identity, rewrite history or re-author, and whether to keep those references.
+
+## 3. Reproducible environment
+`pyproject.toml` (Python ≥3.11,<3.14; extras `dev`, `hdf5`) and `requirements.lock` (uv-compiled, Python 3.12, exact pins; **no hashes** — add `--generate-hashes` before a public release). CI installs the lock, then the package with `--no-deps`. Core contracts remain pure-Python; h5py/numpy are imported only by `ucvla.hdf5_import`. System Python 3.14 is unsupported (documented in README/doctor).
+
+## 4. Directory isolation
+`src/ tests/ configs/ scripts/ docs/` code and specs · `results/synthetic/` derived synthetic artefacts (light files tracked; large `episodes.jsonl` and `provenance.json` untracked, regenerated bit-identically and hash-pinned) · `results/real/` small validation records only (no data) · `datasets/` all downloaded data (gitignored) · `reviews/` archived falsification scripts/outputs · `runs/`, `artifacts/`, weights, archives, logs gitignored.
+
+## 5. Versioning and traceability rules
+- **Code:** every run record stores the real `git_commit`, `git_dirty` and a code-tree hash; a dirty tree is flagged non-attributable. Tags: `m1-synthetic-baseline`, `sodh-v2-frozen`, `m2-cpu-infra` (local).
+- **Data:** a dataset version is `config_sha256` + `split_manifest_id` + per-file sha256 in `FROZEN.json`; frozen data is write-once and guarded by tests; a change needs a new version id (`sodh_v3`), never an edit. Real data: pinned upstream revision + archive and extracted sha256 + seed-split provenance in the data-use record.
+- **Evaluations:** `run_id` is a content address of config, data hashes, agent specs, seed and result hashes; fresh-process reproducibility is tested; every test-split touch is appended to `evaluation_ledger.jsonl`.
+- **Checkpoints (future):** a run may load a checkpoint only if its sha256, upstream revision, licence text/version and the operator authorisation reference are in the run record (`policy_checkpoint_sha256` is already a required field of `validate_protocol.py`); none exist today.
+
+## 6. Proposed remote plan (NOT executed)
+Private-first repository; README with the status banner ("research scaffold; synthetic results only; no UC-VLA claim"); publish code, specs, frozen manifests and light results; do **not** publish `datasets/`, extracted data, weights, or the subagent-research docs (`16`, `20`, `22`) without legal review since they quote third-party licences second-hand; add the licence file chosen by the operator; protect `main`, require CI (`ruff`, `pytest`, smoke, scan); release tags only after the operator signs the checklist below.
+
+## 7. Release checklist (all must be ticked by a human)
+[ ] project licence chosen · [ ] author identity/history decision · [ ] LEVI reference decision · [ ] hashes added to the lock · [ ] licences of RoboMME data and any redistributed example verified against primary text · [ ] docs 16/20/22 reviewed or withheld · [ ] independent human review of the benchmark and audits (not yet done) · [ ] scan clean on the exact release tree.

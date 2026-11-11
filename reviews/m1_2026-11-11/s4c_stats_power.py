@@ -1,5 +1,5 @@
 import json
-d = json.load(open("/home/kooki3/UC-VLA/results/synthetic/sodh_v1/symbolic_baselines.json"))
+d = json.load(open("$UCVLA_ROOT/results/synthetic/sodh_v1/symbolic_baselines.json"))
 rows = d["paired_uniform_vs_window"]
 from collections import Counter
 c = Counter(); tot = Counter()

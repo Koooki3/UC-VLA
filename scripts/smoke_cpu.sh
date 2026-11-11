@@ -10,6 +10,8 @@ export PYTHONPATH="$PWD/src${PYTHONPATH:+:$PYTHONPATH}"
 "$PY" scripts/doctor.py
 "$PY" scripts/generate_sodh.py
 "$PY" scripts/audit_sodh.py
+"$PY" scripts/generate_sodh2.py
+"$PY" scripts/repo_scan.py --strict
 "$PY" scripts/package_manifest.py --check
 "$PY" -m compileall -q src scripts tests
 bash -n scripts/cluster_preflight.sh configs/cluster/slurm_train.sbatch

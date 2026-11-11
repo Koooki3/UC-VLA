@@ -9,8 +9,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
-      - run: python -m pip install -e '.[dev]'
-      - run: python -m pytest -q
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.lock && python -m pip install -e . --no-deps
       - run: python -m ruff check src tests scripts
-      - run: python scripts/dry_run.py
+      - run: python -m pytest -q          # real-data tests skip when datasets/ is absent
+      - run: python scripts/generate_sodh.py && python scripts/audit_sodh.py
+      - run: python scripts/generate_sodh2.py
+      - run: python scripts/package_manifest.py --check
+      - run: python scripts/repo_scan.py --strict

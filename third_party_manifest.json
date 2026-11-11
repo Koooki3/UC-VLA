@@ -1,12 +1,63 @@
 {
-  "mode": "m1_cpu_only",
+  "mode": "m2_cpu_only",
   "vendored_third_party_code": [],
-  "runtime_dependencies": [{"name": "pyyaml", "license": "MIT", "use": "config loading only"}],
-  "dev_dependencies": [
-    {"name": "pytest", "license": "MIT"},
-    {"name": "hypothesis", "license": "MPL-2.0"},
-    {"name": "ruff", "license": "MIT"}
+  "runtime_dependencies": [
+    {
+      "name": "pyyaml",
+      "license": "MIT",
+      "use": "config loading only"
+    }
   ],
-  "referenced_not_integrated": ["Physical-Intelligence/openpi", "RoboMME/robomme_benchmark", "D&R", "Mem4Act", "Koooki3/LEVI"],
-  "note": "No third-party source copied, no checkpoints or datasets downloaded. Pin exact commits and review licenses before any integration (docs/01, docs/13)."
+  "dev_dependencies": [
+    {
+      "name": "pytest",
+      "license": "MIT"
+    },
+    {
+      "name": "hypothesis",
+      "license": "MPL-2.0"
+    },
+    {
+      "name": "ruff",
+      "license": "MIT"
+    }
+  ],
+  "referenced_not_integrated": [
+    "Physical-Intelligence/openpi (code Apache-2.0; checkpoint terms ambiguous, docs/20)",
+    "RoboMME/robomme_benchmark (code only read via public docs)",
+    "D&R",
+    "Mem4Act",
+    "Koooki3/LEVI (adaptation deferred by operator)"
+  ],
+  "note": "No third-party source copied or vendored; no checkpoints downloaded. Re-verify every licence against primary sources before redistribution (docs/16, docs/20, docs/22). Not legal advice.",
+  "optional_dependencies": {
+    "hdf5": [
+      {
+        "name": "h5py",
+        "license": "BSD-3-Clause",
+        "use": "RoboMME HDF5 importer only"
+      },
+      {
+        "name": "numpy",
+        "license": "BSD-3-Clause",
+        "use": "importer pixel hashing only"
+      }
+    ]
+  },
+  "external_data_used": [
+    {
+      "name": "RoboMME StopCube training sample",
+      "source": "https://huggingface.co/datasets/Yinpei/robomme_data_h5",
+      "revision": "a5e4e25ffe8af34f64944f9533d06455ce5f8337",
+      "licence": "apache-2.0 per dataset card; LICENSE file has unfilled copyright holder (operator clearance pending)",
+      "redistributed": false,
+      "location": "datasets/robomme_sample (untracked)",
+      "use": "schema/importer validation only; never mixed with SODH; record: results/real/robomme_sample/data_use_record.json"
+    }
+  ],
+  "models_and_checkpoints": {
+    "downloaded": [],
+    "loaded": [],
+    "status": "NO-GO for pi0/pi0.5 and derivatives (docs/20); no weights fetched"
+  }
 }
