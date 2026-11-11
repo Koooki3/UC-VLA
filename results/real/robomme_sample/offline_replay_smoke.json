@@ -1,0 +1,20 @@
+{
+ "mode": "real_data_offline_replay_smoke",
+ "task": "StopCube",
+ "episodes": "episode_0..4 of the official train sample",
+ "warning": "CPU fake policies; interface/leakage plumbing check only; NOT a VLA evaluation; MSE in raw joint units + gripper",
+ "results": {
+  "zero_order_hold": {
+   "episodes": 5,
+   "steps": 1552,
+   "mse": 0.0016590274219026437,
+   "rmse": 0.040731160330914264
+  },
+  "proprio_copy": {
+   "episodes": 5,
+   "steps": 1552,
+   "mse": 0.0017264666221515318,
+   "rmse": 0.04155077161920741
+  }
+ }
+}

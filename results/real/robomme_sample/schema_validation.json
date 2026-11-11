@@ -8,7 +8,8 @@
   "obs/*_camera_extrinsic, setup/*_camera_intrinsic": "calibration not represented in EpisodeRecord",
   "obs/*_rgb, obs/*_depth": "pixels/depth not stored; only sha256 + HDF5 ref (re-read on demand)",
   "obs/eef_state_raw/*, obs/is_gripper_close": "redundant with eef_state/gripper_state; dropped",
-  "setup/available_multi_choices, setup/task_goal": "privileged state strings (not policy input)",
+  "setup/available_multi_choices": "privileged state string (not policy input)",
+  "setup/task_goal": "instruction is an OBSERVED t=0 event; which paraphrase is used is unverified",
   "timestamps": "absent in file; derived from assumed_hz (provenance timestamps_origin=derived)"
  },
  "mode": "real_data_schema_check",
@@ -16,7 +17,7 @@
   {
    "episode": "episode_0",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 459,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -28,7 +29,7 @@
   {
    "episode": "episode_1",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 41,
+   "n_events": 42,
    "n_timesteps": 186,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -40,7 +41,7 @@
   {
    "episode": "episode_2",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 243,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -52,7 +53,7 @@
   {
    "episode": "episode_3",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 453,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -64,7 +65,7 @@
   {
    "episode": "episode_4",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 211,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -76,7 +77,7 @@
   {
    "episode": "episode_5",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 131,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -88,7 +89,7 @@
   {
    "episode": "episode_6",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 247,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -100,7 +101,7 @@
   {
    "episode": "episode_7",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 50,
+   "n_events": 51,
    "n_timesteps": 406,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -112,7 +113,7 @@
   {
    "episode": "episode_8",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 46,
+   "n_events": 47,
    "n_timesteps": 574,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -124,7 +125,7 @@
   {
    "episode": "episode_9",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 39,
+   "n_events": 40,
    "n_timesteps": 212,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -136,7 +137,7 @@
   {
    "episode": "episode_10",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 39,
+   "n_events": 40,
    "n_timesteps": 234,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -148,7 +149,7 @@
   {
    "episode": "episode_11",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 331,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -160,7 +161,7 @@
   {
    "episode": "episode_12",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 43,
+   "n_events": 44,
    "n_timesteps": 320,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -172,7 +173,7 @@
   {
    "episode": "episode_13",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 47,
+   "n_events": 48,
    "n_timesteps": 579,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -184,7 +185,7 @@
   {
    "episode": "episode_14",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 215,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -196,7 +197,7 @@
   {
    "episode": "episode_15",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 48,
+   "n_events": 49,
    "n_timesteps": 227,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -208,7 +209,7 @@
   {
    "episode": "episode_16",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 233,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -220,7 +221,7 @@
   {
    "episode": "episode_17",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 41,
+   "n_events": 42,
    "n_timesteps": 393,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -232,7 +233,7 @@
   {
    "episode": "episode_18",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 47,
+   "n_events": 48,
    "n_timesteps": 582,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -244,7 +245,7 @@
   {
    "episode": "episode_19",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 398,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -256,7 +257,7 @@
   {
    "episode": "episode_20",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 241,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -268,7 +269,7 @@
   {
    "episode": "episode_21",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 46,
+   "n_events": 47,
    "n_timesteps": 398,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -280,7 +281,7 @@
   {
    "episode": "episode_22",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 41,
+   "n_events": 42,
    "n_timesteps": 214,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -292,7 +293,7 @@
   {
    "episode": "episode_23",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 311,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -304,7 +305,7 @@
   {
    "episode": "episode_24",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 393,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -316,7 +317,7 @@
   {
    "episode": "episode_25",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 339,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -328,7 +329,7 @@
   {
    "episode": "episode_26",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 37,
+   "n_events": 38,
    "n_timesteps": 121,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -340,7 +341,7 @@
   {
    "episode": "episode_27",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 37,
+   "n_events": 38,
    "n_timesteps": 242,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -352,7 +353,7 @@
   {
    "episode": "episode_28",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 51,
+   "n_events": 52,
    "n_timesteps": 581,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -364,7 +365,7 @@
   {
    "episode": "episode_29",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 311,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -376,7 +377,7 @@
   {
    "episode": "episode_30",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 332,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -388,7 +389,7 @@
   {
    "episode": "episode_31",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 309,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -400,7 +401,7 @@
   {
    "episode": "episode_32",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 50,
+   "n_events": 51,
    "n_timesteps": 315,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -412,7 +413,7 @@
   {
    "episode": "episode_33",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 314,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -424,7 +425,7 @@
   {
    "episode": "episode_34",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 46,
+   "n_events": 47,
    "n_timesteps": 401,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -436,7 +437,7 @@
   {
    "episode": "episode_35",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 43,
+   "n_events": 44,
    "n_timesteps": 191,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -448,7 +449,7 @@
   {
    "episode": "episode_36",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 48,
+   "n_events": 49,
    "n_timesteps": 323,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -460,7 +461,7 @@
   {
    "episode": "episode_37",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 39,
+   "n_events": 40,
    "n_timesteps": 301,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -472,7 +473,7 @@
   {
    "episode": "episode_38",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 41,
+   "n_events": 42,
    "n_timesteps": 129,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -484,7 +485,7 @@
   {
    "episode": "episode_39",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 338,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -496,7 +497,7 @@
   {
    "episode": "episode_40",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 336,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -508,7 +509,7 @@
   {
    "episode": "episode_41",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 43,
+   "n_events": 44,
    "n_timesteps": 455,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -520,7 +521,7 @@
   {
    "episode": "episode_42",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 46,
+   "n_events": 47,
    "n_timesteps": 576,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -532,7 +533,7 @@
   {
    "episode": "episode_43",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 456,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -544,7 +545,7 @@
   {
    "episode": "episode_44",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 43,
+   "n_events": 44,
    "n_timesteps": 395,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -556,7 +557,7 @@
   {
    "episode": "episode_45",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 336,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -568,7 +569,7 @@
   {
    "episode": "episode_46",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 217,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -580,7 +581,7 @@
   {
    "episode": "episode_47",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 130,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -592,7 +593,7 @@
   {
    "episode": "episode_48",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 337,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -604,7 +605,7 @@
   {
    "episode": "episode_49",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 41,
+   "n_events": 42,
    "n_timesteps": 237,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -616,7 +617,7 @@
   {
    "episode": "episode_50",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 46,
+   "n_events": 47,
    "n_timesteps": 578,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -628,7 +629,7 @@
   {
    "episode": "episode_51",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 158,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -640,7 +641,7 @@
   {
    "episode": "episode_52",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 47,
+   "n_events": 48,
    "n_timesteps": 221,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -652,7 +653,7 @@
   {
    "episode": "episode_53",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 43,
+   "n_events": 44,
    "n_timesteps": 457,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -664,7 +665,7 @@
   {
    "episode": "episode_54",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 47,
+   "n_events": 48,
    "n_timesteps": 134,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -676,7 +677,7 @@
   {
    "episode": "episode_55",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 122,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -688,7 +689,7 @@
   {
    "episode": "episode_56",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 132,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -700,7 +701,7 @@
   {
    "episode": "episode_57",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 50,
+   "n_events": 51,
    "n_timesteps": 581,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -712,7 +713,7 @@
   {
    "episode": "episode_58",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 402,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -724,7 +725,7 @@
   {
    "episode": "episode_59",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 235,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -736,7 +737,7 @@
   {
    "episode": "episode_60",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 160,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -748,7 +749,7 @@
   {
    "episode": "episode_61",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 37,
+   "n_events": 38,
    "n_timesteps": 155,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -760,7 +761,7 @@
   {
    "episode": "episode_62",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 46,
+   "n_events": 47,
    "n_timesteps": 577,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -772,7 +773,7 @@
   {
    "episode": "episode_63",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 46,
+   "n_events": 47,
    "n_timesteps": 310,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -784,7 +785,7 @@
   {
    "episode": "episode_64",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 451,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -796,7 +797,7 @@
   {
    "episode": "episode_65",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 236,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -808,7 +809,7 @@
   {
    "episode": "episode_66",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 218,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -820,7 +821,7 @@
   {
    "episode": "episode_67",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 318,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -832,7 +833,7 @@
   {
    "episode": "episode_68",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 37,
+   "n_events": 38,
    "n_timesteps": 310,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -844,7 +845,7 @@
   {
    "episode": "episode_69",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 39,
+   "n_events": 40,
    "n_timesteps": 301,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -856,7 +857,7 @@
   {
    "episode": "episode_70",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 49,
+   "n_events": 50,
    "n_timesteps": 578,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -868,7 +869,7 @@
   {
    "episode": "episode_71",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 459,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -880,7 +881,7 @@
   {
    "episode": "episode_72",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 302,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -892,7 +893,7 @@
   {
    "episode": "episode_73",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 49,
+   "n_events": 50,
    "n_timesteps": 325,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -904,7 +905,7 @@
   {
    "episode": "episode_74",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 237,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -916,7 +917,7 @@
   {
    "episode": "episode_75",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 217,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -928,7 +929,7 @@
   {
    "episode": "episode_76",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 455,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -940,7 +941,7 @@
   {
    "episode": "episode_77",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 47,
+   "n_events": 48,
    "n_timesteps": 580,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -952,7 +953,7 @@
   {
    "episode": "episode_78",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 305,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -964,7 +965,7 @@
   {
    "episode": "episode_79",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 50,
+   "n_events": 51,
    "n_timesteps": 407,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -976,7 +977,7 @@
   {
    "episode": "episode_80",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 395,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -988,7 +989,7 @@
   {
    "episode": "episode_81",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 49,
+   "n_events": 50,
    "n_timesteps": 136,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1000,7 +1001,7 @@
   {
    "episode": "episode_82",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 460,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1012,7 +1013,7 @@
   {
    "episode": "episode_83",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 43,
+   "n_events": 44,
    "n_timesteps": 241,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1024,7 +1025,7 @@
   {
    "episode": "episode_84",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 399,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1036,7 +1037,7 @@
   {
    "episode": "episode_85",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 43,
+   "n_events": 44,
    "n_timesteps": 454,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1048,7 +1049,7 @@
   {
    "episode": "episode_86",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 44,
+   "n_events": 45,
    "n_timesteps": 249,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1060,7 +1061,7 @@
   {
    "episode": "episode_87",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 237,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1072,7 +1073,7 @@
   {
    "episode": "episode_88",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 52,
+   "n_events": 53,
    "n_timesteps": 469,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1084,7 +1085,7 @@
   {
    "episode": "episode_89",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 312,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1096,7 +1097,7 @@
   {
    "episode": "episode_90",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 315,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1108,7 +1109,7 @@
   {
    "episode": "episode_91",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 126,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1120,7 +1121,7 @@
   {
    "episode": "episode_92",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 157,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1132,7 +1133,7 @@
   {
    "episode": "episode_93",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 40,
+   "n_events": 41,
    "n_timesteps": 127,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1144,7 +1145,7 @@
   {
    "episode": "episode_94",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 41,
+   "n_events": 42,
    "n_timesteps": 333,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1156,7 +1157,7 @@
   {
    "episode": "episode_95",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 42,
+   "n_events": 43,
    "n_timesteps": 336,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1168,7 +1169,7 @@
   {
    "episode": "episode_96",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 181,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1180,7 +1181,7 @@
   {
    "episode": "episode_97",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 45,
+   "n_events": 46,
    "n_timesteps": 221,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1192,7 +1193,7 @@
   {
    "episode": "episode_98",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 37,
+   "n_events": 38,
    "n_timesteps": 121,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,
@@ -1204,7 +1205,7 @@
   {
    "episode": "episode_99",
    "mapped_fields_exact_and_pixel_hashes": true,
-   "n_events": 38,
+   "n_events": 39,
    "n_timesteps": 211,
    "no_annotation_or_oracle_in_views": true,
    "no_current_action_in_view": true,

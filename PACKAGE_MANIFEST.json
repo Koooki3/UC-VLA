@@ -223,9 +223,14 @@
       "sha256": "11b09586cdc1f071b77c4ba76391e2af4d374090a3553b1a835504f086fa7d60"
     },
     {
+      "path": "results/real/robomme_sample/offline_replay_smoke.json",
+      "bytes": 523,
+      "sha256": "8409cfa2333ef26f33d30f7548722f0352beb98e1a4e0415508774af1ca69cba"
+    },
+    {
       "path": "results/real/robomme_sample/schema_validation.json",
-      "bytes": 33623,
-      "sha256": "55fe2a2a90119102d66c0349a48e755cfec80e23d2f52086115c8466a52a685c"
+      "bytes": 33706,
+      "sha256": "06843a12a3685f5719d57cad7b648252b5aa8ac08c1e281de936b13ec905a1c0"
     },
     {
       "path": "results/templates/manifest.example.json",
@@ -454,8 +459,8 @@
     },
     {
       "path": "scripts/validate_robomme_sample.py",
-      "bytes": 5132,
-      "sha256": "364e2a751be06695d2c7a4aa597d38ce798554d9e938dadb509150fd4aa05436"
+      "bytes": 5163,
+      "sha256": "d3a307e7e1a1ec3489fbb37e0aa40b630f4a987860d352566678343a5c6f85d8"
     },
     {
       "path": "src/ucvla/__init__.py",
@@ -504,8 +509,8 @@
     },
     {
       "path": "src/ucvla/context.py",
-      "bytes": 4788,
-      "sha256": "9c58d6273652311d629533a375c4e3028e8ef4333da7732c577e5bcf23621602"
+      "bytes": 4899,
+      "sha256": "0a4d818000273942817c5ec6fa2fa04effdfe09db0ac66662a0adf677028a957"
     },
     {
       "path": "src/ucvla/contracts.py",
@@ -524,18 +529,23 @@
     },
     {
       "path": "src/ucvla/harness.py",
-      "bytes": 7455,
-      "sha256": "49c65f49905cbe356bf35de2f5ec0d07bffa93922d678b249bb4969617402eba"
+      "bytes": 7542,
+      "sha256": "2fc12f8daf3d012148ad087d5292e22253f9bb4d4af723217d15aa66e2b82283"
     },
     {
       "path": "src/ucvla/hdf5_import.py",
-      "bytes": 8509,
-      "sha256": "98aaf867fceb336f7ea7d8dc7f05c03eb8f5145d6a5a8744dbb5aacc2c3c8cfe"
+      "bytes": 8944,
+      "sha256": "ee3ba89e3cff8954a8c0622419ba27b2c7114756c88be07ce0d42add9ffe8953"
     },
     {
       "path": "src/ucvla/memory.py",
       "bytes": 4265,
       "sha256": "be75be3186c3aa8f0737b9b90e98e37995ec9b7779bbfa40f578b7113a42bdcb"
+    },
+    {
+      "path": "src/ucvla/offline_replay.py",
+      "bytes": 4057,
+      "sha256": "b3a3919b97a41ec5fd9e630028f8cb7ec79353b5b3fed305388841f8b97e4fe2"
     },
     {
       "path": "src/ucvla/oracle2.py",
@@ -654,8 +664,13 @@
     },
     {
       "path": "tests/test_hdf5_import.py",
-      "bytes": 7109,
-      "sha256": "fb3bb36cdbf47f3d61aca3c1dca41168741679543c0b951ec64d6d76759c09f1"
+      "bytes": 7299,
+      "sha256": "ea72469ecbf95444693f2f6640d4e715020edbf2e6da5980fb335ec4940d8a53"
+    },
+    {
+      "path": "tests/test_offline_replay.py",
+      "bytes": 3088,
+      "sha256": "eb3b81c24992cc24eebb9fc476cd218482751b1829020625ab9a3df1509d025d"
     },
     {
       "path": "tests/test_protocol.py",

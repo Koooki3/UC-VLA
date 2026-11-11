@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from itertools import pairwise
 from typing import Protocol
 
-from ucvla.episode import ViewTick
+from ucvla.episode import CommandedAction, ViewTick
 
 
 class AccessViolation(ValueError):
@@ -46,6 +46,7 @@ class Context:
     ticks: tuple[ViewTick, ...]  # raw past observations, strictly before the current tick
     cutoff_ns: int
     kind: str = "raw_ticks"
+    commanded: tuple[CommandedAction, ...] = ()  # past commands the harness chose to include
 
 
 class ContextProvider(Protocol):

@@ -69,7 +69,8 @@ def make_input(view: CausalView, provider: ContextProvider, max_cost: ContextBud
     raw = view.history if history is None else history
     ctx = build_context(provider, raw, view.current.time_ns, max_cost)
     inp = PolicyInput(
-        observation=PolicyObservation(view.current.time_ns, view.current.cameras, view.proprio),
+        observation=PolicyObservation(view.current.time_ns, view.current.cameras,
+                                      view.proprio[-1:]),  # current sample only: history is budgeted
         task=TaskSpec(q.task, q.instruction, q.options, dict(q.params)),
         context=ctx,
     )

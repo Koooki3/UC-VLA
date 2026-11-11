@@ -81,7 +81,7 @@ def main() -> None:
             ok["no_current_action_in_view"] = all(
                 len(ep.causal_view(ticks[i]).commanded) == i for i in (0, 1, len(ticks) // 2, len(ticks) - 1))
             ok["no_annotation_or_oracle_in_views"] = all(
-                v.events == () for v in (ep.causal_view(t) for t in ticks[:: max(1, len(ticks) // 8)]))
+                [e.kind for e in v.events] == ["instruction"] for v in (ep.causal_view(t) for t in ticks[:: max(1, len(ticks) // 8)]))
             seed = int(ep.provenance["seed"])
             ok["seed_in_official_train"] = seed in meta["train"]
             ok["seed_not_in_val_or_test"] = seed not in meta["val"] | meta["test"]

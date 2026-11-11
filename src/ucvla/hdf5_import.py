@@ -50,10 +50,11 @@ LOSSY_FIELDS: dict[str, str] = {
     "timestamps": "absent in file; derived from assumed_hz (provenance timestamps_origin=derived)",
     "executed actions": "absent in file (commands only); executed_origin=absent",
     "info/is_video_demo": "mapped to annotation events only when true",
-    "setup/available_multi_choices, setup/task_goal": "privileged state strings (not policy input)",
+    "setup/available_multi_choices": "privileged state string (not policy input)",
+    "setup/task_goal": "instruction is an OBSERVED t=0 event; which paraphrase is used is unverified",
 }
 PRIVILEGED_FIELDS = (
-    "simple_subgoal_online", "grounded_subgoal_online", "seed", "difficulty", "task_goal",
+    "simple_subgoal_online", "grounded_subgoal_online", "seed", "difficulty",
     "available_multi_choices", "simple_subgoal", "grounded_subgoal", "is_subgoal_boundary",
     "is_completed", "is_video_demo", "waypoint_action", "choice_action")
 CAMERAS = {"front": "cam_front", "wrist": "cam_wrist"}
@@ -120,9 +121,14 @@ def import_episode(f: h5py.File, key: str, cfg: HDF5ImportConfig) -> EpisodeReco
             oracle.append([str(i), *online])
             last_online = online
     setup = ep["setup"]
+    goals = [_s(x) for x in setup["task_goal"][()]]
+    # the language instruction is a legitimate policy input: an OBSERVED event at t=0. Which of the
+    # paraphrases a policy receives is undocumented (UNVERIFIED), so both are carried.
+    events.insert(0, Event.make(f"{eid}-instr", 0, "instruction",
+                                {"text": goals[0], "alt": goals[-1]}, SourceType.OBSERVED))
     seed = int(setup["seed"][()])
     priv = {"seed": str(seed), "difficulty": _s(setup["difficulty"][()]),
-            "task_goal": json.dumps([_s(x) for x in setup["task_goal"][()]]),
+            "task_goal": json.dumps(goals),
             "available_multi_choices": _s(setup["available_multi_choices"][()]),
             "oracle_subgoal_online": json.dumps(oracle)}
     prov = {

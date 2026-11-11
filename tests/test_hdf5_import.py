@@ -98,12 +98,14 @@ def test_a_policy_never_sees_the_action_it_must_predict(h5_path):
 def test_oracle_fields_and_annotations_never_reach_a_view(h5_path):
     with h5py.File(h5_path, "r") as f:
         ep = import_episode(f, "episode_0", CFG)
-        assert {e.source_type for e in ep.events} == {SourceType.ANNOTATION}
+        kinds = {e.source_type for e in ep.events}
+        assert kinds == {SourceType.ANNOTATION, SourceType.OBSERVED}
+        assert [e.kind for e in ep.events if e.source_type == SourceType.OBSERVED] == ["instruction"]
         assert "oracle_subgoal_online" in ep.privileged.state and "seed" in ep.privileged.state
         for view in ep.replay():
-            assert view.events == ()
+            assert [e.kind for e in view.events] == ["instruction"]  # the goal text, nothing else
             blob = canonical_json([view.ticks, view.proprio, view.commanded])
-            for secret in ("online-", "g-online", "easy", "stop the cube"):
+            for secret in ("online-", "g-online", "easy"):
                 assert secret not in blob
             for fr in view.ticks:
                 for cam in fr.cameras.values():
