@@ -52,7 +52,8 @@ def write_dataset(out_dir: Path, episodes: Sequence[EpisodeRecord], pairs: Seque
     return manifest
 
 
-def read_dataset(in_dir: Path) -> tuple[list[EpisodeRecord], list[PairRecord], dict[str, str]]:
+def read_dataset(in_dir: Path, pair_cls: type[PairRecord] = PairRecord
+                 ) -> tuple[list[EpisodeRecord], list[PairRecord], dict[str, str]]:
     """Read and verify: file hashes against manifest.json, and every episode's own hashes."""
     import json
 
@@ -62,7 +63,7 @@ def read_dataset(in_dir: Path) -> tuple[list[EpisodeRecord], list[PairRecord], d
             raise ValueError(f"{name}: hash mismatch (artifact modified)")
     episodes = [EpisodeRecord.from_dict(json.loads(line))
                 for line in (in_dir / "episodes.jsonl").read_text(encoding="ascii").splitlines()]
-    pairs = [PairRecord(**json.loads(line))
+    pairs = [pair_cls(**json.loads(line))
              for line in (in_dir / "pairs.jsonl").read_text(encoding="ascii").splitlines()]
     assignment = json.loads((in_dir / "assignment.json").read_text(encoding="ascii"))
     return episodes, pairs, assignment

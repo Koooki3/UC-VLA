@@ -1,0 +1,42 @@
+# SODH v2 generator protocol (spec: docs/19). mode: synthetic. FROZEN once FROZEN.json exists
+# for results/synthetic/sodh_v2; any change requires a new version id, never an edit.
+master_seed: 20261112
+generator_version: sodh/2
+n_identity_mappings: 8
+heldout_mappings: [7]          # disjoint-atom vocabulary, only resume items carry names
+split_fractions: [0.50, 0.15, 0.35]   # train / val / test_id (in_dist pairs, per family x position)
+noise_levels: [0.0, 0.1]       # track sensor error epsilon, crossed with evidence position
+margin_gate: 0.30              # oracle best-second posterior gap required for both mates
+families:
+  track:
+    n_id: [3, 5]
+    horizon_id: [8, 16]
+    horizon_ood_length: [24, 32]
+    pairs_in_dist: 360
+    pairs_ood_length: 60
+    pairs_ood_structure: 60
+    pairs_heldout: 0
+  events:
+    n_id: [2, 2]
+    horizon_id: [10, 18]
+    horizon_ood_length: [26, 36]
+    pairs_in_dist: 360
+    pairs_ood_length: 60
+    pairs_ood_structure: 60
+    pairs_heldout: 0
+  resume:
+    n_id: [3, 5]
+    horizon_id: [14, 22]
+    horizon_ood_length: [30, 40]
+    pairs_in_dist: 360
+    pairs_ood_length: 60
+    pairs_ood_structure: 60
+    pairs_heldout: 60
+  control:
+    n_id: [2, 2]
+    horizon_id: [8, 16]
+    horizon_ood_length: [24, 32]
+    pairs_in_dist: 120
+    pairs_ood_length: 20
+    pairs_ood_structure: 20
+    pairs_heldout: 0

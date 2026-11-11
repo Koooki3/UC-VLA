@@ -8,7 +8,7 @@ from hashlib import sha256
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIP_DIRS = {".venv", "__pycache__", ".pytest_cache", ".ruff_cache", ".hypothesis", ".git"}
+SKIP_DIRS = {"datasets", ".venv", "__pycache__", ".pytest_cache", ".ruff_cache", ".hypothesis", ".git"}
 SKIP_FILES = {"PACKAGE_MANIFEST.json"}
 SKIP_PREFIX = ("results/synthetic/",)  # generated data has its own hash-verified manifest
 

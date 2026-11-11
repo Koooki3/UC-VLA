@@ -57,6 +57,7 @@ class EpisodeResult:
     tokens_retained: int
     commanded: CommandedAction
     executed: ExecutedAction  # simulated execution: measured == commanded, mode synthetic
+    env_success: bool = False  # judged from the TRUE hidden state (v2), evaluator-side only
 
 
 def make_input(view: CausalView, provider: ContextProvider, max_cost: ContextBudget | None,
@@ -100,7 +101,8 @@ def run_episode(ep: EpisodeRecord, pair: PairRecord, agent: Agent, run_seed: int
     exe = ExecutedAction(cmd.command_id, q.time_ns + TICK_NS, decision, True)
     return EpisodeResult(ep.episode_id, pair.pair_id, str(ep.provenance["pair_role"]),
                          pair.family, pair.regime, pair.horizon, pair.history_relevant,
-                         decision, target, decision == target, n_ticks, n_tok, cmd, exe)
+                         decision, target, decision == target, n_ticks, n_tok, cmd, exe,
+                         decision in str(ep.privileged.state.get("success_actions", "")).split("|"))
 
 
 def evaluate(adapter: SODHAdapter, agent: Agent, split: str, run_seed: int,

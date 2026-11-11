@@ -144,7 +144,8 @@ def _probe_tokens(ep: EpisodeRecord) -> dict[str, str]:
     return toks
 
 
-def token_label_probe(adapter: SODHAdapter) -> list[Finding]:
+def token_label_probe(adapter: SODHAdapter,
+                      relevant: Sequence[str] = RELEVANT_FAMILIES) -> list[Finding]:
     """Generic single-token shortcut probe over EVERY channel, not a hand-picked feature list.
 
     For each (family, token type): lookup value -> majority train label, evaluated on all
@@ -152,7 +153,7 @@ def token_label_probe(adapter: SODHAdapter) -> list[Finding]:
     Low power on weak leaks (see docs/18); it complements, not replaces, the structural checks.
     """
     out = []
-    for family in sorted({p.family for p in adapter.pairs("train")} & set(RELEVANT_FAMILIES)):
+    for family in sorted({p.family for p in adapter.pairs("train")} & set(relevant)):
         # controls (history-irrelevant by design) are meant to be solvable from the observation
         train = [adapter.episode(e) for p in adapter.pairs("train") if p.family == family
                  for e in (p.episode_a, p.episode_b)]
@@ -288,7 +289,8 @@ def metadata_lookup_audit(adapter: SODHAdapter, margin: float = LEAK_MARGIN) -> 
             continue
         lab = lambda e: e.target_for(e.queries[0].query_id)
         prior = Counter(lab(e) for e in train).most_common(1)[0][0]
-        base = sum(lab(e) == prior for e in test) / len(test)
+        chance = sum(1 / len(e.queries[0].options) for e in test) / len(test)
+        base = max(sum(lab(e) == prior for e in test) / len(test), chance)
         for name, fn in LOOKUP.items():
             tab: dict[str, Counter[str]] = defaultdict(Counter)
             for e in train:

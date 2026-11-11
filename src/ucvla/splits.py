@@ -18,7 +18,8 @@ from ucvla.canonical import canonical_json, digest
 from ucvla.episode import EpisodeRecord
 from ucvla.sodh import PairRecord, SODHConfig
 
-SPLITS = ("train", "val", "test_id", "test_ood", "test_counterfactual")
+V1_SPLITS = ("train", "val", "test_id", "test_ood", "test_counterfactual")
+SPLITS = (*V1_SPLITS, "test_ood_length", "test_ood_structure")  # v2 adds the last two
 IN_DIST_SPLITS = ("train", "val", "test_id")
 BALANCE_MARGIN = 0.20
 
@@ -104,8 +105,8 @@ def _ood_findings(pairs: Sequence[PairRecord], assignment: Mapping[str, str]) ->
     for family in sorted({p.family for p in pairs}):
         ind = [p.horizon for p in pairs
                if p.family == family and assignment.get(p.pair_id) in IN_DIST_SPLITS]
-        ood = [p.horizon for p in pairs
-               if p.family == family and assignment.get(p.pair_id) == "test_ood"]
+        ood = [p.horizon for p in pairs if p.family == family
+               and assignment.get(p.pair_id) in ("test_ood", "test_ood_length")]
         if ind and ood and min(ood) <= max(ind):
             out.append(Finding("error", "ood_not_longer",
                                f"{family}: ood min {min(ood)} <= in-dist max {max(ind)}"))
@@ -133,7 +134,8 @@ def build_split_manifest(config: SODHConfig, pairs: Sequence[PairRecord],
                          episodes: Sequence[EpisodeRecord],
                          assignment: Mapping[str, str]) -> dict[str, Any]:
     by_id = {e.episode_id: e for e in episodes}
-    members = {s: sorted(p for p, v in assignment.items() if v == s) for s in SPLITS}
+    present = tuple(s for s in SPLITS if s in set(assignment.values()))
+    members = {s: sorted(p for p, v in assignment.items() if v == s) for s in present}
     pair_by_id = {p.pair_id: p for p in pairs}
     ep_hashes = {
         s: sorted(by_id[e].episode_sha256()
@@ -149,7 +151,7 @@ def build_split_manifest(config: SODHConfig, pairs: Sequence[PairRecord],
         "split_fractions": list(config.split_fractions),
         "pairs": members,
         "episode_sha256": ep_hashes,
-        "counts": {s: {"pairs": len(members[s]), "episodes": 2 * len(members[s])} for s in SPLITS},
+        "counts": {s: {"pairs": len(members[s]), "episodes": 2 * len(members[s])} for s in present},
     }
     return {"split_manifest_id": "sodh-split-" + digest(body)[:12], **body}
 

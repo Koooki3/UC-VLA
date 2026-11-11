@@ -1,0 +1,26 @@
+{
+  "config_file": "configs/sodh/sodh_v2.yaml",
+  "config_file_sha256": "5a18027fbac6f91158e1c01f456281c8808234b5dcaa804d4f7a88719ea4e9e7",
+  "config_sha256": "7d605b6c562261a52bf5fa718c3af14bb6c9658fa4eb068b570963004f9111d9",
+  "counts": {
+    "episodes": 3320,
+    "pairs": 1660
+  },
+  "data_files_sha256": {
+    "assignment.json": "fe6554ce11e56f3ffc93f1548f930574d57722966c8ef5dcb21e6f5917635fef",
+    "episodes.jsonl": "558735636a7ca1800e71cea7e7f49e64aae20c2773ba7e11b63d3f4ebea1c5ed",
+    "pairs.jsonl": "a2a8d7351d0fe0a8283c1ebf715d7f4517043ac36278e1188a9f3e82e25457ee",
+    "split_manifest.json": "6de75f37c4f6280ceafc8648da3525044df7a27b10403134f5863552d1e9bfb9"
+  },
+  "dataset": "sodh_v2",
+  "frozen_on": "2026-11-12",
+  "g0_v2": {
+    "audit_version": "g0v2/1",
+    "passed": true,
+    "validity": "validated against the current attack set only; not proof of leak-freeness"
+  },
+  "mode": "synthetic",
+  "rule": "Test splits, generator config and v2 data are immutable. A change needs a new id (sodh_v3); results must never influence these files.",
+  "spec": "docs/19_SODH_V2_SPEC.md",
+  "split_manifest_id": "sodh-split-539d19e50cea"
+}

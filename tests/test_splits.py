@@ -3,7 +3,7 @@ import dataclasses
 import pytest
 
 from ucvla.splits import (
-    SPLITS,
+    V1_SPLITS,
     assign_splits,
     build_split_manifest,
     check_splits,
@@ -19,7 +19,7 @@ def codes(findings):
 def test_assignment_is_deterministic_and_complete(suite, cfg, assignment):
     assert assignment == assign_splits(suite.pairs, cfg)
     assert set(assignment) == {p.pair_id for p in suite.pairs}
-    assert set(assignment.values()) == set(SPLITS)
+    assert set(assignment.values()) == set(V1_SPLITS)
 
 
 def test_clean_suite_passes(suite, assignment):
