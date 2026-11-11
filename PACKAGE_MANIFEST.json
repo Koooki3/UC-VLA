@@ -418,14 +418,19 @@
       "sha256": "721101dd754ec756702d8af0e568c71522d0681697d4522783e68e64e7837cea"
     },
     {
+      "path": "scripts/g0_power_study.py",
+      "bytes": 6174,
+      "sha256": "b0cd6b76a1aac2e97de46d3786d6e86fe6a8b436304cdae21096aee38abc8710"
+    },
+    {
       "path": "scripts/generate_sodh.py",
       "bytes": 2848,
       "sha256": "2d453745e7a5f5a39318744217d38ba072296673af0a113e9ab5a855e55bdd3f"
     },
     {
       "path": "scripts/generate_sodh2.py",
-      "bytes": 3286,
-      "sha256": "c1cfc5843a7035256a23f1f24904c5e2aa93a39ceae9ae25c19107d998391b76"
+      "bytes": 3700,
+      "sha256": "307f94c27bfe6ecba7484028e72572725ea154925bf5274e453586d10353680b"
     },
     {
       "path": "scripts/package_manifest.py",
@@ -434,8 +439,8 @@
     },
     {
       "path": "scripts/repro_check.py",
-      "bytes": 1336,
-      "sha256": "9b46b263dca5171141ffcf07ff5c6c983855eee1e672dc05cb9ae17780f3a710"
+      "bytes": 1393,
+      "sha256": "855451ac31f050007f0bc2787e1a65656a996a33f38e5442bd8a69ce0a26d314"
     },
     {
       "path": "scripts/run_m2_eval.py",
@@ -446,6 +451,11 @@
       "path": "scripts/run_symbolic_baselines.py",
       "bytes": 3080,
       "sha256": "cb3cbd269b044fb5aca60760dc768ccf475750395914520d7de2c69c5c25d5ef"
+    },
+    {
+      "path": "scripts/run_v2_eval.py",
+      "bytes": 11149,
+      "sha256": "55627cdda8ec4251ed73b8ea08915221a884cbaf7b50435fb682418be2d87715"
     },
     {
       "path": "scripts/smoke_cpu.sh",
@@ -484,8 +494,8 @@
     },
     {
       "path": "src/ucvla/audit2.py",
-      "bytes": 11121,
-      "sha256": "0fa0dee8387fa4bbcd169764e7672575b233190a2e5ae1b2f1ab00cedb498d6e"
+      "bytes": 15086,
+      "sha256": "bc395d6072ef72fd69b9d25cba0ea1d3839eb5fea681a52cc039dc6ca19bc8f5"
     },
     {
       "path": "src/ucvla/baselines.py",
@@ -689,13 +699,13 @@
     },
     {
       "path": "tests/test_stattests_contract.py",
-      "bytes": 3141,
-      "sha256": "b30eda212f7545387c4db2fa89f054e58b3f54ba3771d12193553465518e0f8d"
+      "bytes": 3785,
+      "sha256": "8d3f1ea3dd1a6ba7eebfbccb571d15f5491e6e7cbd71069f292170e3165e596b"
     },
     {
       "path": "tests/test_v2.py",
-      "bytes": 10397,
-      "sha256": "e072e7bb1c8449a27d56a3af72a7723c89299e178c7565cb0bba66120e7f99a3"
+      "bytes": 11967,
+      "sha256": "12290c17433306f5b31232574a2a4ee9bd6c79e804f0753156a8d8a3eca0fcd8"
     },
     {
       "path": "third_party_manifest.json",

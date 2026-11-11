@@ -225,3 +225,35 @@ def test_splits_are_pair_level_and_complete(suite2, assignment2, cfg2):
     assert {"train", "val", "test_id", "test_ood_length", "test_ood_structure"} <= set(
         assignment2.values())
     assert isinstance(SODHAdapter, type)
+
+
+def test_extended_probes_catch_what_single_token_probes_miss(suite2, assignment2):
+    """Power-study regression: a perfect XOR leak (label = b1 xor b2, each token uninformative)
+    is invisible to single-token probes and visible to the extended probes."""
+    from ucvla.audit import metadata_lookup_audit, token_label_probe
+    from ucvla.audit2 import extended_probe_findings
+    from ucvla.canonical import HashRng
+    from ucvla.episode import Frame
+
+    def plant(e):
+        if e.provenance["family"] != "events":
+            return e
+        lb = int(e.target_for(e.queries[0].query_id) == "stop")
+        b1 = HashRng("x", e.episode_id).below(2)
+        ts = e.tick_times()
+        frames = []
+        for f in e.frames:
+            v = dict(f.visible)
+            if f.camera_id == "cam_front" and f.time_ns == ts[-2]:
+                v["aux1"] = str(b1)
+            if f.camera_id == "cam_front" and f.time_ns == ts[-3]:
+                v["aux2"] = str(b1 ^ lb)
+            frames.append(Frame.make(f.frame_id, f.camera_id, f.time_ns, v))
+        return dataclasses.replace(e, frames=tuple(frames))
+
+    _eps, _pairs, ad = mutated(suite2, assignment2, plant)
+    single = [*token_label_probe(ad, RELEVANT2), *metadata_lookup_audit(ad)]
+    assert not [f for f in single if f.message.startswith("events")]  # documented blind spot
+    ext = extended_probe_findings(ad)
+    assert any(f.code == "pair_shortcut" and f.message.startswith("events") for f in ext)
+    assert extended_probe_findings(SODHAdapter(suite2.episodes, suite2.pairs, assignment2)) == []

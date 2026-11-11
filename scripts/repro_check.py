@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("-n", type=int, default=3)
+    ap.add_argument("--script", default="run_m2_eval.py")
     ap.add_argument("--run-seed", type=int, default=0)
     args = ap.parse_args()
     outs = []
@@ -22,7 +23,7 @@ def main() -> None:
         for i in range(args.n):
             env = {**os.environ, "PYTHONHASHSEED": str(i * 7919 + 1)}
             p = subprocess.run(
-                [sys.executable, str(ROOT / "scripts/run_m2_eval.py"), "--run-seed",
+                [sys.executable, str(ROOT / "scripts" / args.script), "--run-seed",
                  str(args.run_seed), "--out", str(Path(tmp) / f"r{i}")],
                 capture_output=True, text=True, env=env, check=False)
             if p.returncode:

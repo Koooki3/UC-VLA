@@ -33,7 +33,7 @@ from ucvla.sodh2 import (
 )
 from ucvla.splits import SPLITS, Finding, check_splits
 
-AUDIT_VERSION = "g0v2/1"
+AUDIT_VERSION = "g0v2/2"  # /1 = single-token probes only; /2 adds aggregate + conjunctive probes
 MIN_TEST_ID_PAIRS = 60
 MIN_OOD_PAIRS = 40
 IN_DIST_SPLITS = ("train", "val", "test_id")
@@ -224,14 +224,15 @@ def posterior_sanity_findings(adapter: SODHAdapter, n: int = 200) -> list[Findin
 
 def g0_v2_report(adapter: SODHAdapter, pairs: Sequence[PairRecord2],
                  episodes: Sequence[EpisodeRecord], assignment: Mapping[str, str],
-                 enforce_size: bool = True) -> dict[str, Any]:
+                 enforce_size: bool = True, extended: bool = True) -> dict[str, Any]:
     findings = [*check_splits(episodes, pairs, assignment), *check_pairs(adapter, pairs),
                 *id_leak_findings(episodes), *metadata_lookup_audit(adapter),
                 *token_label_probe(adapter, RELEVANT2), *label_prior_findings(adapter),
                 *oracle_recompute_findings(episodes), *mechanism_findings(pairs, assignment),
                 *template_findings(pairs), *(size_findings(adapter) if enforce_size else []),
                 *posterior_sanity_findings(adapter), *oracle_env_findings(adapter),
-                *position_findings(adapter)]
+                *position_findings(adapter),
+                *(extended_probe_findings(adapter) if extended else [])]
     twin = alpha_twin_rates(adapter)
     for s, rates in twin.items():
         for fam, r in rates.items():
@@ -245,10 +246,85 @@ def g0_v2_report(adapter: SODHAdapter, pairs: Sequence[PairRecord2],
     return {
         "gate": "G0-v2", "audit_version": AUDIT_VERSION, "mode": "synthetic",
         "passed": not errors,
-        "validity": "validated against the current attack set only; not proof of leak-freeness",
+        "validity": "validated against the current attack set only; not proof of leak-freeness. "
+                    "Measured power (docs/21): leaks that let a reader exceed ~0.70 accuracy are "
+                    "detected; weaker ones (<=0.67) are NOT, and the probes cannot see leaks "
+                    "outside single-token, token-pair and aggregate (count/parity) forms.",
         "alpha_twin_rate": twin, "structure_overlap_informational": structure_overlap(adapter),
         "oracle_full_history_env_success": oracle_value(adapter),
         "constant_answer_floor": constant_floor(adapter),
         "history_free_pair_both_correct": falsifier,
         "findings": [{"level": f.level, "code": f.code, "message": f.message} for f in findings],
     }
+
+
+# ---- extended probes (aggregate and conjunctive leaks; power study docs/21) ------------------
+
+def _z_crit(m: int) -> float:
+    """Bonferroni-style critical z for m simultaneous probes at ~1% family-wise level."""
+    import math
+    return math.sqrt(2 * math.log(max(m, 2) / 0.01))
+
+
+def _history_counts(ep: EpisodeRecord) -> dict[str, str]:
+    """Per (key=value) token: how many history ticks carry it (rate/aggregate features), + parity."""
+    counts: Counter[str] = Counter()
+    for t in front_ticks(ep)[:-1]:
+        for k, v in t.items():
+            counts[f"{k}={v}"] += 1
+    out: dict[str, str] = {}
+    for tok, c in counts.items():
+        out[f"count:{tok}"] = str(c)
+        out[f"parity:{tok}"] = str(c % 2)
+    return out
+
+
+def _lookup_findings(train: Sequence[EpisodeRecord], test: Sequence[EpisodeRecord],
+                     feats: Mapping[str, Mapping[str, str]], fam: str, code: str) -> list[Finding]:
+    import math
+
+    def lab(e: EpisodeRecord) -> str:
+        return e.target_for(e.queries[0].query_id)
+    chance = sum(1 / len(e.queries[0].options) for e in test) / len(test)
+    prior = Counter(lab(e) for e in train).most_common(1)[0][0]
+    base = max(sum(lab(e) == prior for e in test) / len(test), chance)
+    types = sorted({k for e in train for k in feats[e.episode_id]})
+    z_crit = max(3.3, _z_crit(len(types)))
+    out = []
+    for ty in types:
+        tab: dict[str, Counter[str]] = defaultdict(Counter)
+        for e in train:
+            v = feats[e.episode_id].get(ty, "∅")
+            tab[v][lab(e)] += 1
+        hit = sum((tab[feats[e.episode_id].get(ty, "∅")].most_common(1)[0][0]
+                   if feats[e.episode_id].get(ty, "∅") in tab else prior) == lab(e) for e in test)
+        acc = hit / len(test)
+        sd = math.sqrt(max(base * (1 - base), 1e-9) / len(test))
+        if acc - base > 0.15 and (acc - base) / sd > z_crit:
+            out.append(Finding("error", code, f"{fam}: {ty} acc {acc:.2f} vs {base:.2f}"))
+    return out
+
+
+def extended_probe_findings(adapter: SODHAdapter,
+                            relevant: Sequence[str] = RELEVANT2) -> list[Finding]:
+    """Aggregate (count/parity over history) and conjunctive (token pairs) shortcut probes."""
+    out: list[Finding] = []
+    from ucvla.audit import _probe_tokens
+    for fam in sorted({p.family for p in adapter.pairs("train")} & set(relevant)):
+        train = [adapter.episode(e) for p in adapter.pairs("train") if p.family == fam
+                 for e in (p.episode_a, p.episode_b)]
+        test = [adapter.episode(e) for s in SPLITS if s != "train" for p in adapter.pairs(s)
+                if p.family == fam for e in (p.episode_a, p.episode_b)]
+        if len(test) < 20 or not train:
+            continue
+        agg = {e.episode_id: _history_counts(e) for e in (*train, *test)}
+        out += _lookup_findings(train, test, agg, fam, "agg_shortcut")
+        tok = {e.episode_id: _probe_tokens(e) for e in (*train, *test)}
+        cands = sorted(ty for ty in {k for e in train for k in tok[e.episode_id]}
+                       if ty.startswith(("end-0:", "end-1:", "end-2:", "end-3:"))
+                       and len({tok[e.episode_id].get(ty) for e in train}) <= 6)[:10]
+        pair_feats = {eid: {f"{a}&{b}": f"{t.get(a)}|{t.get(b)}"
+                            for i, a in enumerate(cands) for b in cands[i + 1:]}
+                      for eid, t in tok.items()}
+        out += _lookup_findings(train, test, pair_feats, fam, "pair_shortcut")
+    return out

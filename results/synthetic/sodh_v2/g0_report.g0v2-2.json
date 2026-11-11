@@ -1,0 +1,126 @@
+{
+  "alpha_twin_rate": {
+    "test_counterfactual": {
+      "resume": 0.0
+    },
+    "test_id": {
+      "control": 0.9523809523809523,
+      "events": 0.0,
+      "resume": 0.0,
+      "track": 0.0
+    },
+    "test_ood": {},
+    "test_ood_length": {
+      "control": 0.0,
+      "events": 0.0,
+      "resume": 0.0,
+      "track": 0.0
+    },
+    "test_ood_structure": {
+      "control": 0.95,
+      "events": 0.0,
+      "resume": 0.0,
+      "track": 0.0
+    },
+    "val": {
+      "control": 1.0,
+      "events": 0.0,
+      "resume": 0.0,
+      "track": 0.0
+    }
+  },
+  "audit_version": "g0v2/2",
+  "constant_answer_floor": {
+    "control": 0.51,
+    "events": 0.5,
+    "resume": 0.2847222222222222,
+    "track": 0.265
+  },
+  "findings": [],
+  "gate": "G0-v2",
+  "history_free_pair_both_correct": {
+    "test_counterfactual.resume": 0.0,
+    "test_id.events": 0.0,
+    "test_id.resume": 0.0,
+    "test_id.track": 0.0,
+    "test_ood_length.events": 0.0,
+    "test_ood_length.resume": 0.0,
+    "test_ood_length.track": 0.0,
+    "test_ood_structure.events": 0.0,
+    "test_ood_structure.resume": 0.0,
+    "test_ood_structure.track": 0.0,
+    "train.events": 0.0,
+    "train.resume": 0.0,
+    "train.track": 0.0,
+    "val.events": 0.0,
+    "val.resume": 0.0,
+    "val.track": 0.0
+  },
+  "mode": "synthetic",
+  "oracle_full_history_env_success": {
+    "test_counterfactual": {
+      "resume": 1.0
+    },
+    "test_id": {
+      "control": 1.0,
+      "events": 1.0,
+      "resume": 1.0,
+      "track": 0.8253968253968254
+    },
+    "test_ood_length": {
+      "control": 1.0,
+      "events": 1.0,
+      "resume": 1.0,
+      "track": 0.725
+    },
+    "test_ood_structure": {
+      "control": 1.0,
+      "events": 1.0,
+      "resume": 1.0,
+      "track": 0.7916666666666666
+    },
+    "train": {
+      "control": 1.0,
+      "events": 1.0,
+      "resume": 1.0,
+      "track": 0.8416666666666667
+    },
+    "val": {
+      "control": 1.0,
+      "events": 1.0,
+      "resume": 1.0,
+      "track": 0.7962962962962963
+    }
+  },
+  "passed": true,
+  "structure_overlap_informational": {
+    "test_counterfactual": {
+      "resume": 0.08333333333333333
+    },
+    "test_id": {
+      "control": 1.0,
+      "events": 0.46825396825396826,
+      "resume": 0.12698412698412698,
+      "track": 0.0
+    },
+    "test_ood_length": {
+      "control": 1.0,
+      "events": 0.0,
+      "resume": 0.0,
+      "track": 0.0
+    },
+    "test_ood_structure": {
+      "control": 1.0,
+      "events": 0.0,
+      "resume": 0.0,
+      "track": 0.0
+    },
+    "val": {
+      "control": 1.0,
+      "events": 0.48148148148148145,
+      "resume": 0.07407407407407407,
+      "track": 0.0
+    }
+  },
+  "validity": "validated against the current attack set only; not proof of leak-freeness. Measured power (docs/21): leaks that let a reader exceed ~0.70 accuracy are detected; weaker ones (<=0.67) are NOT, and the probes cannot see leaks outside single-token, token-pair and aggregate (count/parity) forms."
+}

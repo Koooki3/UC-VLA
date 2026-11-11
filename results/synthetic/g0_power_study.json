@@ -1,0 +1,172 @@
+{
+ "mode": "synthetic",
+ "family": "events (binary label, chance 0.5)",
+ "n_episodes": 960,
+ "detectors": {
+  "D0": "g0v2/1 probes: single token per (position, channel), metadata lookups, label prior",
+  "D1": "D0 + aggregate (count/parity over history) + conjunctive (token pairs) probes"
+ },
+ "note": "strength 0.0 rows are the null (false-positive) rate",
+ "rows": [
+  {
+   "leak": "single_token",
+   "strength": 0.0,
+   "replicates": 12,
+   "leak_reader_accuracy": 0.5055555555555555,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "single_token",
+   "strength": 0.2,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.5995833333333334,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "single_token",
+   "strength": 0.4,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.7041666666666666,
+   "detect_rate_current_probes": 1.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "single_token",
+   "strength": 0.6,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.79875,
+   "detect_rate_current_probes": 1.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "single_token",
+   "strength": 1.0,
+   "replicates": 4,
+   "leak_reader_accuracy": 1.0,
+   "detect_rate_current_probes": 1.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "xor_pair",
+   "strength": 0.0,
+   "replicates": 12,
+   "leak_reader_accuracy": 0.4991666666666667,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "xor_pair",
+   "strength": 0.2,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.6004166666666667,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "xor_pair",
+   "strength": 0.4,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.6925,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "xor_pair",
+   "strength": 0.6,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.7891666666666667,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "xor_pair",
+   "strength": 1.0,
+   "replicates": 4,
+   "leak_reader_accuracy": 1.0,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "parity_across_ticks",
+   "strength": 0.0,
+   "replicates": 12,
+   "leak_reader_accuracy": 0.4895833333333333,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "parity_across_ticks",
+   "strength": 0.2,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.59625,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "parity_across_ticks",
+   "strength": 0.4,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.6975,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "parity_across_ticks",
+   "strength": 0.6,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.8004166666666667,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "parity_across_ticks",
+   "strength": 1.0,
+   "replicates": 4,
+   "leak_reader_accuracy": 1.0,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "rate_code",
+   "strength": 0.0,
+   "replicates": 12,
+   "leak_reader_accuracy": 0.5041666666666667,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "rate_code",
+   "strength": 0.05,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.6675,
+   "detect_rate_current_probes": 0.0,
+   "detect_rate_extended_probes": 0.0
+  },
+  {
+   "leak": "rate_code",
+   "strength": 0.1,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.7970833333333334,
+   "detect_rate_current_probes": 0.25,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "rate_code",
+   "strength": 0.2,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.9491666666666666,
+   "detect_rate_current_probes": 1.0,
+   "detect_rate_extended_probes": 1.0
+  },
+  {
+   "leak": "rate_code",
+   "strength": 0.3,
+   "replicates": 4,
+   "leak_reader_accuracy": 0.99375,
+   "detect_rate_current_probes": 1.0,
+   "detect_rate_extended_probes": 1.0
+  }
+ ]
+}

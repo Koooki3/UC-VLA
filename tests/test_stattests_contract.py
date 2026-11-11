@@ -76,3 +76,14 @@ def test_independent_processes_reproduce_identical_results(tmp_path):
                        capture_output=True, text=True, check=False)
     assert p.returncode == 0, p.stdout + p.stderr
     assert '"identical": true' in p.stdout
+
+
+def test_v2_eval_is_reproducible_across_fresh_processes():
+    """Same property for the v2 evaluation (different hash seeds, fresh interpreters)."""
+    if not (ROOT / "results/synthetic/sodh_v2/episodes.jsonl").exists():
+        subprocess.run([sys.executable, str(ROOT / "scripts/generate_sodh2.py")], check=True,
+                       capture_output=True)
+    p = subprocess.run([sys.executable, str(ROOT / "scripts/repro_check.py"), "-n", "2",
+                        "--script", "run_v2_eval.py"], capture_output=True, text=True, check=False)
+    assert p.returncode == 0, p.stdout + p.stderr
+    assert '"identical": true' in p.stdout

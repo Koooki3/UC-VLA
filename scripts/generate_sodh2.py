@@ -56,7 +56,14 @@ def main() -> None:
         "g0_v2": {"audit_version": AUDIT_VERSION, "passed": True,
                   "validity": report["validity"]},
     }
-    write_once(args.out / "FROZEN.json", (json.dumps(frozen, indent=2, sort_keys=True) + "\n").encode())
+    fz = args.out / "FROZEN.json"
+    if fz.exists():  # already frozen: the DATA identity must match; the audit version may advance
+        old = json.loads(fz.read_text())
+        for key in ("config_file_sha256", "config_sha256", "split_manifest_id", "data_files_sha256"):
+            if old[key] != frozen[key]:
+                raise SystemExit(f"FROZEN mismatch on {key}: data changed; a new version id is required")
+    else:
+        write_once(fz, (json.dumps(frozen, indent=2, sort_keys=True) + "\n").encode())
     print(f"wrote {args.out} split={sm['split_manifest_id']} episodes={manifest['counts']['episodes']} "
           f"G0-v2=PASS rejected={suite.rejected}")
 
