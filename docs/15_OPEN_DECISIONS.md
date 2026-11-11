@@ -15,3 +15,13 @@
 | Submission date/venue | undecided | achieved evidence and venue policy | authors |
 
 These are non-blocking for CPU contracts/scaffold. They **do** block GPU experiment launch or real-robot activation when required.
+
+## Added 2026-11-12
+| Decision | Safe default | Evidence required | Owner |
+| --- | --- | --- | --- |
+| Project licence; git author identity/history before any remote | none; no remote | `docs/24` checklist | operator |
+| Backbone for open release | none (pi0/pi0.5 NO-GO) | licence checks of SmolVLA/RDT-1B/Octo weights + encoders (`docs/20`) | researcher + operator |
+| LeRobot-format official sample | not downloaded | licence + size + operator approval | operator |
+| Simulator replay (M3) for real paired tests | not authorised | compute/licence/cost plan | operator |
+| SODH v3 (longer horizons) | stay on frozen v2 | justification from compression-claim need | researcher |
+| Sequence-capable CPU learner (F8) | not built | spec + train-split-only protocol | researcher |

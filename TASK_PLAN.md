@@ -68,3 +68,23 @@ New: run_id content address, real git SHA + dirty flag (`attribution_warning` if
 G0/2 passes on v1 (as a fixture). M2 DoD **not** met (no VLA adapter). Exit: if SODH v2 cannot be made so that a knowledge-free learner and the decoder-variant sweep agree on an effect's sign, stop making memory-selection claims from synthetic data and pivot to an intervention-benchmark/negative-result framing (docs/07 G2).
 
 ## Next phase (needs operator go-ahead): SODH v2 → H1-style matched-budget pilot on CPU toy learners → licence-cleared real-benchmark schema check.
+
+---
+
+# TASK_PLAN — review round 2 (2026-11-12): Track A / Track B, executed
+
+Operator decisions of 2026-11-11 (2nd): SODH v2 approved after spec freeze; RoboMME single-task sample ≤1 GiB (train only, official channel, licence checked); checkpoints NO-GO with a licence/provenance review; no remote; CPU only. Two parallel read-only subagents (licence review, RoboMME metadata) while the main session built v2; both reports are unverified and labelled.
+
+## Objective and falsifiers
+Track A: a benchmark that can refute Memory Sufficiency / compression hypotheses (spec F1–F8 in `docs/19`). Track B: remove the symbolic-to-visual gap at the contract level (real HDF5 → same Episode/CausalView/PolicyInput). Falsifier outcomes: F1–F6 passed by tests; **F7 failed in 17/50 cells (events, resume), passed for track**; **F8 triggered** (independent learner shows no history use); G0 v2/1 blind to XOR/parity leaks (fixed by D1; weak leaks still undetected).
+
+## Acceptance tests (152 tests): `tests/test_v2.py` (26), `test_frozen_v2.py`, `test_hdf5_import.py`, `test_offline_replay.py`, mutation suites, v2 fresh-process reproducibility; real-data tests skip when `datasets/` is absent.
+
+## Alternatives rejected / deferred
+Making v2 easier until the expected ranking appears (explicitly forbidden); redesigning to make learners succeed; downloading more RoboMME tasks or val/test; any checkpoint; editing frozen v1/v2 (a defect found pre-freeze was fixed and logged in `docs/23` §6). Deferred: LeRobot importer, sequence learner, SODH v3.
+
+## Reproducibility impact
+Real git SHA in run records; `FROZEN.json` for v1 and v2 with guard tests; data-use record for the real sample; ledger of test-split use (M2 and v2 evaluations); `requirements.lock`; scan + manifest in CI.
+
+## Exit conditions
+If a sequence learner cannot show history use on v2 → report as negative result, do not edit frozen splits. If F7 stays unstable for events/resume → no selector-ranking claims for them. Any move to GPU, checkpoints, simulator or remote needs a separate operator-approved review.

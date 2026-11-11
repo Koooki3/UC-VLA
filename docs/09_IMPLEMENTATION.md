@@ -30,7 +30,7 @@ flowchart LR
 - [x] SLURM templates guarded by required environment variables.
 - [ ] Inspect local GPU/cluster/camera/robot access (requires operator).
 
-### M1 — Data & causality  (status 2026-11-11: **implemented on CPU, partially meets DoD**)
+### M1 — Data & causality  (DoD checklist 2026-11-12 in `STATUS.md`: open = LeRobot importer, image-level audit, full benchmark adapter; status 2026-11-11: **implemented on CPU, partially meets DoD**)
 - Implement standardized episode schema + HDF5/LeRobot importers and time validation.
 - Create SODH paired generator, split manifest, negative controls, image-only shortcut audit.
 - DoD: deterministic replay with no future information at any cutoff; duplicate detector passes; one benchmark adapter usable.
@@ -59,7 +59,7 @@ flowchart LR
 - Only self-review so far; no independent reviewer sign-off (`docs/14`). No G1+ gate evaluated.
 - Mechanical lint-only edits to pre-existing `contracts.py`/`memory.py`/`toy.py` (unused import, `collections.abc`, `min()`); behaviour and tests unchanged.
 
-### M2 — Fixed baselines + VLA reader  (status 2026-11-11: **CPU-only infrastructure implemented; M2 DoD NOT met**)
+### M2 — Fixed baselines + VLA reader  (DoD checklist in `STATUS.md`; round 2 added SODH v2, posterior oracle, memory metrics, F7/F8 — M2 DoD still NOT met; status 2026-11-11: **CPU-only infrastructure implemented; M2 DoD NOT met**)
 
 **Delivered (CPU, synthetic; contract in `docs/17`):** `context.py` (budgeted providers + harness-side validation), `policy.py` (PolicyAdapter, access boundary), `readers.py` (OracleDecoder strict/clock, ObsOnlyLookup, BagOfTokensNB), `harness.py` (single evaluation path, train-only fitting, predicted→commanded→executed logging), `causal_eval.py` (history swap, critical vs matched non-critical deletion, coverage/evidence-position), `stattests.py` (exact sign test, Holm), `runrecord.py` + `scripts/run_m2_eval.py` + `scripts/repro_check.py` (real git SHA, data/config hashes, fresh-process reproducibility, evaluation ledger), `benchmark_contract.py` (source conformance; HDF5/LeRobot importers raise `NotImplementedError`).
 

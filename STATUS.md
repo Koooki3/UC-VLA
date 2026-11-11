@@ -1,34 +1,40 @@
-# Project state — 2026-11-11 (after M1 review and M2 CPU infrastructure)
+# Project state — 2026-11-12 (after review round 2: SODH v2, real-data importer, licence reviews)
 
-All results are `mode: synthetic` (symbolic frames, hand-written or toy policies). **No UC-VLA hypothesis (H1–H4) has been tested; no claim about a VLA, a real benchmark, or memory selection follows from anything here.**
+All results are `mode: synthetic` unless a record says `real_data_*` (schema checks only). **No UC-VLA hypothesis (H1–H4) has been tested; nothing here supports a claim about a VLA, a real benchmark, or memory selection.** Reviews are independent-*context* model reviews, **not external human review**.
 
-## Done
-- M0 research scaffold; M1 episode schema, causal views, deterministic SODH v1, pair-level splits, G0 (see `docs/09`).
-- Git: baseline `5322034` tag `m1-synthetic-baseline`; SODH v1 **frozen** (`results/synthetic/sodh_v1/FROZEN.json`, guard test). No remote, nothing pushed.
-- Independent-context adversarial review of M1 (`docs/18`, `reviews/`): 2 Blockers, 6 Majors. G0 hardened to g0/2 (full decision view, mutation regression for 8 planted leaks); B2 partly fixed; v1 downgraded to *unit-test fixture*.
-- M2 CPU infrastructure (`docs/17`): PolicyAdapter + access boundary, budget validation by the harness, train-only fitting, history swap/deletion attribution, exact paired tests + Holm, run records with real git SHA, fresh-process reproducibility check, evaluation ledger, benchmark-source conformance contract.
-- Benchmark Readiness Matrix (`docs/16`): web research by a subagent, **unverified**, no downloads.
-- 109 tests, ruff clean.
+## Done (each in its own commit; `git log`)
+- Git baseline `5322034` tag `m1-synthetic-baseline`; v1 frozen as a regression fixture; **no remote, nothing pushed**.
+- Review status split: **B1** code fix closed (validity = "current attack set + measured power"); **B2a** closed; **B2b open**.
+- **Track A** — `docs/19` pre-registered spec → **SODH v2** (tracking cups, validity-aware events, per-item resume, env-defined success, independent posterior oracle, generated evidence-position axis, structural OOD, disjoint-atom holdout, template/mechanism/alpha-twin gates, 126 test_id pairs/family), frozen `sodh-split-539d19e50cea`; G0 v2/2; G0 power study (`docs/21`); four memory metrics + F7 (`docs/23`).
+- **Track B** — RoboMME single-task official **train** sample (964,971,180 B, sha256 verified, seeds ⊂ train, ∩ val/test = ∅) → real **HDF5 importer**, 100/100 episodes round-trip exact; offline replay adapter (same PolicyInput boundary); budgets now also bound proprio; `docs/22`.
+- Licence reviews (subagent, unverified quotes): benchmarks (`docs/16`), OpenPI/π0.5/Gemma + alternatives (`docs/20`). **Checkpoints remain NO-GO.**
+- Open-source preparation (no remote): repo scan clean, lockfile, CI, third-party manifest, rules (`docs/24`).
+- 152 tests, ruff clean, `make smoke` green, fresh-process reproducibility for M2 and v2 evaluations.
 
-## Not done (and why)
-| Item | Blocker |
+## M1 / M2 DoD (not equated; M2 progress does not close M1)
+| Item | Status |
 | --- | --- |
-| **M1 DoD** — HDF5/LeRobot importers, a real-benchmark adapter, image-level shortcut/dedup audits, independent *human* review | no data approved/downloaded; licences unverified (`docs/16`); symbolic frames have no pixels |
-| **SODH v2** (tracking cups, release ticks, generated evidence-position axis, structural OOD, disjoint-atom holdout, alpha-dedup gate, larger test) | not built yet; spec in `docs/18`; required before M3 |
-| **M2 DoD** — OpenPI adapter, D&R/Mem4Act, learned fixed-latent baseline | checkpoint licence (Gemma terms) undecided, no GPU authorisation, no code/licence review |
-| LEVI bridge | deferred by operator decision |
-| M3–M7 | not started |
+| M1: episode schema, time validation | done (HDF5 timestamps are *derived* 20 Hz, unverified) |
+| M1: HDF5 importer | done for RoboMME layout, one task's train sample |
+| M1: **LeRobot importer** | **not done** — designed only; waits for an official LeRobot-format sample |
+| M1: SODH paired generator, split manifest, negative controls | done (v1 fixture, v2 frozen) |
+| M1: **image-level shortcut audit** | **not done** — synthetic frames have no pixels; real data only hash-level |
+| M1: deterministic replay, no future info; duplicate detector | done (synthetic + real sample) |
+| M1: one benchmark adapter usable | **partial** — offline replay of a real train sample; no simulator rollouts, no official metric |
+| M2: PolicyAdapter, CPU fakes, matched budgets, run records, repro | done |
+| M2: causal evaluation (same-obs/diff-history, swap, deletion, OOD) | done on v2 |
+| M2: independent learner shows history use | **not met (F8)** — BagOfTokensNB does not; no sequence learner yet |
+| M2: fixed-latent baseline, D&R, Mem4Act, OpenPI adapter | **not done** — not built / not reproduced / checkpoint NO-GO |
 
-## Answers to the M2 acceptance questions (honest status)
-1. *Does a performance difference come from history rather than current obs or data regularities?* The harness can **test** it (obs-only cap, swap, critical vs matched non-critical deletion, coverage-conditioned reporting), and history-free agents are shown to score 0 pair-success while a knowledge-free learner stays low. For **v1** the attribution is only as good as the generator; v1 has known regularities (`docs/18`), so no such claim is made from it.
-2. *Do baselines obey the same information and evaluation rules?* Yes by construction and by test: one evaluation path, identical non-context inputs (parity digest), harness-measured budgets, rejected illegal contexts. Caveat: the decoders carry task knowledge; strict/clock variants bracket it.
-3. *Can every result be reproduced independently?* Fresh-process runs with different `PYTHONHASHSEED` give identical run_id/result hashes (`scripts/repro_check.py`, tested). Real-VLA/GPU nondeterminism is out of scope.
-4. *Is there a clear interface to a real VLA / benchmark?* Interface and conformance checks exist; **no real adapter exists**, importers raise.
-5. *Do tests/data support or refute core UC-VLA hypotheses?* No — they validate infrastructure. Hypothesis tests need v2 plus learned memory policies (M4).
+## Blocker / Major / Minor (open)
+**Blocker:** B2b — construct validity of memory selection (F7: 17/50 cells flip under the registered rule; F8: no independent history-using learner). **Blocker for G1:** no memory reader exists to evaluate.
+**Major:** G0 blind zone — leaks giving ≤0.67 reader accuracy undetected, order/gap/multi-token forms untested (`docs/21`) · posterior oracle shares the environment model (approximate for swap bursts) · symbolic-to-visual gap unmeasured; RoboMME data has no hidden-history ground truth (paired real tests need simulator replay = M3, unauthorised) · horizons 8–22 ticks limit compression claims (k=16 ≈ full) · only independent-*context* model reviews · licence ambiguities (Gemma flow-down, RoboMME copyright holder).
+**Minor:** structural OOD bites a naive decoder in 1 of 3 families · Necessity partly by construction (pairs selected to need history) · `requirements.lock` has no hashes · extracted-file hash unverifiable against publisher · derived 20 Hz · repo scan is regex-only, no history scan · v1 `symbolic_baselines.json` remains committed (flagged as fixture artefact).
 
-## Go / No-Go
-- **GO (CPU):** build SODH v2 and its acceptance suite; keep M2 CPU infrastructure; obtain operator decisions below.
-- **NO-GO:** any M3 rollout, GPU job, OpenPI/MME-VLA checkpoint load, large downloads, RoboMME data download, real robot; any paper claim from v1/M2 numbers. G1 not evaluable yet.
-- Operator decisions needed: (1) approve v2 build; (2) RoboMME: approve a single-task-archive download for schema checking? (3) Gemma-terms decision for pi0.5-derived checkpoints; (4) remote repository (none created).
+## G1 (architecture validity) Go / No-Go recommendation
+**G1 cannot be evaluated** (no Memory Reader, no real policy). **NO-GO** for: M3 rollouts, GPU, any checkpoint load, large downloads, real robot, paper claims. **GO (CPU, next phase):** (1) a sequence-capable independent learner on frozen v2 (small recurrent/state-tracking model, train split only) → F8; (2) SODH v3 with longer horizons only if compression claims are wanted (v2 stays frozen); (3) LeRobot importer once an official sample is approved; (4) learner-based leak probes; (5) designing real-data paired tests without a simulator. Exit rule: if no learner reproduces history use on v2, publish as an intervention-benchmark / negative-result study (docs/07 G2).
+
+## Operator decisions needed
+1. Project licence and git author-identity/history policy before any remote (`docs/24`). 2. Whether to approve a LeRobot-format official sample. 3. Gemma terms / whether to pursue SmolVLA, RDT-1B or Octo as an openly releasable backbone (licence checks pending). 4. Whether to authorise simulator replay (M3) — needs compute/licence plan. 5. Approval of SODH v3 (longer horizons) vs staying on v2.
 
 Verify: `make smoke PYTHON=.venv/bin/python`.
