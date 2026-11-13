@@ -1,7 +1,19 @@
 {
  "mode": "synthetic",
  "protocol": "docs/25",
- "status": "EXPLORATORY: v2 test splits were viewed before",
+ "thresholds": {
+  "po_mean": 0.6,
+  "po_lo": 0.2,
+  "swap": 0.7,
+  "drop_gap": 0.2,
+  "memoryless_max": 0.05,
+  "control_acc": 0.95,
+  "control_inv": 0.99,
+  "seed_range": 0.25,
+  "order_drop_track": 0.15,
+  "families_required": 2
+ },
+ "status": "EXPLORATORY: v2 test splits were viewed before; main experiment = 5 seeds at base data size",
  "archs": {
   "ctransformer": {
    "seeds": 5,
@@ -72,9 +84,7 @@
       "hi": 0.005993650793650792,
       "min": 0.0,
       "max": 0.007936507936507936
-     },
-     "meets_criteria": false,
-     "seed_range": 0.0
+     }
     },
     "events": {
      "pair_optimal": {
@@ -127,9 +137,7 @@
       "hi": 0.06787301587301586,
       "min": 0.0,
       "max": 0.07936507936507936
-     },
-     "meets_criteria": false,
-     "seed_range": 0.09523809523809523
+     }
     },
     "resume": {
      "pair_optimal": {
@@ -189,9 +197,7 @@
       "hi": 0.0,
       "min": 0.0,
       "max": 0.0
-     },
-     "meets_criteria": false,
-     "seed_range": 0.0
+     }
     }
    },
    "control_acc": {
@@ -208,8 +214,46 @@
     "min": 1.0,
     "max": 1.0
    },
-   "control_ok": false,
-   "order_ok_track": false,
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     },
+     "resume": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": false,
+     "control_accuracy": false,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": false
+    },
+    "order_drop_track": -0.0015873015873015873,
+    "g1_pass": false,
+    "g1_pass_legacy_without_order": false
+   },
    "g1_pass": false
   },
   "fixedlatent1": {
@@ -281,9 +325,7 @@
       "hi": 0.14469888742786108,
       "min": 0.0,
       "max": 0.1349206349206349
-     },
-     "meets_criteria": false,
-     "seed_range": 0.14285714285714285
+     }
     },
     "events": {
      "pair_optimal": {
@@ -336,9 +378,7 @@
       "hi": 1.2858877939144457,
       "min": 0.0,
       "max": 0.9920634920634921
-     },
-     "meets_criteria": true,
-     "seed_range": 1.0
+     }
     },
     "resume": {
      "pair_optimal": {
@@ -398,9 +438,7 @@
       "hi": 0.9261890985280533,
       "min": 0.0,
       "max": 0.7777777777777778
-     },
-     "meets_criteria": false,
-     "seed_range": 0.8492063492063492
+     }
     }
    },
    "control_acc": {
@@ -417,8 +455,46 @@
     "min": 1.0,
     "max": 1.0
    },
-   "control_ok": true,
-   "order_ok_track": false,
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": false,
+      "all": false
+     },
+     "resume": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": false,
+      "all": false
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": false,
+     "control_accuracy": true,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": false
+    },
+    "order_drop_track": -0.003174603174603177,
+    "g1_pass": false,
+    "g1_pass_legacy_without_order": false
+   },
    "g1_pass": false
   },
   "fixedlatent2": {
@@ -490,9 +566,7 @@
       "hi": 0.13306880882018235,
       "min": 0.047619047619047616,
       "max": 0.15079365079365079
-     },
-     "meets_criteria": false,
-     "seed_range": 0.11904761904761904
+     }
     },
     "events": {
      "pair_optimal": {
@@ -545,9 +619,7 @@
       "hi": 0.9926982408936239,
       "min": 0.9841269841269841,
       "max": 0.9920634920634921
-     },
-     "meets_criteria": true,
-     "seed_range": 0.007936507936507908
+     }
     },
     "resume": {
      "pair_optimal": {
@@ -607,9 +679,7 @@
       "hi": 1.0322346920939438,
       "min": 0.19047619047619047,
       "max": 0.8888888888888888
-     },
-     "meets_criteria": true,
-     "seed_range": 0.746031746031746
+     }
     }
    },
    "control_acc": {
@@ -626,8 +696,46 @@
     "min": 1.0,
     "max": 1.0
    },
-   "control_ok": true,
-   "order_ok_track": false,
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     },
+     "resume": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": false,
+      "all": false
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": false,
+     "control_accuracy": true,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": false
+    },
+    "order_drop_track": 0.022222222222222213,
+    "g1_pass": false,
+    "g1_pass_legacy_without_order": false
+   },
    "g1_pass": false
   },
   "fixedlatent4": {
@@ -699,9 +807,7 @@
       "hi": 0.18240621990232236,
       "min": 0.05555555555555555,
       "max": 0.18253968253968253
-     },
-     "meets_criteria": false,
-     "seed_range": 0.11904761904761904
+     }
     },
     "events": {
      "pair_optimal": {
@@ -754,9 +860,7 @@
       "hi": 0.9812069957696337,
       "min": 0.8333333333333334,
       "max": 0.9841269841269841
-     },
-     "meets_criteria": true,
-     "seed_range": 0.03968253968253965
+     }
     },
     "resume": {
      "pair_optimal": {
@@ -816,9 +920,7 @@
       "hi": 0.928496820302702,
       "min": 0.6587301587301587,
       "max": 0.873015873015873
-     },
-     "meets_criteria": true,
-     "seed_range": 0.23809523809523803
+     }
     }
    },
    "control_acc": {
@@ -835,9 +937,47 @@
     "min": 1.0,
     "max": 1.0
    },
-   "control_ok": true,
-   "order_ok_track": false,
-   "g1_pass": true
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     },
+     "resume": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": true,
+     "control_accuracy": true,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": false
+    },
+    "order_drop_track": -0.02063492063492063,
+    "g1_pass": false,
+    "g1_pass_legacy_without_order": true
+   },
+   "g1_pass": false
   },
   "fixedlatent8": {
    "seeds": 5,
@@ -908,9 +1048,7 @@
       "hi": 0.16984766366835194,
       "min": 0.06349206349206349,
       "max": 0.16666666666666666
-     },
-     "meets_criteria": false,
-     "seed_range": 0.0873015873015873
+     }
     },
     "events": {
      "pair_optimal": {
@@ -963,9 +1101,7 @@
       "hi": 1.0686650548580838,
       "min": 0.6904761904761905,
       "max": 1.0
-     },
-     "meets_criteria": true,
-     "seed_range": 0.031746031746031744
+     }
     },
     "resume": {
      "pair_optimal": {
@@ -1025,9 +1161,7 @@
       "hi": 0.883342150321099,
       "min": 0.7063492063492064,
       "max": 0.8650793650793651
-     },
-     "meets_criteria": true,
-     "seed_range": 0.1428571428571428
+     }
     }
    },
    "control_acc": {
@@ -1044,9 +1178,47 @@
     "min": 1.0,
     "max": 1.0
    },
-   "control_ok": true,
-   "order_ok_track": false,
-   "g1_pass": true
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     },
+     "resume": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": true,
+     "control_accuracy": true,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": false
+    },
+    "order_drop_track": -0.011111111111111113,
+    "g1_pass": false,
+    "g1_pass_legacy_without_order": true
+   },
+   "g1_pass": false
   },
   "gru": {
    "seeds": 5,
@@ -1117,9 +1289,7 @@
       "hi": 0.10784131344548438,
       "min": 0.06349206349206349,
       "max": 0.10317460317460317
-     },
-     "meets_criteria": false,
-     "seed_range": 0.06349206349206349
+     }
     },
     "events": {
      "pair_optimal": {
@@ -1172,9 +1342,7 @@
       "hi": 1.006495031567004,
       "min": 0.6746031746031746,
       "max": 0.9603174603174603
-     },
-     "meets_criteria": true,
-     "seed_range": 0.03968253968253965
+     }
     },
     "resume": {
      "pair_optimal": {
@@ -1234,9 +1402,7 @@
       "hi": 0.9358109861651059,
       "min": 0.8253968253968254,
       "max": 0.9365079365079365
-     },
-     "meets_criteria": true,
-     "seed_range": 0.0714285714285714
+     }
     }
    },
    "control_acc": {
@@ -1253,10 +1419,49 @@
     "min": 1.0,
     "max": 1.0
    },
-   "control_ok": true,
-   "order_ok_track": false,
-   "g1_pass": true
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": true,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     },
+     "resume": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": true,
+     "control_accuracy": true,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": false
+    },
+    "order_drop_track": 0.012698412698412709,
+    "g1_pass": false,
+    "g1_pass_legacy_without_order": true
+   },
+   "g1_pass": false
   }
  },
- "G1_pass_any_architecture": true
+ "G1_pass_any_architecture": false,
+ "G1_pass_any_architecture_legacy_without_order": true
 }

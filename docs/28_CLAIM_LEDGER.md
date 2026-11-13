@@ -10,7 +10,7 @@ Classes: **VSE** Validated Scientific Evidence · **EEE** Established Engineerin
 | 4 | Selector ranking (uniform vs last) flips across instruments in 17/50 cells (events, resume) under the registered rule | NEG | pre-registered F7; track consistent |
 | 5 | Last-k beats uniform-k for tracking (oracle, decoder, learner agree; Holm-significant) | EXP | synthetic; v2 test splits viewed repeatedly |
 | 6 | Bag-of-Tokens NB cannot use history | NEG | learner-specific capability, not a statement about memory learning |
-| 7 | Learned recurrent readers (GRU, fixed-latent ≥4 slots) learn history-dependent decisions on events and resume; swap/deletion attribution supports history use | EXP | G1, 5 seeds, `docs/29`; v2 test splits already viewed → non-confirmatory |
+| 7 | Learned recurrent readers (GRU, fixed-latent ≥4 slots) learn history-dependent decisions on events and resume; swap/deletion attribution supports history use. **The full registered G1 criteria are NOT met** (order-perturbation condition fails; track not learned at base size) | EXP | G1, 5 seeds, `docs/29` (corrected); v2 test splits already viewed → non-confirmatory |
 | 8 | Track failure of learners at the base data size is data insufficiency (GRU reaches ~0.64–0.93 with extra train-only data) | EXP | 3 seeds; high seed variance |
 | 9 | Causal Transformer (80k params) failed at lr 3e-3 (optimisation) and generalises worse than GRU at lr 1e-3 on this data size | NEG | 3–5 seeds, small data |
 | 10 | RoboMME StopCube train sample imports bit-exactly into the Episode contract | EEE | 100/100 episodes; one task; derived timestamps |
