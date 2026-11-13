@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
 """Aggregate the G1 scaling batch (docs/33) and check the pre-registered predictions."""
+import itertools
 import json
 import statistics as st
 from pathlib import Path
@@ -21,7 +22,7 @@ for n, rs in sorted(rows.items()):
     rep["N"][n] = {"seeds": len(rs), **f}
 ns = sorted(rep["N"])
 tm = [rep["N"][n]["track"]["mean"] for n in ns]
-rep["P_S1_monotone_and_N9000_ge_0.75"] = all(a <= b + 1e-9 for a, b in zip(tm, tm[1:])) and rep["N"].get(9000, {}).get("track", {}).get("mean", 0) >= 0.75
+rep["P_S1_monotone_and_N9000_ge_0.75"] = all(a <= b + 1e-9 for a, b in itertools.pairwise(tm)) and rep["N"].get(9000, {}).get("track", {}).get("mean", 0) >= 0.75
 rep["P_S2_range_shrinks"] = [rep["N"][n]["track"]["max"] - rep["N"][n]["track"]["min"] for n in ns]
 rep["P_S3_memoryless_zero"] = all(rep["N"][n]["memoryless_track"] == 0 for n in ns)
 base = rep["N"][0]

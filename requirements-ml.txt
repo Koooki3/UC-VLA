@@ -1,0 +1,5 @@
+# CPU PyTorch for the learning tests (installed separately so that the lock stays light):
+#   pip install -r requirements.lock && pip install -r requirements-ml.txt pyarrow av
+--index-url https://download.pytorch.org/whl/cpu
+--extra-index-url https://pypi.org/simple
+torch==2.15.0

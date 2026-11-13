@@ -16,6 +16,8 @@ dependencies = ["pyyaml>=6,<7"]
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.10,<1", "hypothesis>=6,<7"]
 hdf5 = ["h5py>=3.10,<4", "numpy>=1.26,<3"]  # real-data importers only; core stays pure-Python
+lerobot = ["pyarrow>=15", "av>=12", "numpy>=1.26,<3"]
+ml = ["torch>=2.7,<2.16", "numpy>=1.26,<3"]  # CPU learning tests; install torch from the CPU index (requirements-ml.txt)
 
 [tool.setuptools.packages.find]
 where = ["src"]
