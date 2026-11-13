@@ -1,0 +1,4 @@
+# 54 | lr 1e-3 reliability — pre-registration (frozen before runs)
+
+Follows docs/53 (collapse = lr-3e-3 fragility, lr 1e-3 0/5). Standard G1 pipeline, GRU, non-sealed splits, exploratory. Cells at **lr 1e-3**: **L-B** events 10–26, seeds 5–9 (joins docs/53 L → 10 seeds); **L-A** events 10–18 (`g1_trainaug_mix_3000.yaml`), seeds 0–9. Collapse = test_id track PairOptimal < 0.20.
+**Predictions:** P-R1 collapses 0/10 in L-B and ≤ 1/10 in L-A. P-R2 mean test_id track (all seeds) ≥ 0.65 in both (lr 1e-3 does not cost track accuracy vs lr 3e-3 non-collapsed ≈ 0.70–0.77). P-R3 L-B events OOD-length mean ≥ 0.85 and above L-A's mean. Failure: any L-B collapse ⇒ lr 1e-3 does not remove fragility; track mean < 0.65 ⇒ smaller lr trades accuracy. Counts and means only; no rate tests; no recommended-config claim beyond these data.
