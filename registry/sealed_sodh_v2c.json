@@ -13,11 +13,11 @@
   "split_manifest.json": "dc06204c32c70e8c92ee403735aa62bc39e14888e309ad21ea29cfde8d177d90"
  },
  "dataset": "sodh_v2c (SEALED, confirmatory)",
- "evaluations_so_far": 0,
+ "evaluations_so_far": 10,
  "location": "outside the repository (~/sealed_uc_vla/sodh_v2c), never read by training/dev code",
  "protocol": "docs/41_G1_CONFIRMATORY_PROTOCOL.md (frozen before generation)",
  "scope": "same generator, new random seeds (master_seed 20261201); not an independent environment",
  "sealed_on": "2026-11-13",
  "split_manifest_id": "sodh-split-871b27bcee67",
- "status": "UNSEEN (no model has been evaluated on it)"
+ "status": "EVALUATED ONCE per final model (GRU, fixed-latent S4; 5 seeds each); no tuning after; see docs/43"
 }

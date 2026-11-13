@@ -1,0 +1,698 @@
+{
+ "protocol": "docs/41",
+ "scope": "sealed sodh_v2c: same generator, new random seeds",
+ "archs": {
+  "fixedlatent4+confirm": {
+   "seeds": 5,
+   "params": 16741,
+   "train_acc": {
+    "mean": 0.8311041666666666,
+    "lo": 0.7666829958400654,
+    "hi": 0.8955253374932679,
+    "min": 0.7736979166666667,
+    "max": 0.88375
+   },
+   "epochs": [
+    45,
+    12,
+    27,
+    51,
+    15
+   ],
+   "fam": {
+    "track": {
+     "pair_optimal": {
+      "test_id": {
+       "mean": 0.26875,
+       "lo": 0.041952249377336215,
+       "hi": 0.49554775062266376,
+       "min": 0.03125,
+       "max": 0.453125
+      },
+      "test_ood_length": {
+       "mean": 0.13666666666666666,
+       "lo": 0.043671817585894696,
+       "hi": 0.22966151574743862,
+       "min": 0.03333333333333333,
+       "max": 0.23333333333333334
+      },
+      "test_ood_structure": {
+       "mean": 0.22,
+       "lo": 0.04418666666666671,
+       "hi": 0.3958133333333333,
+       "min": 0.05,
+       "max": 0.35
+      }
+     },
+     "memoryless_test_id": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "swap_follow": {
+      "mean": 0.46875,
+      "lo": 0.2826603812906098,
+      "hi": 0.6548396187093902,
+      "min": 0.27734375,
+      "max": 0.61328125
+     },
+     "drop_critical_minus_noncrit": {
+      "mean": 0.1390625,
+      "lo": 0.0466930976831343,
+      "hi": 0.23143190231686572,
+      "min": 0.05078125,
+      "max": 0.23046875
+     },
+     "order_perturbed_pair_optimal": {
+      "mean": 0.090625,
+      "lo": 0.04692589835734607,
+      "hi": 0.13432410164265393,
+      "min": 0.03125,
+      "max": 0.1171875
+     }
+    },
+    "events": {
+     "pair_optimal": {
+      "test_id": {
+       "mean": 0.984375,
+       "lo": 0.984375,
+       "hi": 0.984375,
+       "min": 0.984375,
+       "max": 0.984375
+      },
+      "test_ood_length": {
+       "mean": 0.51,
+       "lo": 0.10122673407702737,
+       "hi": 0.9187732659229726,
+       "min": 0.18333333333333332,
+       "max": 0.85
+      },
+      "test_ood_structure": {
+       "mean": 0.9833333333333333,
+       "lo": 0.9579920363394275,
+       "hi": 1.008674630327239,
+       "min": 0.95,
+       "max": 1.0
+      }
+     },
+     "memoryless_test_id": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "swap_follow": {
+      "mean": 0.9921875,
+      "lo": 0.9921875,
+      "hi": 0.9921875,
+      "min": 0.9921875,
+      "max": 0.9921875
+     },
+     "drop_critical_minus_noncrit": {
+      "mean": 0.33046875,
+      "lo": 0.08873337233984038,
+      "hi": 0.5722041276601596,
+      "min": 0.109375,
+      "max": 0.4921875
+     },
+     "order_perturbed_pair_optimal": {
+      "mean": 0.9203125,
+      "lo": 0.8321107413192628,
+      "hi": 1.0085142586807372,
+      "min": 0.8359375,
+      "max": 0.984375
+     }
+    },
+    "resume": {
+     "pair_optimal": {
+      "test_id": {
+       "mean": 0.9921875,
+       "lo": 0.9753884347358254,
+       "hi": 1.0089865652641747,
+       "min": 0.96875,
+       "max": 1.0
+      },
+      "test_ood_length": {
+       "mean": 0.9866666666666667,
+       "lo": 0.9496533333333333,
+       "hi": 1.02368,
+       "min": 0.9333333333333333,
+       "max": 1.0
+      },
+      "test_ood_structure": {
+       "mean": 0.9766666666666667,
+       "lo": 0.9489066666666667,
+       "hi": 1.0044266666666668,
+       "min": 0.95,
+       "max": 1.0
+      },
+      "test_counterfactual": {
+       "mean": 0.98,
+       "lo": 0.9460010823701694,
+       "hi": 1.0139989176298305,
+       "min": 0.9333333333333333,
+       "max": 1.0
+      }
+     },
+     "memoryless_test_id": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "swap_follow": {
+      "mean": 0.99609375,
+      "lo": 0.9876942173679126,
+      "hi": 1.0044932826320874,
+      "min": 0.984375,
+      "max": 1.0
+     },
+     "drop_critical_minus_noncrit": {
+      "mean": 0.734375,
+      "lo": 0.6964994095549324,
+      "hi": 0.7722505904450676,
+      "min": 0.68359375,
+      "max": 0.76171875
+     },
+     "order_perturbed_pair_optimal": {
+      "mean": 0.9765625,
+      "lo": 0.9466683442689043,
+      "hi": 1.0064566557310957,
+      "min": 0.9375,
+      "max": 1.0
+     }
+    }
+   },
+   "control_acc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "min": 1.0,
+    "max": 1.0
+   },
+   "control_swap_invariance": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "min": 1.0,
+    "max": 1.0
+   },
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": false,
+      "drop_gap": false,
+      "memoryless": true,
+      "seed_range": false,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     },
+     "resume": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": true,
+     "control_accuracy": true,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": true
+    },
+    "order_drop_track": 0.17812499999999998,
+    "g1_pass": true,
+    "g1_pass_legacy_without_order": true
+   },
+   "g1_pass": true,
+   "n_pairs": {
+    "test_id": {
+     "track": 128,
+     "events": 128,
+     "resume": 128
+    },
+    "test_ood_length": {
+     "track": 60,
+     "events": 60,
+     "resume": 60
+    },
+    "test_ood_structure": {
+     "track": 60,
+     "events": 60,
+     "resume": 60
+    },
+    "test_counterfactual": {
+     "resume": 60
+    }
+   },
+   "per_seed_pair_optimal_test_id": {
+    "track": [
+     0.453125,
+     0.125,
+     0.328125,
+     0.40625,
+     0.03125
+    ],
+    "events": [
+     0.984375,
+     0.984375,
+     0.984375,
+     0.984375,
+     0.984375
+    ],
+    "resume": [
+     1.0,
+     0.96875,
+     0.9921875,
+     1.0,
+     1.0
+    ]
+   },
+   "bounded_intervals_test_id": {
+    "track": {
+     "pooled": 0.26875,
+     "pair_level_wilson": [
+      0.23585885663391298,
+      0.3044007351663062
+     ],
+     "seed_min_max": [
+      0.03125,
+      0.453125
+     ],
+     "seed_t_interval_clipped": [
+      0.041952249377336215,
+      0.49554775062266376
+     ]
+    },
+    "events": {
+     "pooled": 0.984375,
+     "pair_level_wilson": [
+      0.9714786141403594,
+      0.991491159791614
+     ],
+     "seed_min_max": [
+      0.984375,
+      0.984375
+     ],
+     "seed_t_interval_clipped": [
+      0.984375,
+      0.984375
+     ]
+    },
+    "resume": {
+     "pooled": 0.9921875,
+     "pair_level_wilson": [
+      0.9818430115291387,
+      0.9966585329501246
+     ],
+     "seed_min_max": [
+      0.96875,
+      1.0
+     ],
+     "seed_t_interval_clipped": [
+      0.9753884347358254,
+      1.0
+     ]
+    }
+   },
+   "length_ood": {
+    "test_ood_length": {
+     "track": 0.13666666666666666,
+     "events": 0.51,
+     "resume": 0.9866666666666667
+    },
+    "test_ood_structure": {
+     "track": 0.22,
+     "events": 0.9833333333333333,
+     "resume": 0.9766666666666667
+    },
+    "test_counterfactual": {
+     "resume": 0.98
+    }
+   }
+  },
+  "gru+confirm": {
+   "seeds": 5,
+   "params": 34757,
+   "train_acc": {
+    "mean": 0.9330208333333333,
+    "lo": 0.8084662650445122,
+    "hi": 1.0575754016221544,
+    "min": 0.7539583333333333,
+    "max": 0.9859895833333333
+   },
+   "epochs": [
+    14,
+    41,
+    36,
+    30,
+    34
+   ],
+   "fam": {
+    "track": {
+     "pair_optimal": {
+      "test_id": {
+       "mean": 0.5875,
+       "lo": 0.17330849339873594,
+       "hi": 1.0016915066012642,
+       "min": 0.0,
+       "max": 0.7734375
+      },
+      "test_ood_length": {
+       "mean": 0.4533333333333333,
+       "lo": 0.13298886706824137,
+       "hi": 0.7736777995984252,
+       "min": 0.0,
+       "max": 0.6
+      },
+      "test_ood_structure": {
+       "mean": 0.58,
+       "lo": 0.17285333333333336,
+       "hi": 0.9871466666666666,
+       "min": 0.0,
+       "max": 0.7833333333333333
+      }
+     },
+     "memoryless_test_id": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "swap_follow": {
+      "mean": 0.7140625,
+      "lo": 0.3714205900173442,
+      "hi": 1.056704409982656,
+      "min": 0.2265625,
+      "max": 0.87109375
+     },
+     "drop_critical_minus_noncrit": {
+      "mean": 0.29921875,
+      "lo": 0.08434279118705779,
+      "hi": 0.5140947088129422,
+      "min": 0.0,
+      "max": 0.43359375
+     },
+     "order_perturbed_pair_optimal": {
+      "mean": 0.1,
+      "lo": 0.01617283265924467,
+      "hi": 0.18382716734075533,
+      "min": 0.0,
+      "max": 0.1875
+     }
+    },
+    "events": {
+     "pair_optimal": {
+      "test_id": {
+       "mean": 0.9890625,
+       "lo": 0.9803875,
+       "hi": 0.9977374999999999,
+       "min": 0.984375,
+       "max": 1.0
+      },
+      "test_ood_length": {
+       "mean": 0.5233333333333333,
+       "lo": 0.2169236224341301,
+       "hi": 0.8297430442325365,
+       "min": 0.13333333333333333,
+       "max": 0.8166666666666667
+      },
+      "test_ood_structure": {
+       "mean": 0.97,
+       "lo": 0.9089700750997239,
+       "hi": 1.0310299249002761,
+       "min": 0.8833333333333333,
+       "max": 1.0
+      }
+     },
+     "memoryless_test_id": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "swap_follow": {
+      "mean": 0.99453125,
+      "lo": 0.99019375,
+      "hi": 0.99886875,
+      "min": 0.9921875,
+      "max": 1.0
+     },
+     "drop_critical_minus_noncrit": {
+      "mean": 0.4125,
+      "lo": 0.2667493502774988,
+      "hi": 0.5582506497225012,
+      "min": 0.2109375,
+      "max": 0.48828125
+     },
+     "order_perturbed_pair_optimal": {
+      "mean": 0.9265625,
+      "lo": 0.8452416044879915,
+      "hi": 1.0078833955120083,
+      "min": 0.8203125,
+      "max": 0.9765625
+     }
+    },
+    "resume": {
+     "pair_optimal": {
+      "test_id": {
+       "mean": 1.0,
+       "lo": 1.0,
+       "hi": 1.0,
+       "min": 1.0,
+       "max": 1.0
+      },
+      "test_ood_length": {
+       "mean": 0.9966666666666667,
+       "lo": 0.9874133333333334,
+       "hi": 1.0059200000000001,
+       "min": 0.9833333333333333,
+       "max": 1.0
+      },
+      "test_ood_structure": {
+       "mean": 0.9733333333333333,
+       "lo": 0.9357461156478842,
+       "hi": 1.0109205510187824,
+       "min": 0.9333333333333333,
+       "max": 1.0
+      },
+      "test_counterfactual": {
+       "mean": 0.99,
+       "lo": 0.9786670274567231,
+       "hi": 1.001332972543277,
+       "min": 0.9833333333333333,
+       "max": 1.0
+      }
+     },
+     "memoryless_test_id": {
+      "mean": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "min": 0.0,
+      "max": 0.0
+     },
+     "swap_follow": {
+      "mean": 1.0,
+      "lo": 1.0,
+      "hi": 1.0,
+      "min": 1.0,
+      "max": 1.0
+     },
+     "drop_critical_minus_noncrit": {
+      "mean": 0.725,
+      "lo": 0.6779076524346179,
+      "hi": 0.772092347565382,
+      "min": 0.66796875,
+      "max": 0.765625
+     },
+     "order_perturbed_pair_optimal": {
+      "mean": 0.98125,
+      "lo": 0.94655,
+      "hi": 1.01595,
+      "min": 0.9375,
+      "max": 1.0
+     }
+    }
+   },
+   "control_acc": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "min": 1.0,
+    "max": 1.0
+   },
+   "control_swap_invariance": {
+    "mean": 1.0,
+    "lo": 1.0,
+    "hi": 1.0,
+    "min": 1.0,
+    "max": 1.0
+   },
+   "audit": {
+    "per_family": {
+     "track": {
+      "pair_optimal_mean": false,
+      "pair_optimal_lower_ci": false,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": false,
+      "all": false
+     },
+     "events": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     },
+     "resume": {
+      "pair_optimal_mean": true,
+      "pair_optimal_lower_ci": true,
+      "swap_follow": true,
+      "drop_gap": true,
+      "memoryless": true,
+      "seed_range": true,
+      "all": true
+     }
+    },
+    "conditions": {
+     "families_meeting_criteria": true,
+     "control_accuracy": true,
+     "control_swap_invariance": true,
+     "order_perturbation_cuts_track": true
+    },
+    "order_drop_track": 0.48750000000000004,
+    "g1_pass": true,
+    "g1_pass_legacy_without_order": true
+   },
+   "g1_pass": true,
+   "n_pairs": {
+    "test_id": {
+     "track": 128,
+     "events": 128,
+     "resume": 128
+    },
+    "test_ood_length": {
+     "track": 60,
+     "events": 60,
+     "resume": 60
+    },
+    "test_ood_structure": {
+     "track": 60,
+     "events": 60,
+     "resume": 60
+    },
+    "test_counterfactual": {
+     "resume": 60
+    }
+   },
+   "per_seed_pair_optimal_test_id": {
+    "track": [
+     0.0,
+     0.7734375,
+     0.6328125,
+     0.765625,
+     0.765625
+    ],
+    "events": [
+     0.984375,
+     0.984375,
+     0.9921875,
+     1.0,
+     0.984375
+    ],
+    "resume": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "bounded_intervals_test_id": {
+    "track": {
+     "pooled": 0.5875,
+     "pair_level_wilson": [
+      0.5489481716497896,
+      0.6250076584798573
+     ],
+     "seed_min_max": [
+      0.0,
+      0.7734375
+     ],
+     "seed_t_interval_clipped": [
+      0.17330849339873594,
+      1.0
+     ]
+    },
+    "events": {
+     "pooled": 0.9890625,
+     "pair_level_wilson": [
+      0.9775967850836061,
+      0.9946920511767411
+     ],
+     "seed_min_max": [
+      0.984375,
+      1.0
+     ],
+     "seed_t_interval_clipped": [
+      0.9803875,
+      0.9977374999999999
+     ]
+    },
+    "resume": {
+     "pooled": 1.0,
+     "pair_level_wilson": [
+      0.9940333150265532,
+      1.0
+     ],
+     "seed_min_max": [
+      1.0,
+      1.0
+     ],
+     "seed_t_interval_clipped": [
+      1.0,
+      1.0
+     ]
+    }
+   },
+   "length_ood": {
+    "test_ood_length": {
+     "track": 0.4533333333333333,
+     "events": 0.5233333333333333,
+     "resume": 0.9966666666666667
+    },
+    "test_ood_structure": {
+     "track": 0.58,
+     "events": 0.97,
+     "resume": 0.9733333333333333
+    },
+    "test_counterfactual": {
+     "resume": 0.99
+    }
+   }
+  }
+ }
+}
