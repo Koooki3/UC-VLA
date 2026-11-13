@@ -14,7 +14,7 @@ Memoryless (same model without history): 0.00 on every family. Swap-follow: even
 
 ## Negative results and failure analysis (kept)
 - **Track is unreliable.** GRU has one seed that collapsed to 0.00 (early-stopped at 14 epochs on a track-less solution; reported, not dropped) and a 0.77 best seed; FL4 never exceeds 0.45. The registered seed-range rule would reject track even if the mean passed. Consistent with the data-limitation finding (docs/35, 39); not a confirmation that tracking is learned reliably.
-- **Length OOD (pre-declared failure analysis).** Events collapse beyond training lengths: 0.52 (GRU) / 0.51 (FL4) vs 0.99 in-distribution; track 0.45/0.14; resume holds (0.997/0.987). The counting representation does not extrapolate in length; **cause not yet isolated** (candidate: state saturation/threshold tied to training horizons) — analysis pending, no repair claimed.
+- **Length OOD (pre-declared failure analysis).** Events collapse beyond training lengths: 0.52 (GRU) / 0.51 (FL4) vs 0.99 in-distribution; track 0.45/0.14; resume holds (0.997/0.987). The counting representation does not extrapolate in length; cause diagnosed on non-sealed data in `docs/45`: it tracks the target count K (not sequence length per se); no repair claimed.
 - **Structural OOD:** events 0.97–0.98, resume 0.97–0.98, track 0.58 (GRU) / 0.22 (FL4).
 - Uncertainty reported at pair level (Wilson over pooled pairs), seed level (min–max, clipped t-interval) — bounded in [0,1]; scene level equals pair level (unique templates).
 
