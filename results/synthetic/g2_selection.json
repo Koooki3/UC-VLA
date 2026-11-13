@@ -1,0 +1,34 @@
+{
+ "mode": "synthetic_theory_toy",
+ "instances": 400,
+ "M": 8,
+ "mean_regret_vs_exact_joint": {
+  "marginal_greedy": 0.43993875,
+  "loo_from_full": 0.07700375,
+  "conditional_greedy": 0.29707374999999997,
+  "group_selection": 0.0,
+  "shapley_20": 0.1480775,
+  "shapley_200": 0.08512125,
+  "shapley_2000": 0.0486325,
+  "joint_exact": 0.0
+ },
+ "P_optimal": {
+  "marginal_greedy": 0.3225,
+  "loo_from_full": 0.845,
+  "conditional_greedy": 0.4325,
+  "group_selection": 1.0,
+  "shapley_20": 0.6875,
+  "shapley_200": 0.7575,
+  "shapley_2000": 0.8125,
+  "joint_exact": 1.0
+ },
+ "cost_in_value_evaluations": {
+  "marginal_greedy": 8,
+  "loo_from_full": 8,
+  "conditional_greedy": "B*M",
+  "group_selection": "2^groups",
+  "shapley_K": "K*M (approximate; error shrinks ~1/sqrt(K))",
+  "joint_exact": "C(M,B)  (exponential)"
+ },
+ "note": "single-item marginals are 0 for every member of a synergistic group; the old selection_accuracy (additive future bits) and the 16-rollout cost bound derived from it are INVALID and must not be cited"
+}
