@@ -1,0 +1,16 @@
+# SODH v2c: SEALED CONFIRMATORY set for G1 (docs/41). Same generator and mechanisms as frozen sodh_v2,
+# NEW master seed => "same generator, new random seeds" (NOT an independent environment).
+# Generated outside the repository, never used for training/development/tuning; hashes registered in
+# registry/sealed_sodh_v2c.json. Almost all in-dist pairs are assigned to test_id (fractions .05/.05/.90).
+master_seed: 20261201
+generator_version: sodh/2
+n_identity_mappings: 8
+heldout_mappings: [7]
+split_fractions: [0.05, 0.05, 0.90]
+noise_levels: [0.0, 0.1]
+margin_gate: 0.30
+families:
+  track:   {n_id: [3, 5], horizon_id: [8, 16],  horizon_ood_length: [24, 32], pairs_in_dist: 140, pairs_ood_length: 60, pairs_ood_structure: 60, pairs_heldout: 0}
+  events:  {n_id: [2, 2], horizon_id: [10, 18], horizon_ood_length: [26, 36], pairs_in_dist: 140, pairs_ood_length: 60, pairs_ood_structure: 60, pairs_heldout: 0}
+  resume:  {n_id: [3, 5], horizon_id: [14, 22], horizon_ood_length: [30, 40], pairs_in_dist: 140, pairs_ood_length: 60, pairs_ood_structure: 60, pairs_heldout: 60}
+  control: {n_id: [2, 2], horizon_id: [8, 16],  horizon_ood_length: [24, 32], pairs_in_dist: 60,  pairs_ood_length: 20, pairs_ood_structure: 20, pairs_heldout: 0}
