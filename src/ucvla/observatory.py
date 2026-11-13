@@ -43,13 +43,42 @@ def _body(seq, time_ns, kind, payload, refs, prev) -> dict[str, Any]:
             "evidence_refs": list(refs), "prev_hash": prev}
 
 
+def _scan_keys(obj: Any, path: str = "") -> list[str]:
+    """Forbidden label/privileged key names anywhere in a nested payload."""
+    bad = []
+    if isinstance(obj, Mapping):
+        for k, v in obj.items():
+            if any(f in str(k).lower() for f in FORBIDDEN):
+                bad.append(f"{path}/{k}")
+            bad += _scan_keys(v, f"{path}/{k}")
+    elif isinstance(obj, (list, tuple)):
+        for i, v in enumerate(obj):
+            bad += _scan_keys(v, f"{path}[{i}]")
+    return bad
+
+
 class TraceRecorder:
-    def __init__(self, path: Path) -> None:
+    def __init__(self, path: Path, resume: bool = False) -> None:
         self.path = path
         self._seq, self._prev, self._t, self._version = 0, "0" * 64, -1, 0
         self._plans: dict[str, int] = {}
+        self._refs: dict[str, int] = {}  # evidence sha256 -> time it became available
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text("")
+        if path.exists() and path.stat().st_size > 0:
+            if not resume:
+                raise TraceError("trace exists: refusing to overwrite (use resume=True)")
+            for e in replay(path):  # verified, non-destructive restore of the recorder state
+                self._seq, self._prev, self._t = e.seq + 1, e.hash, e.time_ns
+                if e.kind == "observation":
+                    self._refs.setdefault(e.evidence_refs[0], e.time_ns)
+                elif e.kind == "memory_op":
+                    self._version = e.payload["new_version"]
+                elif e.kind == "plan":
+                    self._plans[e.payload["plan_id"]] = e.payload["context_version"]
+                elif e.kind == "intervention" and e.payload.get("name") == "invalidate_plan":
+                    self._plans.pop(e.payload["plan_id"], None)
+        else:
+            path.write_text("")
 
     def _emit(self, kind: str, time_ns: int, payload: Mapping[str, Any],
               refs: tuple[str, ...] = ()) -> TraceEvent:
@@ -57,11 +86,17 @@ class TraceRecorder:
             raise TraceError(f"unknown kind {kind}")
         if time_ns < self._t:
             raise TraceError("time must be non-decreasing")
-        bad = [k for k in payload if any(f in k.lower() for f in FORBIDDEN)]
+        bad = _scan_keys(payload)
         if bad:
             raise TraceError(f"payload keys {bad} are forbidden (privileged/label-like)")
         if not all(is_sha256_hex(r) for r in refs):
             raise TraceError("evidence refs must be sha256 hex")
+        if kind == "memory_op":
+            for r in refs:
+                if r not in self._refs:
+                    raise TraceError("evidence ref was never observed")
+                if self._refs[r] > time_ns:
+                    raise TraceError("evidence ref not yet available at this time")
         h = digest(_body(self._seq, time_ns, kind, dict(payload), refs, self._prev))
         ev = TraceEvent(self._seq, time_ns, kind, dict(payload), refs, self._prev, h)
         with self.path.open("a", encoding="utf-8") as f:
@@ -71,7 +106,9 @@ class TraceRecorder:
         return ev
 
     def observation(self, time_ns: int, obs_sha256: str, tokens: int) -> TraceEvent:
-        return self._emit("observation", time_ns, {"tokens": tokens}, (obs_sha256,))
+        ev = self._emit("observation", time_ns, {"tokens": tokens}, (obs_sha256,))
+        self._refs.setdefault(obs_sha256, time_ns)
+        return ev
 
     def memory_op(self, time_ns: int, op: str, base_version: int, refs: tuple[str, ...],
                   budget_tokens: int, used_tokens: int, cost_ms: float, reason: str = "") -> TraceEvent:
@@ -96,9 +133,20 @@ class TraceRecorder:
         return self._emit("plan", time_ns, {"plan_id": plan_id, "context_version": context_version,
                                             "chunk_len": chunk_len, "status": "predicted"})
 
-    def execution(self, time_ns: int, plan_id: str, step: int, verified: bool) -> TraceEvent:
+    def invalidate_plan(self, time_ns: int, plan_id: str, reason: str) -> TraceEvent:
+        ev = self._emit("intervention", time_ns, {"name": "invalidate_plan", "plan_id": plan_id,
+                                                  "reason": reason})
+        self._plans.pop(plan_id, None)
+        return ev
+
+    def execution(self, time_ns: int, plan_id: str, step: int, verified: bool,
+                  allow_stale: bool = False) -> TraceEvent:
+        """Contract BEFORE actuation: a plan built on an older context version must be invalidated
+        (re-planned) first; executing it raises unless explicitly allowed (diagnostic traces only)."""
         if plan_id not in self._plans:
-            raise TraceError("execution of an unknown plan")
+            raise TraceError("execution of an unknown or invalidated plan")
+        if self._plans[plan_id] != self._version and not allow_stale:
+            raise TraceError("stale plan: context version changed; invalidate and re-plan first")
         return self._emit("execution", time_ns, {"plan_id": plan_id, "step": step,
                                                  "verified": verified, "status": "executed"})
 
