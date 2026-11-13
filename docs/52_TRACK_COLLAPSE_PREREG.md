@@ -1,0 +1,5 @@
+# 52 | Track-collapse attribution — pre-registration (frozen before runs)
+
+Question (docs/51): is the 1/5 track collapse (seed 1, 0.00) caused by the widened events data, or run-to-run fragility? Standard G1 pipeline, GRU, non-sealed splits (exploratory), seeds not previously used. Cells (`run_g1.py --arch gru`, 5 seeds each): **R-A** docs/39 mix (events 10–18, `g1_trainaug_mix_3000.yaml`) seeds 5–9, lr 3e-3; **R-B** kcover B (10–26) seeds 5–9, lr 3e-3; **R-L** kcover B seeds 0–4, lr 1e-3. Collapse = test_id track PairOptimal < 0.20.
+Pooled with existing runs: data A (docs/39 seeds 0–4 + R-A) and data B (docs/51 + R-B), 10 seeds each at lr 3e-3.
+**Predictions:** P-T1 collapses in B ≥ 2/10 and in A ≤ 1/10 (data effect); alternative reading (fragility, both ≥ 1/10 with no difference) is accepted if A shows ≥ 1 collapse. P-T2 lr 1e-3 yields 0/5 collapses (as docs/49 for events). P-T3 events OOD-length PairOptimal mean over the 10 B seeds ≥ 0.80. Report counts only (no rate tests at n=10); no hyper-parameter or mix selection from these results.
