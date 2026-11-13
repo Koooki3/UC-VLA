@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Minimal deterministic, fully auditable context writer.
 
 Not learned, not a production VLA memory. Only CPU contracts and tests.

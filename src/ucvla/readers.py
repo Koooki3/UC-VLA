@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """CPU reference policies behind the PolicyAdapter (status: ``mock`` — not VLAs).
 
 oracle_decoder   hand-written per-task decoder with built-in task knowledge. It measures whether

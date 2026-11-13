@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Deterministic Same-Observation / Different-History (SODH) generator.
 
 Status: ``implemented`` as a *symbolic* simulator (frames are token maps, not pixels).

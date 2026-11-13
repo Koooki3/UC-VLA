@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Run records: everything needed to attribute and independently reproduce a result."""
 
 from __future__ import annotations

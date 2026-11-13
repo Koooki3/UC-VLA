@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """(Re)generate or verify PACKAGE_MANIFEST.json: sha256 of every tracked project file."""
 
 import argparse

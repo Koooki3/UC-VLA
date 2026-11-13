@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Causal attribution of a policy's performance to *history* (not current obs or data regularity).
 
 Interventions edit only the history shown to the policy; the world and the label stay fixed.

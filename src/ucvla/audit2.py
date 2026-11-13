@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """SODH v2 gate (docs/19 §5, §9). Reuses the g0/2 full-view audits and adds mechanism/template/
 oracle/size gates and the history-free falsifier. Validity statement: "validated against the
 current attack set" (tests/test_g0_mutants.py, tests/test_v2.py); NOT a proof of leak-freeness.

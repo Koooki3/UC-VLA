@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Versioned episode schema and causal (cutoff-truncated) views.
 
 Status: ``implemented`` for symbolic/synthetic episodes. Image bytes are not stored; a frame

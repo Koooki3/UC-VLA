@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """PolicyAdapter contract: the ONLY interface through which a policy meets the evaluator.
 
 Information boundary (enforced by construction; see harness.py and tests/test_harness.py):

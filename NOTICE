@@ -1,0 +1,10 @@
+UC-VLA research scaffold
+Copyright 2026 the UC-VLA project contributors
+
+This product includes only original project code under the Apache License 2.0 (see LICENSE).
+No third-party source code is vendored. Third-party datasets, models and their licences are listed
+in third_party_manifest.json and are NOT covered by this licence:
+  - RoboMME StopCube training sample (apache-2.0 per its dataset card; not redistributed here)
+  - any VLA weights (none are included; pi0/pi0.5 derivatives are subject to the Gemma Terms of Use
+    and Prohibited Use Policy and are NO-GO pending review, see docs/20)
+Derived or fine-tuned model weights keep the licence of their base model(s).

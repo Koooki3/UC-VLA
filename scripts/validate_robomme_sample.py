@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Schema round-trip validation of the official RoboMME StopCube TRAIN sample (read-only).
 
 Checks every episode: import, serialisation round-trip, exact proprio/command equality with the

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """SODH v2 acceptance tests (docs/19 §9). Every F-criterion has a test that fails on a defective
 design. Small config for speed; the full frozen data is covered by tests/test_frozen_v2.py."""
 

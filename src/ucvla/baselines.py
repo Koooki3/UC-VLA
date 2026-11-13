@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Symbolic reference readers for the SODH suite (status: ``mock`` — hand-written, not learned).
 
 All policies share ONE decoding rule per task and differ only in which history ticks they are

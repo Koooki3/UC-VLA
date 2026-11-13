@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """SODH v2 evaluation (docs/19 §6-§9): Memory Necessity / Use / Sufficiency / Compression
 Efficiency, decoder-and-learner cross-validation, F7 ranking-agreement test. CPU, synthetic.
 Test splits are used for evaluation only and logged in the ledger; the val split gives the pilot

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Minimal offline replay adapter for real episodes (status: ``implemented`` for the RoboMME HDF5
 sample; CPU fakes only). Feeds each tick of a recorded episode to a policy through the SAME
 PolicyInput boundary as the synthetic suites and scores the predicted action against the recorded

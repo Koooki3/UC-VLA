@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Canonical JSON, hashing and a version-independent deterministic RNG.
 
 Everything that is hashed, serialised or sampled in M1 goes through this module so that

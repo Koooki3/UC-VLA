@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Pair-level split assignment, leakage checker and write-once split manifest.
 
 Rules (docs/06): splits are assigned per *pair* (never per episode), the shared scene script

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Generate the deterministic synthetic SODH dataset, check splits, run G0. CPU only."""
 
 import argparse

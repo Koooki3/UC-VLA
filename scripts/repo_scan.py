@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Open-source readiness scan of TRACKED files: secrets (blocking), personal paths/identifiers
 and large files (warnings unless --strict). Read-only; never prints a matched secret value."""
 

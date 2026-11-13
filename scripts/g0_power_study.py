@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Detection-power study of the SODH v2 leak probes (docs/21). Plants graded leaks in a COPY of
 the events family (binary labels) held in memory, runs the current probes (D0) and the extended
 aggregate/conjunctive probes (D1), and reports detection rate vs the accuracy a leak-exploiting

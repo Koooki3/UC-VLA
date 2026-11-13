@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Pure-Python contracts; nothing in this module commands a physical robot."""
 
 from collections.abc import Mapping

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """HDF5 importer: schema round-trip on a synthetic file with the official RoboMME layout (always
 runs) and on the real downloaded sample (skipped when the data is absent)."""
 

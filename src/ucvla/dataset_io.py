@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Canonical JSONL serialisation, hash-verified reading and the data manifest."""
 
 from __future__ import annotations

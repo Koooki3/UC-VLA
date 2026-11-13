@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """CPU-only symbolic diagnostic; intentionally not a learned VLA experiment."""
 
 import json

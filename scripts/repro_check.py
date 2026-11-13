@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Independent-run reproducibility: N fresh processes, different PYTHONHASHSEED, same hashes."""
 
 import argparse

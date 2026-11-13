@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Clock-domain mapping and causal time alignment (integer arithmetic, no float drift).
 
 Status: ``implemented`` (pure functions). Never assumes an unknown clock domain.

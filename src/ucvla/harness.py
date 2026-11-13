@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Policy evaluation harness: one code path, identical rules for every agent.
 
 The harness alone (a) builds the PolicyInput from a causal view, (b) runs the context provider

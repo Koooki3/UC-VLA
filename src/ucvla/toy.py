@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """History-dependent CPU toy used only to test causal interfaces.
 
 Two episodes have IDENTICAL visible final observation but distinct earlier

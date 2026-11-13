@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Fail closed on obvious missing prerequisites before a real experiment.
 
 We deliberately do not load YAML to keep Day-0 free of third-party dependencies.

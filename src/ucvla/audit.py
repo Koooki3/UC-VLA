@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Anti-shortcut audits and the executable G0 gate (docs/00, docs/06 negative controls).
 
 G0 asks: does the task have diagnostic power for history? Passing it on a *symbolic* generator

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Generate SODH v2 (docs/19), run the v2 gate, and write-once freeze it. CPU only, synthetic."""
 
 import argparse

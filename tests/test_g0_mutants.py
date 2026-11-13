@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Mutation regression: every channel of the decision view gets a planted leak; G0 must fail
 for the RIGHT reason. (Independent review 2026-11-11 showed v1 G0 passed 5 of these.)"""
 

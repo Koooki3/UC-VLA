@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Exact-enumeration posterior oracle for SODH v2 (status: ``implemented``, symbolic).
 
 The oracle sees only what a policy could see (observed ticks, task parameters, the clock) and

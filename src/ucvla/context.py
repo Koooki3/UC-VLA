@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Budgeted context selection and the harness-side access validator.
 
 A ContextProvider decides *which past observations* a policy may use; the harness, not the

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Freeze guard for SODH v2: config, data and split manifest may never change silently."""
 
 import hashlib

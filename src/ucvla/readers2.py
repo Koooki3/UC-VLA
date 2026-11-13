@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Policies for SODH v2 behind the PolicyAdapter (status: ``mock``; none is a VLA).
 
 PosteriorOraclePolicy   Bayes-optimal under the declared environment model, restricted to the

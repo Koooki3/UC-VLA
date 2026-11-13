@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Small deterministic statistics helpers (no numpy). Cluster unit = the pair."""
 
 from __future__ import annotations

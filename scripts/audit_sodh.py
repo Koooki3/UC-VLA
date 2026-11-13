@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Independently re-verify a written SODH dataset: hashes, split manifest, G0. Exit 1 on failure."""
 
 import argparse

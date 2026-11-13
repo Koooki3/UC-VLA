@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Exact paired tests and multiplicity control (pure Python). Cluster unit = pair."""
 
 from __future__ import annotations

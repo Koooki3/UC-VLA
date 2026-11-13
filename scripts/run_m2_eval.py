@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """M2 CPU evaluation: matched-budget agents, causal attribution, paired tests, run record.
 
 mode: synthetic. The oracle decoder is an information-sufficiency probe, NOT a method; nothing

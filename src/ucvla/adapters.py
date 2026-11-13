@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Benchmark adapter interface, the usable SODH adapter and paired evaluation.
 
 Registry statuses are explicit so that no code path implies a nonexistent integration works.

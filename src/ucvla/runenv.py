@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Read-only capture of code version and runtime environment for run records."""
 
 from __future__ import annotations

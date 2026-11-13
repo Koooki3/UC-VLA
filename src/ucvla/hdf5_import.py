@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """RoboMME HDF5 -> EpisodeRecord importer (status: ``implemented`` for the documented layout,
 validated on ONE official 100-episode training sample (StopCube); other tasks untested).
 

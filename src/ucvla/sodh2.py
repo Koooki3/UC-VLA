@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """SODH v2 generator (spec: docs/19). Symbolic, ``mode: synthetic``; new version, v1 untouched.
 
 Differences from v1 that matter scientifically: anonymous cups that must be tracked through

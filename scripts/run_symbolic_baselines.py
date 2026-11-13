@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Matched-budget sweep of the symbolic readers on SODH. mode: synthetic, NOT a model result.
 
 Budget unit = retained history ticks (hot memory). Every policy uses the same decoding rule, so

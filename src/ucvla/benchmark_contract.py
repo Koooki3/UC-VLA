@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Contract that every episode source (HDF5, LeRobot, real benchmarks) must satisfy.
 
 Status: the *contract and conformance checks* are ``implemented``; the importers below are
