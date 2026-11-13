@@ -1,0 +1,1 @@
+{"purpose": "G1 official runs", "splits": ["test_id", "test_ood_length", "test_ood_structure", "test_counterfactual"], "note": "one scratch smoke run (gru seed0, 25 epochs) saw test numbers earlier; hyper-parameters unchanged; v2 test splits previously viewed => exploratory"}

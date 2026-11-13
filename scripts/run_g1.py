@@ -64,6 +64,10 @@ def main():
     ap.add_argument("--slots", type=int, default=4)
     ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
     ap.add_argument("--epochs", type=int, default=60)
+    ap.add_argument("--lr", type=float, default=3e-3)
+    ap.add_argument("--patience", type=int, default=8)
+    ap.add_argument("--extra-train", type=Path, help="yaml of a TRAIN-ONLY generator config (other seed)")
+    ap.add_argument("--tag-suffix", default="")
     ap.add_argument("--threads", type=int, default=3)
     ap.add_argument("--out", type=Path, default=ROOT / "results/synthetic/g1/runs")
     args = ap.parse_args()
@@ -81,12 +85,21 @@ def main():
             toklists.append(canon_tick(t, items))
     vocab = Vocab.build(toklists)
     train = [example(ad, i, vocab) for i in tr_ids]
+    if args.extra_train:
+        import yaml
+
+        from ucvla.sodh2 import SODH2Config, generate_suite2
+        xs = generate_suite2(SODH2Config.from_dict(yaml.safe_load(args.extra_train.read_text())))
+        xad = SODHAdapter(xs.episodes, xs.pairs, {p.pair_id: "train" for p in xs.pairs})
+        train += [example(xad, e.episode_id, vocab) for e in xs.episodes]
+        print("extra train episodes", len(xs.episodes), flush=True)
     val = [example(ad, i, vocab) for i in va_ids]
     val_pairs = [(2 * i, 2 * i + 1) for i in range(len(va_pairs_rec))]
     args.out.mkdir(parents=True, exist_ok=True)
-    tag = args.arch + (f"{args.slots}" if args.arch == "fixedlatent" else "")
+    tag = args.arch + (f"{args.slots}" if args.arch == "fixedlatent" else "") + args.tag_suffix
     for seed in args.seeds:
-        model, info = train_model(args.arch, vocab, train, val, val_pairs, seed, args.slots, args.epochs)
+        model, info = train_model(args.arch, vocab, train, val, val_pairs, seed, args.slots, args.epochs,
+                                  args.patience, args.lr)
         pol = LearnedPolicy(model, vocab, tag)
         full, none = Agent(AllHistory(), pol), Agent(NoHistory(), pol)
         res = {"arch": tag, "seed": seed, "spec": pol.spec(), "train": info["trace"][-1],
