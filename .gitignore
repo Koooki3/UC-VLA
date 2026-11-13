@@ -46,3 +46,4 @@ runs/
 results/synthetic/**/episodes.jsonl
 # run-time provenance (records the real HEAD at run time; cannot live inside its own commit)
 results/synthetic/**/provenance.json
+logs_local/

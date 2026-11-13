@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--extra-train", type=Path, help="yaml of a TRAIN-ONLY generator config (other seed)")
     ap.add_argument("--tag-suffix", default="")
+    ap.add_argument("--drop-params", nargs="*", default=[], help="withhold these task-parameter keys")
     ap.add_argument("--ckpt-dir", type=Path, help="per-epoch checkpoints; a re-launch resumes (cluster use)")
     ap.add_argument("--threads", type=int, default=3)
     ap.add_argument("--out", type=Path, default=ROOT / "results/synthetic/g1/runs")
@@ -84,7 +85,7 @@ def main():
         items = e.queries[0].params.get("items", "").split(",") if "items" in e.queries[0].params else []
         for t in front_ticks(e):
             toklists.append(canon_tick(t, items))
-    vocab = Vocab.build(toklists)
+    vocab = Vocab.build(toklists, args.drop_params)
     train = [example(ad, i, vocab) for i in tr_ids]
     if args.extra_train:
         import yaml

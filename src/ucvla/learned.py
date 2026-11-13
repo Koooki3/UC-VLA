@@ -37,8 +37,8 @@ def canon_tick(tick: Mapping[str, str], items: Sequence[str]) -> list[str]:
     return out
 
 
-def param_vec(task: str, params: Mapping[str, str]) -> list[float]:
-    vec = [float(params[k]) if k in params else 0.0 for k in PARAM_KEYS]
+def param_vec(task: str, params: Mapping[str, str], drop: Sequence[str] = ()) -> list[float]:
+    vec = [float(params[k]) if (k in params and k not in drop) else 0.0 for k in PARAM_KEYS]
     vec.append(float(len(params.get("items", "").split(","))) if "items" in params else 0.0)
     vec += [1.0 if task == t else 0.0 for t in TASKS]
     return vec
@@ -49,11 +49,12 @@ N_PARAM = len(PARAM_KEYS) + 1 + len(TASKS)
 
 @dataclass
 class Vocab:
-    tokens: dict[str, int] = field(default_factory=dict)  # 0 = UNKNOWN-TOKEN, 1 = UNKNOWN-TICK
+    tokens: dict[str, int] = field(default_factory=dict)
+    drop_params: tuple[str, ...] = ()  # task-parameter keys withheld from the model (provenance ablations)  # 0 = UNKNOWN-TOKEN, 1 = UNKNOWN-TICK
 
     @classmethod
-    def build(cls, token_lists: Sequence[Sequence[str]]) -> Vocab:
-        v = cls({})
+    def build(cls, token_lists: Sequence[Sequence[str]], drop_params: Sequence[str] = ()) -> Vocab:
+        v = cls({}, tuple(drop_params))
         for toks in token_lists:
             for t in toks:
                 v.tokens.setdefault(t, len(v.tokens) + 2)
@@ -78,7 +79,7 @@ def encode(vocab: Vocab, task: str, params: Mapping[str, str], options: Sequence
             x[i, vocab.tokens.get(t, 0)] = 1.0
     mask = np.zeros(MAX_OPT, dtype=bool)
     mask[:len(options)] = True
-    return x, np.asarray(param_vec(task, params), dtype=np.float32), mask
+    return x, np.asarray(param_vec(task, params, vocab.drop_params), dtype=np.float32), mask
 
 
 class _Base(nn.Module):
