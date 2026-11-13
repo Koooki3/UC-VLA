@@ -63,7 +63,7 @@ flowchart LR
 
 **Delivered (CPU, synthetic; contract in `docs/17`):** `context.py` (budgeted providers + harness-side validation), `policy.py` (PolicyAdapter, access boundary), `readers.py` (OracleDecoder strict/clock, ObsOnlyLookup, BagOfTokensNB), `harness.py` (single evaluation path, train-only fitting, predicted→commanded→executed logging), `causal_eval.py` (history swap, critical vs matched non-critical deletion, coverage/evidence-position), `stattests.py` (exact sign test, Holm), `runrecord.py` + `scripts/run_m2_eval.py` + `scripts/repro_check.py` (real git SHA, data/config hashes, fresh-process reproducibility, evaluation ledger), `benchmark_contract.py` (source conformance; HDF5/LeRobot importers raise `NotImplementedError`).
 
-**Not done / blocked:** OpenPI adapter and any real VLA (no checkpoint/licence/GPU authorisation); D&R/Mem4Act reproduction; fixed-latent learned baseline; RoboMME or any real-data importer (licence/data approval, `docs/16`); SODH v2 (needed before any comparative memory claim). The M2 DoD sentence "intervention changes policy on SODH" is met only for hand-written decoders, which is a decoder self-check, not a result.
+**Not done / blocked:** OpenPI adapter and any real VLA (no checkpoint/licence/GPU authorisation); D&R/Mem4Act reproduction; fixed-latent learned baseline; RoboMME or any real-data importer (licence/data approval, `docs/16 (withheld from the public release)`); SODH v2 (needed before any comparative memory claim). The M2 DoD sentence "intervention changes policy on SODH" is met only for hand-written decoders, which is a decoder self-check, not a result.
 
 (original M2 text follows)
 

@@ -19,7 +19,7 @@ Classes: **VSE** Validated Scientific Evidence · **EEE** Established Engineerin
 | 13 | Autonomous memory management improves a real VLA | UH | no real VLA, no real-policy rollout |
 | 14 | Unified Context–Action learning | UH | no joint model exists |
 | 15 | Benchmark has memory-selection construct validity (B2b) | UH / open | F7 failures; needs learners+fair controls |
-| 16 | pi0/pi0.5 weights may be used / released | UH (NO-GO) | Gemma-term ambiguity (`docs/20`) |
+| 16 | pi0/pi0.5 weights may be used / released | UH (NO-GO) | Gemma-term ambiguity (`docs/20 (withheld from the public release)`) |
 | 17 | Tracking accuracy of the GRU is data-limited: 0.11→0.33→0.78→0.96 for 0/1k/3k/9k extra track pairs (5 seeds) | EXP | `docs/35`; synthetic; test splits viewed |
 | 18 | Track-only auxiliary data causes multi-task degradation (events 0.55, resume 0.30 at N=9000; some seeds 0.00) | NEG | `docs/35`; cause (task imbalance) is an untested hypothesis |
 | 19 | LeRobot importer aligns timestamps/video exactly and keeps the commanded action invisible at its own tick | EEE | `docs/34`; one dataset; no visual-memory claim |

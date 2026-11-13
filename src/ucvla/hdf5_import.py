@@ -6,7 +6,7 @@ Layout (doc/h5_data_format.md of the benchmark repo, verified on the sample):
   episode_N/{setup/{seed,difficulty,task_goal,available_multi_choices,*_intrinsic},
              timestep_K/{obs/*, action/*, info/*}}   (timestep keys are NOT in numeric order)
 
-Contract decisions (what cannot be mapped losslessly is listed in LOSSY_FIELDS / docs/22):
+Contract decisions (what cannot be mapped losslessly is listed in LOSSY_FIELDS / docs/22 (withheld from the public release)):
   * pixels are never copied: a Frame carries sha256 of the raw rgb/depth bytes plus an HDF5 ref;
   * time is DERIVED from an operator-set rate (``assumed_hz``): the file has no timestamps;
   * ``joint_action`` is a *commanded* action. It is issued 1 ns after its observation, so a causal
@@ -139,7 +139,7 @@ def import_episode(f: h5py.File, key: str, cfg: HDF5ImportConfig) -> EpisodeReco
         "executed_origin": "absent", "source_revision": cfg.source_revision,
         "source_file_sha256": cfg.source_file_sha256, "source_episode": key,
         "license_ref": "dataset card: apache-2.0; LICENSE has unfilled copyright holder "
-                       "(operator clearance pending, docs/22)",
+                       "(operator clearance pending, docs/22 (withheld from the public release))",
         "n_timesteps": len(ids),
     }
     return EpisodeRecord(
@@ -165,7 +165,7 @@ class RoboMMEHDF5Source:
         self.manifest = SourceManifest(
             name=f"robomme_{cfg.task}_{split}_sample", version=cfg.source_revision,
             source_format="hdf5", license_status="unverified",
-            license_ref="apache-2.0 per card; copyright holder unspecified (docs/22)",
+            license_ref="apache-2.0 per card; copyright holder unspecified (docs/22 (withheld from the public release))",
             official_protocol_ref="https://github.com/RoboMME/robomme_benchmark",
             privileged_fields=PRIVILEGED_FIELDS)
 

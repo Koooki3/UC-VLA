@@ -13,8 +13,8 @@ All results are `mode: synthetic` unless a record says `real_data_*` (schema che
 - Git baseline `5322034` tag `m1-synthetic-baseline`; v1 frozen as a regression fixture; **no remote, nothing pushed**.
 - Review status split: **B1** code fix closed (validity = "current attack set + measured power"); **B2a** closed; **B2b open**.
 - **Track A** — `docs/19` pre-registered spec → **SODH v2** (tracking cups, validity-aware events, per-item resume, env-defined success, independent posterior oracle, generated evidence-position axis, structural OOD, disjoint-atom holdout, template/mechanism/alpha-twin gates, 126 test_id pairs/family), frozen `sodh-split-539d19e50cea`; G0 v2/2; G0 power study (`docs/21`); four memory metrics + F7 (`docs/23`).
-- **Track B** — RoboMME single-task official **train** sample (964,971,180 B, sha256 verified, seeds ⊂ train, ∩ val/test = ∅) → real **HDF5 importer**, 100/100 episodes round-trip exact; offline replay adapter (same PolicyInput boundary); budgets now also bound proprio; `docs/22`.
-- Licence reviews (subagent, unverified quotes): benchmarks (`docs/16`), OpenPI/π0.5/Gemma + alternatives (`docs/20`). **Checkpoints remain NO-GO.**
+- **Track B** — RoboMME single-task official **train** sample (964,971,180 B, sha256 verified, seeds ⊂ train, ∩ val/test = ∅) → real **HDF5 importer**, 100/100 episodes round-trip exact; offline replay adapter (same PolicyInput boundary); budgets now also bound proprio; `docs/22 (withheld from the public release)`.
+- Licence reviews (subagent, unverified quotes): benchmarks (`docs/16 (withheld from the public release)`), OpenPI/π0.5/Gemma + alternatives (`docs/20 (withheld from the public release)`). **Checkpoints remain NO-GO.**
 - Open-source preparation (no remote): repo scan clean, lockfile, CI, third-party manifest, rules (`docs/24`).
 - 152 tests, ruff clean, `make smoke` green, fresh-process reproducibility for M2 and v2 evaluations.
 

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """CPU mock of a flow-matching VLA with a context-token injection point (status: MOCK, random weights,
 NO pretrained weights, NOT SmolVLA). Tensor contract follows what the public SmolVLA code is reported
-to use (docs/30, unverified): prefix = [image tokens, language tokens, CONTEXT tokens, state token];
+to use (docs/30 (withheld from the public release), unverified): prefix = [image tokens, language tokens, CONTEXT tokens, state token];
 an action expert cross-attends the prefix and denoises an action chunk (B, H, A) with Euler steps.
 The point of the mock is the INTERFACE: a fixed-size memory state is projected to K context tokens
 whose presence/absence/version demonstrably changes the action chunk, with no backbone change."""

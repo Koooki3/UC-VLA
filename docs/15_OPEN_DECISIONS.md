@@ -20,7 +20,7 @@ These are non-blocking for CPU contracts/scaffold. They **do** block GPU experim
 | Decision | Safe default | Evidence required | Owner |
 | --- | --- | --- | --- |
 | Project licence; git author identity/history before any remote | none; no remote | `docs/24` checklist | operator |
-| Backbone for open release | none (pi0/pi0.5 NO-GO) | licence checks of SmolVLA/RDT-1B/Octo weights + encoders (`docs/20`) | researcher + operator |
+| Backbone for open release | none (pi0/pi0.5 NO-GO) | licence checks of SmolVLA/RDT-1B/Octo weights + encoders (`docs/20 (withheld from the public release)`) | researcher + operator |
 | LeRobot-format official sample | not downloaded | licence + size + operator approval | operator |
 | Simulator replay (M3) for real paired tests | not authorised | compute/licence/cost plan | operator |
 | SODH v3 (longer horizons) | stay on frozen v2 | justification from compression-claim need | researcher |

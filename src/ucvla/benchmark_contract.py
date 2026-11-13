@@ -4,7 +4,7 @@
 Status: the *contract and conformance checks* are ``implemented``; the importers below are
 ``not implemented`` and raise. A source only counts as integrated after it passes
 :func:`check_source_conformance` on real files AND its licence status is ``verified`` by the
-operator (docs/16). Nothing here downloads data.
+operator (docs/16 (withheld from the public release)). Nothing here downloads data.
 """
 
 from __future__ import annotations
@@ -129,7 +129,7 @@ class NotImplementedImporter:
 HDF5_IMPORTER = NotImplementedImporter(
     "hdf5", "Map frames->Frame(source_sha256 of raw bytes), state->ProprioSample, commanded "
             "actions->CommandedAction; timestamps from native clock or (derived, from Hz, "
-            "labelled); privileged/oracle fields->PrivilegedState only (docs/16).")
+            "labelled); privileged/oracle fields->PrivilegedState only (docs/16 (withheld from the public release)).")
 LEROBOT_IMPORTER = NotImplementedImporter(
     "lerobot", "Use the pinned dataset revision; do not mix LeRobot/LEVI tensor conventions "
                "in one class (docs/09); episode table timestamps map through alignment.ClockMap.")

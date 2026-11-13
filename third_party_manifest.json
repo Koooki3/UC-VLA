@@ -23,13 +23,13 @@
     }
   ],
   "referenced_not_integrated": [
-    "Physical-Intelligence/openpi (code Apache-2.0; checkpoint terms ambiguous, docs/20)",
+    "Physical-Intelligence/openpi (code Apache-2.0; checkpoint terms ambiguous, docs/20 (withheld from the public release))",
     "RoboMME/robomme_benchmark (code only read via public docs)",
     "D&R",
     "Mem4Act",
     "Koooki3/LEVI (adaptation deferred by operator)"
   ],
-  "note": "No third-party source copied or vendored; no checkpoints downloaded. Re-verify every licence against primary sources before redistribution (docs/16, docs/20, docs/22). Not legal advice.",
+  "note": "No third-party source copied or vendored; no checkpoints downloaded. Re-verify every licence against primary sources before redistribution (docs/16 (withheld from the public release), docs/20 (withheld from the public release), docs/22 (withheld from the public release)). Not legal advice.",
   "optional_dependencies": {
     "hdf5": [
       {
@@ -67,6 +67,6 @@
   "models_and_checkpoints": {
     "downloaded": [],
     "loaded": [],
-    "status": "NO-GO for pi0/pi0.5 and derivatives (docs/20); no weights fetched"
+    "status": "NO-GO for pi0/pi0.5 and derivatives (docs/20 (withheld from the public release)); no weights fetched"
   }
 }
