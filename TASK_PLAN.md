@@ -88,3 +88,9 @@ Real git SHA in run records; `FROZEN.json` for v1 and v2 with guard tests; data-
 
 ## Exit conditions
 If a sequence learner cannot show history use on v2 → report as negative result, do not edit frozen splits. If F7 stays unstable for events/resume → no selector-ranking claims for them. Any move to GPU, checkpoints, simulator or remote needs a separate operator-approved review.
+
+
+---
+
+# TASK_PLAN — review round R3 execution (2026-11-13)
+Order followed: P0 (G1 acceptance fix, G2 utility-model fix, public CI, parameter provenance) → P1 (sealed confirmatory G1, streaming interface, first learned G2 toy) → P2 (Observatory, governance). Falsifiers and outcomes: G1 order condition now enforced (main experiment fails; confirmatory passes events/resume, fails track reliability and events length-OOD); G2 additive-cost claim withdrawn; CI green only after fixing exec bits, manifest content (interpreter version), tracked-file manifest and dependency layering. Next: finish `g2_learned` analysis; events length-OOD diagnosis on non-sealed data; SmolVLA mock adapter (CPU, no weights); G1/G2 adversarial round 2; GPU pilot request only after Blockers B1/B2 of docs/38 are resolved. Exit rule unchanged: negative results are reported, sealed/frozen sets are not tuned.

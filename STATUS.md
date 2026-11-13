@@ -1,5 +1,12 @@
 # Project state — 2026-11-12 (after review round 2: SODH v2, real-data importer, licence reviews)
 
+## CURRENT STATE (2026-11-13, late) — supersedes older statements below where they conflict
+- **Public repository exists**: https://github.com/Koooki3/UC-VLA (public). History was rewritten once to a GitHub noreply identity (old→new SHAs in `provenance/sha_map.json`); docs 16/20/22/30/32 are withheld. **Remote CI on public HEAD `bfdec86` is green** (lint, v1/v2 generation+audit, full pytest incl. freeze guards/resume/learned readers, manifest, repo scan). The development repo is ahead of it by later commits; re-publish with `scripts/prepare_publish.sh` + force-push (operator-approved method).
+- **G1:** main 5-seed experiment fails the full registered criteria (order condition) — corrected (`docs/29`). **Sealed confirmatory run (`docs/43`, same generator/new seeds): GRU and fixed-latent S4 pass the full registered criteria on events+resume; track unreliable (GRU seeds 0.00–0.77); events length-OOD 0.52 fails.** Exploratory-to-confirmatory within scope; not an independent environment.
+- **G2:** theory toy corrected after review (`docs/38`); exact selection study under complementarity (`g2_selection.json`); first learned toy in progress (`docs/44`); no learned Decision-Aware objective yet; novelty not established; strong baselines not reproduced.
+- Streaming interface for GRU/fixed-latent (`streaming.py`); Observatory hardened; task-parameter provenance audited (`docs/40`); LeRobot and RoboMME (one task) importers with audits; MLDA CPU resume smoke + two exploratory batches done; **ROSE = NO-GO** (shared account; `docs/31`); no GPU run, no weights downloaded.
+- Review register R3: `docs/42`. Claim ledger: `docs/28` (G1 exploratory/replication, G2 hypothesis + toy, G3 hypothesis).
+
 All results are `mode: synthetic` unless a record says `real_data_*` (schema checks only). **No UC-VLA hypothesis (H1–H4) has been tested; nothing here supports a claim about a VLA, a real benchmark, or memory selection.** Reviews are independent-*context* model reviews, **not external human review**.
 
 ## Done (each in its own commit; `git log`)
