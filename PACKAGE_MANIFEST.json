@@ -49,8 +49,8 @@
     },
     {
       "path": "STATUS.md",
-      "bytes": 5798,
-      "sha256": "ff01ea4c3cd0b4df24dc1c92cf073016adeeebd1e8c95332abbf347f6997a85d"
+      "bytes": 6079,
+      "sha256": "081cad71a4c83116e1c9179d4b2bb8d7d3e06e329423d27329e99fe49482b026"
     },
     {
       "path": "TASK_PLAN.md",
@@ -101,6 +101,21 @@
       "path": "configs/sodh/g1_trainaug_track.yaml",
       "bytes": 438,
       "sha256": "c9388c36d24c95732362d73c3d10b93230bf689cc94372a6a13967e94b033600"
+    },
+    {
+      "path": "configs/sodh/g1_trainaug_track_1000.yaml",
+      "bytes": 438,
+      "sha256": "d75f461a515cc7889a961255fe1249a9fcc0a82109be6fa178d44d1ba4625aec"
+    },
+    {
+      "path": "configs/sodh/g1_trainaug_track_3000.yaml",
+      "bytes": 438,
+      "sha256": "c9388c36d24c95732362d73c3d10b93230bf689cc94372a6a13967e94b033600"
+    },
+    {
+      "path": "configs/sodh/g1_trainaug_track_9000.yaml",
+      "bytes": 438,
+      "sha256": "fb135b8b35a8a91c2256044afc51bcbb582c7a380f748d6ae2f17e128c431d36"
     },
     {
       "path": "configs/sodh/sodh_v1.yaml",
@@ -278,6 +293,16 @@
       "sha256": "e9083ebb763c1f6d7437444bcc50b9f4a5ac33fa81f579f4fb2b6b5ae27a35b9"
     },
     {
+      "path": "docs/33_G1_SCALING_PROTOCOL.md",
+      "bytes": 1427,
+      "sha256": "1621b3eaf5074d9d354570ac9564a1a472fcc345e07bbdd7231fb2b06f478e18"
+    },
+    {
+      "path": "docs/34_LEROBOT_IMPORT_AUDIT.md",
+      "bytes": 2697,
+      "sha256": "a6b5f1086a024162864f3dbe4f31a2039114620f9a5264f1c0a27c66bff04635"
+    },
+    {
       "path": "paper/outline.md",
       "bytes": 1450,
       "sha256": "13164fccb5d11f24fd48cf378d6ba9c77d45f3237f8cfea9a530d8f89a139c78"
@@ -301,6 +326,11 @@
       "path": "results/real/lerobot_sample/data_use_record.json",
       "bytes": 1858,
       "sha256": "4726e73c08929ec65a3afe4d32d83acd369468c0c28475bf94edba58aa551aca"
+    },
+    {
+      "path": "results/real/lerobot_sample/schema_audit.json",
+      "bytes": 16373,
+      "sha256": "ab45ee1e606c5f2a02b4f51c71857c38e4052016dc072f1a8eee5d97ac5625b5"
     },
     {
       "path": "results/real/robomme_sample/data_use_record.json",
@@ -539,8 +569,8 @@
     },
     {
       "path": "scripts/repo_scan.py",
-      "bytes": 3014,
-      "sha256": "267b80d395dacb9acb6c8022ff497836c2f83ef4aca77f02a075c2a2bd62fc86"
+      "bytes": 3042,
+      "sha256": "0f8d10fefc00dfb1a03db73ff16b864e5feddf1062e9f4b66c809877f4bd0df7"
     },
     {
       "path": "scripts/repro_check.py",
@@ -571,6 +601,11 @@
       "path": "scripts/smoke_cpu.sh",
       "bytes": 658,
       "sha256": "110839e70448c2867b434f8e0930de755c861e7620d7d3f41090cc99600ed6ca"
+    },
+    {
+      "path": "scripts/validate_lerobot_sample.py",
+      "bytes": 4970,
+      "sha256": "878e9a7470319da446b7c91cfb37cd3deca3655c6c0ce128211666c1c09c7644"
     },
     {
       "path": "scripts/validate_protocol.py",
@@ -661,6 +696,11 @@
       "path": "src/ucvla/learned.py",
       "bytes": 10912,
       "sha256": "df9b8f547d066399046fde0be923365ee2514a261e98194823ae595069591d97"
+    },
+    {
+      "path": "src/ucvla/lerobot_import.py",
+      "bytes": 7402,
+      "sha256": "8c9a81088fb6e1428c5abdd2a79f50335ef0526386b3184eeb77677041c54d9c"
     },
     {
       "path": "src/ucvla/memory.py",
@@ -798,6 +838,11 @@
       "sha256": "561af5af147c67c625b75f12650260b8ed595733a03d71d4cd9898b0f0669f39"
     },
     {
+      "path": "tests/test_lerobot_import.py",
+      "bytes": 3951,
+      "sha256": "b95dc2e033f00b5d24d8d1f133021f121a101d1a532b9cf78504b3086a2948fb"
+    },
+    {
       "path": "tests/test_observatory.py",
       "bytes": 2416,
       "sha256": "2c3975bfa2f47c7f628f11a88166882b0f9c1a4171b72191d03694a5561dc822"
@@ -839,8 +884,8 @@
     },
     {
       "path": "third_party_manifest.json",
-      "bytes": 1895,
-      "sha256": "2b0d43b18f3b38d0e30aef20aea1c4c9dcd5f96ca112992fc8374c8698e747de"
+      "bytes": 2372,
+      "sha256": "3f76d632850b7b6c421593b908bea668f3512926c4cf3916233d1ca8cc4d3c21"
     }
   ]
 }

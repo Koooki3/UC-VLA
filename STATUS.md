@@ -41,3 +41,6 @@ Verify: `make smoke PYTHON=.venv/bin/python`.
 
 ## Release scope (2026-11-13)
 All releasable artefacts, weights included, are to be published permissively (`docs/26`). Hence: pi0/pi0.5 excluded for released weights; SmolVLA-derived weights blocked pending a data-licence audit; from-scratch models on synthetic data are releasable; MLDA and ROSE are authorised for large runs (ROSE shared-account responsibility with the operator); first cluster step = resume smoke test on one MLDA GPU (not yet run).
+
+## LeRobot importer (2026-11-13)
+Importer + audit done on the official sample (`docs/34`): 50 episodes, all checks pass; M1 DoD *LeRobot importer* met for this sample; *image-level audit* partial (statistical, no learned probe). G1-scaling batch running on MLDA (CPU, `docs/33`).

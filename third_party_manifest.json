@@ -53,6 +53,15 @@
       "redistributed": false,
       "location": "datasets/robomme_sample (untracked)",
       "use": "schema/importer validation only; never mixed with SODH; record: results/real/robomme_sample/data_use_record.json"
+    },
+    {
+      "name": "LeRobot svla_so101_pickplace sample",
+      "source": "https://huggingface.co/datasets/lerobot/svla_so101_pickplace",
+      "revision": "f641879e22172be7e8161d5e6c1503c2d2feb657",
+      "licence": "apache-2.0 per card metadata only; no LICENSE file",
+      "redistributed": false,
+      "location": "datasets/lerobot_sample (untracked)",
+      "use": "importer/visual-audit validation only; record: results/real/lerobot_sample/data_use_record.json"
     }
   ],
   "models_and_checkpoints": {

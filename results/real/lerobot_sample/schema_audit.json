@@ -1,0 +1,592 @@
+{
+ "mode": "real_data_schema_and_shortcut_audit",
+ "dataset": "lerobot/svla_so101_pickplace",
+ "revision": "f641879e22172be7e8161d5e6c1503c2d2feb657",
+ "episodes": 50,
+ "frames": 11939,
+ "all_checks_passed": true,
+ "problems": [],
+ "alignment": {
+  "max_parquet_ts_dev_s": 4.45e-07,
+  "max_video_pts_dev_s": 9.104e-14
+ },
+ "visual_audit": {
+  "exact_duplicate_frames_across_episodes": 0,
+  "first_frame_mean_intensity_vs_episode_index_spearman": 0.27250900360144054,
+  "note": "|rho| > 0.5 would mean sequential/ordered splits leak recording drift"
+ },
+ "time_shortcut": {
+  "time_only_action_predictor_R2_on_held_out_episodes": 0.27376022282752976,
+  "note": "share of action variance explained by normalised time alone; a policy should beat it"
+ },
+ "commanded_vs_measured": {
+  "mean_abs_action_minus_next_state": 2.395868124948189,
+  "mean_abs_action_minus_same_state": 2.982635982295272,
+  "note": "action leads state; NO executed stream exists and none is inferred"
+ },
+ "lossy_or_unmapped": {
+  "executed actions": "not present in the format; executed_origin=absent, never inferred from state",
+  "pixels": "only sha256 of decoded rgb24 + ref; re-decode on demand",
+  "timestamp (float32)": "canonical time = frame_index/fps; deviation recorded in provenance",
+  "index, episode_index, task_index": "bookkeeping, excluded from views",
+  "meta/stats.json": "normalisation statistics are NOT used by the importer (train-only rule)",
+  "dataset task text": "mapped to an OBSERVED instruction event"
+ },
+ "unverified": [
+  "robot_type so100_follower vs repo name so101",
+  "authorship/provenance of teleoperation data",
+  "licence only in card metadata"
+ ],
+ "per_episode": [
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep0",
+   "n": 303,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "0.000e+00",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep1",
+   "n": 266,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "1.776e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep2",
+   "n": 230,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.553e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep3",
+   "n": 183,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "6.217e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep4",
+   "n": 215,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "4.441e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep5",
+   "n": 231,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "4.885e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep6",
+   "n": 224,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "4.885e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep7",
+   "n": 203,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "6.661e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep8",
+   "n": 226,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "8.882e-15",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep9",
+   "n": 204,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "1.421e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep10",
+   "n": 216,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "1.155e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep11",
+   "n": 201,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "1.421e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep12",
+   "n": 210,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "1.710e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep13",
+   "n": 231,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "1.710e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep14",
+   "n": 223,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "1.998e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep15",
+   "n": 226,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "2.398e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep16",
+   "n": 201,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "2.220e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep17",
+   "n": 243,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "3.131e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep18",
+   "n": 214,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.997e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep19",
+   "n": 210,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.242e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep20",
+   "n": 243,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "3.242e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep21",
+   "n": 224,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "2.665e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep22",
+   "n": 237,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "2.842e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep23",
+   "n": 211,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.419e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep24",
+   "n": 223,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.242e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep25",
+   "n": 220,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.642e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep26",
+   "n": 199,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "4.552e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep27",
+   "n": 203,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.819e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep28",
+   "n": 224,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "5.151e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep29",
+   "n": 223,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "5.329e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep30",
+   "n": 288,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "5.684e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep31",
+   "n": 272,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "5.151e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep32",
+   "n": 270,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "4.796e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep33",
+   "n": 239,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "6.040e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep34",
+   "n": 207,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.419e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep35",
+   "n": 262,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "4.174e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep36",
+   "n": 254,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "2.665e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep37",
+   "n": 227,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "5.329e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep38",
+   "n": 256,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "5.684e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep39",
+   "n": 238,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "2.225e-07",
+   "pts_dev": "3.042e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep40",
+   "n": 293,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "2.665e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep41",
+   "n": 306,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "4.174e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep42",
+   "n": 263,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "5.329e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep43",
+   "n": 281,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "6.839e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep44",
+   "n": 261,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "6.084e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep45",
+   "n": 250,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "7.283e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep46",
+   "n": 303,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "9.104e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep47",
+   "n": 259,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "6.839e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep48",
+   "n": 272,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "7.638e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  },
+  {
+   "episode": "lerobot-svla_so101_pickplace-ep49",
+   "n": 271,
+   "dup_frames_across_episodes": 0,
+   "ts_dev": "4.450e-07",
+   "pts_dev": "7.994e-14",
+   "roundtrip": true,
+   "no_current_action_in_view": true,
+   "no_bookkeeping_in_views": true,
+   "frame_count_matches_meta": true
+  }
+ ]
+}
