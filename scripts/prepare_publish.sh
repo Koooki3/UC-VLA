@@ -23,7 +23,7 @@ for e in $OLD_EMAILS; do
 done
 "$PY" -m git_filter_repo --force --mailmap /tmp/ucvla_mailmap.$$ --replace-text /tmp/ucvla_replace.$$ \
   --invert-paths --path docs/16_BENCHMARK_READINESS.md --path docs/20_MODEL_LICENSE_REVIEW.md \
-  --path docs/22_ROBOMME_SAMPLE.md --path PAUSE_NOTE.md
+  --path docs/22_ROBOMME_SAMPLE.md --path docs/30_BACKBONE_MATRIX.md --path PAUSE_NOTE.md
 rm -f /tmp/ucvla_mailmap.$$ /tmp/ucvla_replace.$$
 mkdir -p provenance
 awk '{print}' .git/filter-repo/commit-map | "$PY" -c "
@@ -35,7 +35,7 @@ json.dump(m,open('provenance/sha_map.json','w'),indent=1)"
 # patch references to withheld documents
 for f in $(git ls-files '*.md' '*.py' '*.json'); do
   [ "$f" = provenance/sha_map.json ] && continue
-  sed -i -E 's#docs/(16|20|22)([_A-Z]*[A-Za-z_.]*)?#docs/\1 (withheld from the public release)#g' "$f" || true
+  sed -i -E 's#docs/(16|20|22|30)([_A-Z]*[A-Za-z_.]*)?#docs/\1 (withheld from the public release)#g' "$f" || true
 done
 sed -i -E '/docs\/(16|20|22)_[A-Z_]+\.md` \|/d; /^\| `docs\/(16|20|22)/d' README.md
 "$PY" scripts/package_manifest.py >/dev/null

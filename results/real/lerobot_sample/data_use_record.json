@@ -1,0 +1,27 @@
+{
+ "commanded_executed": "only `action` (commanded) and `observation.state` (measured) exist; no separate executed-action stream -> executed_origin must be 'absent'",
+ "date": "2026-11-13",
+ "downloaded_bytes": 86123896,
+ "files": {
+  "README.md": "74a5ac3cf6de11b315eb4d01b1ce0e6250782fa809183f76b56aaa3d26a63d76",
+  "data/chunk-000/file-000.parquet": "579ad57e2454359fa9f2c0e83525991bd2e0305b7b2914d0b1181da3c6ad9949",
+  "meta/episodes/chunk-000/file-000.parquet": "191998bffd2680c477a4000270cf943bc423ba5fb54ee8b8244b57db062c5209",
+  "meta/info.json": "254909942a6cbfb4692a239e4d0aa5c68ec8eb16f81b6593985ea7f2bb2823e3",
+  "meta/stats.json": "4ae86bed785e0f98914812e87736e216139a22b43cf2b990e68384d85168c3c8",
+  "meta/tasks.parquet": "1040cdef3328ec4376587152647df8e725e80a04210c426f891719e691c88533",
+  "videos/observation.images.side/chunk-000/file-000.mp4": "3b0f30282b21764fad29d46f4133e66e303dfcb95803510c790ca53dfd2bfe50",
+  "videos/observation.images.up/chunk-000/file-000.mp4": "73d93dae2091cb1b11995d17c34f67c1ec18db005e70acdf896d2307b47406d1"
+ },
+ "format": "LeRobotDataset v3.0, 50 episodes, 11939 frames, 30 fps, 2 AV1 cameras 640x480 (libdav1d decodes), action/observation.state float32[6]",
+ "kind": "data_use_record",
+ "operator_authorisation": "2026-11-13: official lerobot/svla_so101_pickplace, <=200 MB, importer/causal-path validation only",
+ "robot_type_note": "info.json says so100_follower while the repo name says so101 (unresolved)",
+ "source": {
+  "gated": false,
+  "hf_repo": "lerobot/svla_so101_pickplace",
+  "licence": "apache-2.0 (card metadata only; no LICENSE file; authorship/citation 'More Information Needed')",
+  "revision": "f641879e22172be7e8161d5e6c1503c2d2feb657"
+ },
+ "usage": "validation only; untracked under datasets/lerobot_sample; never mixed with SODH data",
+ "verified": "5 LFS files match published sha256"
+}
