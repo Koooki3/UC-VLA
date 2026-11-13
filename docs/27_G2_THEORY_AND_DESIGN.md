@@ -1,0 +1,42 @@
+# 27 | G2: future-decision-value compression — minimal theory, novelty audit, falsifiable design (2026-11-13)
+
+Status: **design only; no learned compressor exists; no GPU.** The only computation is the exact toy `scripts/g2_toy.py` (`results/synthetic/g2_toy.json`). Novelty is an empirical question; this document states when the idea is equivalent to existing work.
+
+## 1. Setting and objective
+State semantics (operator): historical fact · belief · predicted future · executed action · verified outcome (never conflated; `docs/02`, `docs/04`). Let h be causal history, o current observation, z=C(h) a budgeted context (|z|≤B), π(a|o,z) the policy. Future-decision regret of a context: **R(C) = E[ V*(h,o_t..) − V^π(z,..) ]**, with V* the value of the policy acting on the full history over the *whole remaining episode*, not the current step. Training signal: minimise R(C)+β·cost(z). Action-MI methods (D&R-style) instead maximise I(a_t^expert ; z | o_t) — a *one-step* quantity.
+
+## 2. Why current-action loss cannot guarantee future sufficiency (Q1)
+**Proposition (delayed key).** Let history contain a bit k that does not influence the optimal action at t (a_t* ⟂ k | o_t) but determines the optimal action at a later t'>t. Any context z that is a function of (o_t, a_t*-relevant features) satisfies I(a_t*;z|o_t) = max while carrying zero information about k. Its regret is ≥ ½·(gain of the decision at t') per episode, whereas the current-action loss is identical to that of a k-preserving context. *Proof:* the one-step loss is a functional of p(a_t*|o_t,z), which is invariant to whether z contains k when a_t* ⟂ k | o_t; regret at t' depends on k. ∎ Exact toy (M=8 events, budget 2): in this regime action-MI, reconstruction and salience selectors score 1.518 vs 2.0 for future-value selection (w=1); when the future-relevant events are a subset of current-relevant ones, all selectors tie (2.0). Reconstruction ties with chance because iid events are equally reconstructable; an *event/salience* selector helps only if salience correlates with future relevance (an assumption, not a theorem).
+
+## 3. Trainable distortion and proxies (Q2, Q3, Q4)
+- **Evidence value** of item e under context z: V(e|z) = E[max_a Q(a|z∪e)] − E[max_a Q(a|z)] (value of information; also the quantity behind recovery/active observation).
+- **Counterfactual memory intervention** in resettable simulators: with identical state and seeds, roll out the *same fixed policy* with e kept vs removed; Δ_e = E[R|do(keep e)] − E[R|do(remove e)] (common random numbers). Interactions are not additive: use groups or conditional/Shapley-style sampling.
+- **Proxy for the unknown Q\*:** (i) pairwise *ranking* loss on intervention outcomes (robust when absolute values are biased), (ii) cross-fitted critic ensemble, calibrated on held-out interventions, (iii) in SODH-type tasks an exact oracle exists (`oracle2.py`) → Δ_e is exactly computable, giving ground truth to *measure proxy error*. Toy result: selecting the exact future-relevant set from Δ estimates needs ≈16 paired rollouts per event for ~0.9 success (≈8 for 0.68; chance 0.036), which bounds training cost.
+- **Loss:** L = L_policy + λ_rank·L_rank(Δ̂, Δ) + λ_cal·L_cal + β·cost; budget enforced as a hard cap at inference, cost measured (`harness` ticks/tokens, latency).
+
+## 4. Failure modes to control (Q6)
+Critic bias (use ranking + calibration + oracle check); long-horizon credit assignment (decompose by decision times; evaluate on pairs whose only difference is the evidence item); shortcut learning (G0 v2 probes, history-independent controls, order/swap/deletion tests); compressor learning the *evaluator's* label (train-only labels, sealed confirmatory set).
+
+## 5. When is the new objective equivalent to, or no better than, existing methods? (Q7)
+(a) If every future-decisive event is also decisive for some *current* action (aligned regime), future-value ≡ action-MI selection (toy regimes B–D). (b) If B ≥ the size of a sufficient statistic, all methods are sufficient and tie. (c) If evidence value is additive and ranks like action-MI, selection is identical. (d) If reconstruction targets include the decisive variable, reconstruction memory is sufficient (but not budget-efficient). (e) If the critic error exceeds the value gap, the learned selector degrades to random. **Consequence:** the claim "decision-aware compression helps" is only meaningful in regimes with *future-only-relevant* history under a binding budget; if no such regime shows a difference in learned experiments, it must not be presented as a unified-algorithm contribution (fall back to a diagnostic-benchmark paper).
+
+## 6. Novelty & collision matrix (**UNVERIFIED beyond what `docs/01` already records; a literature refresh with primary sources is required before any claim**)
+| Work | Objective / mechanism (per docs/01 unless marked) | Can it already solve the future-only-relevant regime? | Required differentiator |
+| --- | --- | --- | --- |
+| D&R | recursive action-relevant top-K, conditional MI with current expert action | no by Proposition (one-step) — **test empirically with a faithful reproduction** | closed-loop future value |
+| Mem4Act | latent fixed memory, perception/question supervision, memory-first training | only if its questions cover the future key (supervision-dependent) | resource policy, recoverability |
+| EventVLA | future-utility predicted keyframe memory | **possibly** — "future utility" is the nearest neighbour; must read the paper's objective in detail | action-value-guided edit/retrieve with verification |
+| ECoMEM | evidence-grounded concept writer/reader | grounding ≠ selection by future value | value-guided ops |
+| NativeMEM | native encoder of past frames, real-time | efficiency, not selection | causal robustness at matched latency |
+| ReMem-VLA | **not in docs/01; contents UNVERIFIED** | unknown | to be read |
+| Context Language Models | self-edited context with RL | autonomy ≠ physical-state verification | verified, versioned state |
+| Belief compression / rate–distortion / information bottleneck | decision-theoretic or reward-aware compression exists in POMDP literature (**general knowledge, not re-verified here**) | partly; decision-aware RD is prior art in principle | learned, intervention-trained, VLA-scale, versioned |
+| Active information gathering / VOI | value-of-information queries | covers retrieval, not compression | joint compress+recover under budget |
+Collision rule: a contribution may only claim what survives a head-to-head in the future-only regime.
+
+## 7. Falsifiable experiment design (CPU first; no GPU spent before G2-pilot passes)
+**Task regime ("delayed key", to be built as a new minimal environment, not SODH v3):** identical current observation and identical current optimal action across histories; a history event (the key) forces a *different* action at a later decision; distractor events of equal saliency; budget B < #events. Two control regimes: *aligned* (key also affects the current action) and *no-key*.
+**Agents (identical access rules, harness, budgets):** action-MI selector (D&R-like), reconstruction memory (autoencoding), event/salience selector, fixed-latent recurrent memory (G1-C trained on the one-step loss), future-regret-aware compressor (trained with intervention ranking), full history (ceiling), memoryless (floor); oracle value for the key as instrument.
+**Pre-registered predictions:** P1 future-only regime: regret-aware > all others at matched B (PairOptimal on future decisions, clustered CI, Holm). P2 aligned regime: no difference (equivalence margin pre-set after a val pilot). P3 critic-error sweep: advantage degrades monotonically with injected value noise and vanishes at noise ≥ gap. P4 budget sweep: advantage disappears when B ≥ sufficient size.
+**Failure criteria (any one ⇒ no unified-algorithm claim):** regret-aware ≤ best baseline in P1; it loses in P2 by more than the margin; rank-loss proxy error on held-out interventions larger than the value gap; cost (rollouts × training) not within the stated budget; effect not reproduced across ≥5 seeds and on a sealed confirmatory set.
+**Metrics:** future-decision PairOptimal, memory sufficiency S, compression efficiency k*, critic calibration (ECE/rank correlation with oracle Δ), training rollouts, latency. **Independent adversarial review** (fresh-context subagent plus planned human review) precedes any GPU request.
