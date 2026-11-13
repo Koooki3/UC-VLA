@@ -358,26 +358,6 @@
       "sha256": "8d0c44d586fe31feeac83a3d26849119ddeae174583a01bb0258e9cbc52bf597"
     },
     {
-      "path": "logs_local/confirm_fixedlatent.log",
-      "bytes": 863,
-      "sha256": "0eaa041e6547359018ce7b229b1862624eb4f66a9361066f36b752a5d2f8972c"
-    },
-    {
-      "path": "logs_local/confirm_gru.log",
-      "bytes": 814,
-      "sha256": "26915c0834e9b7bf10108606a9c5f3655feb1a4945eeea290715e44fbf62ed3c"
-    },
-    {
-      "path": "logs_local/minparams.log",
-      "bytes": 660,
-      "sha256": "856e5f8fcf0fc86cb0274b355788022e1ba5fc09af4f1391791c179aba663dcd"
-    },
-    {
-      "path": "logs_local/noswap.log",
-      "bytes": 652,
-      "sha256": "eb5569f835819f5a215049944f6cb34b3608e124cdc4275282f3b940b9546e90"
-    },
-    {
       "path": "paper/outline.md",
       "bytes": 1450,
       "sha256": "13164fccb5d11f24fd48cf378d6ba9c77d45f3237f8cfea9a530d8f89a139c78"
@@ -659,8 +639,8 @@
     },
     {
       "path": "scripts/package_manifest.py",
-      "bytes": 1776,
-      "sha256": "e0895ab6c857e87e4b6e8f793bc75acde4f0e1fbe7856fb030e6f0585a2f15e6"
+      "bytes": 2201,
+      "sha256": "8f2fc97d49bc686e98add55750577e51c265b36dd57aa58334be4c7596e4059f"
     },
     {
       "path": "scripts/prepare_publish.sh",

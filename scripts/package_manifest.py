@@ -14,9 +14,19 @@ SKIP_FILES = {"PACKAGE_MANIFEST.json"}
 SKIP_PREFIX = ("results/synthetic/",)  # generated data has its own hash-verified manifest
 
 
+def candidates() -> list[Path]:
+    """Tracked files only (build artefacts such as *.egg-info must not enter the manifest)."""
+    import subprocess
+    try:
+        out = subprocess.run(["git", "-C", str(ROOT), "ls-files", "-z"], capture_output=True, check=True)
+        return sorted(ROOT / p for p in out.stdout.decode().split("\0") if p)
+    except (OSError, subprocess.CalledProcessError):
+        return sorted(ROOT.rglob("*"))
+
+
 def collect() -> list[dict]:
     files = []
-    for path in sorted(ROOT.rglob("*")):
+    for path in candidates():
         rel = path.relative_to(ROOT).as_posix()
         if (not path.is_file() or SKIP_DIRS & set(path.relative_to(ROOT).parts)
                 or rel in SKIP_FILES or rel.startswith(SKIP_PREFIX) or path.suffix == ".pyc"):
