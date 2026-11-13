@@ -25,7 +25,7 @@ PERSONAL = {
     "email": r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}",
     "handle": r"(?i)kooki3|zihao|\b14983\b",
 }
-ALLOWED_EMAIL = re.compile(r"noreply@(anthropic\.com|github\.com)|@types/")
+ALLOWED_EMAIL = re.compile(r"noreply@(anthropic\.com|github\.com)|users\.noreply\.github\.com|@types/")
 MAX_BYTES = 2_000_000
 
 
