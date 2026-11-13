@@ -1,0 +1,23 @@
+{
+ "config_file": "configs/sodh/sodh_v2c_confirm.yaml",
+ "config_file_sha256": "622634997fcc20056ee077d85d7fe5c220a69150a79875c98ccba9e6455d9cb9",
+ "config_sha256": "0e32de652d1623a2485730dcacbc29ec87a9c2a45057081dd2a1676f849e8e55",
+ "counts": {
+  "episodes": 1880,
+  "pairs": 940
+ },
+ "data_files_sha256": {
+  "assignment.json": "0fb1be8c39ffd54967a22ecf7dffe0d7817437b1493d190003efabd109afa4ef",
+  "episodes.jsonl": "bd1afb19681c1240625d83952ba167b2c91c3484f48a65f89ce8712c5dfcf14e",
+  "pairs.jsonl": "8658477dda3e8f66a2ee04a4196c76de1490a757fc5a6c48e593353346b80e6f",
+  "split_manifest.json": "dc06204c32c70e8c92ee403735aa62bc39e14888e309ad21ea29cfde8d177d90"
+ },
+ "dataset": "sodh_v2c (SEALED, confirmatory)",
+ "evaluations_so_far": 0,
+ "location": "outside the repository (~/sealed_uc_vla/sodh_v2c), never read by training/dev code",
+ "protocol": "docs/41_G1_CONFIRMATORY_PROTOCOL.md (frozen before generation)",
+ "scope": "same generator, new random seeds (master_seed 20261201); not an independent environment",
+ "sealed_on": "2026-11-13",
+ "split_manifest_id": "sodh-split-871b27bcee67",
+ "status": "UNSEEN (no model has been evaluated on it)"
+}

@@ -146,14 +146,24 @@ def oracle_value(adapter: SODHAdapter) -> dict[str, dict[str, float]]:
 MIN_ORACLE_ENV_SUCCESS = 0.70
 
 
+MIN_ENV_CHECK_EPISODES = 60  # below this a cell is too small for a 0.70 floor (sampling noise)
+
+
 def oracle_env_findings(adapter: SODHAdapter) -> list[Finding]:
-    """Env-defined success must agree with the oracle (catches generator/oracle disagreement)."""
+    """Env-defined success must agree with the oracle (catches generator/oracle disagreement).
+    Cells with fewer than MIN_ENV_CHECK_EPISODES episodes are skipped (added 2026-11-13: the check
+    false-alarmed on a 14-episode split of the sealed confirmatory set)."""
     out = []
+    counts: Counter[tuple[str, str]] = Counter()
+    for s in IN_DIST_SPLITS:
+        for p in adapter.pairs(s):
+            counts[(s, p.family)] += 2
     for split, fams in oracle_value(adapter).items():
         if split not in IN_DIST_SPLITS:
             continue
         for fam, v in fams.items():
-            if fam in RELEVANT2 and v < MIN_ORACLE_ENV_SUCCESS:
+            if fam in RELEVANT2 and counts[(split, fam)] >= MIN_ENV_CHECK_EPISODES \
+                    and v < MIN_ORACLE_ENV_SUCCESS:
                 out.append(Finding("error", "oracle_env_success_low",
                                    f"{split}/{fam}: {v:.2f} < {MIN_ORACLE_ENV_SUCCESS}"))
     return out

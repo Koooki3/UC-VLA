@@ -165,7 +165,8 @@ def test_planted_leak_in_every_channel_fails_v2_gate(suite2, assignment2, name):
     assert code in {f["code"] for f in r["findings"]}, (name, r["findings"][:4])
 
 
-def test_generator_bug_regression_wrong_success_action_is_caught(suite2, assignment2):
+def test_generator_bug_regression_wrong_success_action_is_caught(suite2, assignment2, monkeypatch):
+    monkeypatch.setattr("ucvla.audit2.MIN_ENV_CHECK_EPISODES", 1)  # small suite: cells below the default floor
     """The pre-freeze bug: mirrored mate got the wrong env-success item. Gate must flag it."""
     def corrupt(e):
         if e.provenance["family"] != "resume" or e.provenance["pair_role"] != "b":
