@@ -14,7 +14,7 @@ Classes: **VSE** Validated Scientific Evidence · **EEE** Established Engineerin
 | 8 | Track failure of learners at the base data size is data insufficiency (GRU reaches ~0.64–0.93 with extra train-only data) | EXP | 3 seeds; high seed variance |
 | 9 | Causal Transformer (80k params) failed at lr 3e-3 (optimisation) and generalises worse than GRU at lr 1e-3 on this data size | NEG | 3–5 seeds, small data |
 | 10 | RoboMME StopCube train sample imports bit-exactly into the Episode contract | EEE | 100/100 episodes; one task; derived timestamps |
-| 11 | Exact toy: when current action is history-independent, action-MI/reconstruction/salience select at chance while future-value selection is optimal; aligned regimes tie | EXP (theory toy) | `g2_toy.json`; says nothing about learned systems |
+| 11 | Exact toy: a ONE-STEP objective cannot select later-only evidence (reconstruction/random at chance; salience helps only if correlated with future relevance); a lookahead objective coincides with future-value selection; future-value selection can be worse under reachability gating or a noisy critic | EXP (theory toy, reworded after review) | `g2_toy.json`, `docs/38`; does NOT show an advantage over lookahead/whole-episode baselines; says nothing about learned systems |
 | 12 | Decision-Aware Compression beats existing methods | UH | untested; novelty relative to D&R/Mem4Act/EventVLA etc. unverified |
 | 13 | Autonomous memory management improves a real VLA | UH | no real VLA, no real-policy rollout |
 | 14 | Unified Context–Action learning | UH | no joint model exists |

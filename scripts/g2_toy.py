@@ -1,101 +1,136 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""G2 minimal computable theory model (docs/27): exact enumeration, no learning, no GPU.
+"""G2 minimal computable model v2 (docs/27, corrected after the adversarial review docs/38).
 
-M iid fair binary history events. The current decision needs events N (parity), a later decision
-needs events F (parity); reward = r_now + w * r_future, each 1 if the parity is predicted, else a
-fair guess. A memory keeps B events. Selectors differ only in HOW they pick which events to keep.
-Value(S) is exact, so any difference between selectors is a property of the objective, not noise.
+M iid fair binary history events; decision groups g (needed events G_g, weight w_g, 'now' = weight 1
+group N, later groups F...) each pay w_g*(0.5 + 0.5*[G_g subset of kept]) (parity needs ALL its events).
+A memory keeps B events. Selectors differ only in HOW they choose. Value is exact by enumeration.
+What this toy can show: a ONE-STEP objective is blind to later-only evidence. What it cannot show:
+that a future-value objective beats a lookahead/whole-episode objective (they coincide below).
 """
-
-import argparse
 import itertools
 import json
 import sys
-from math import comb
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 from ucvla.canonical import HashRng
 
-ROOT = Path(__file__).resolve().parents[1]
+M, B = 8, 2
 
 
-def value(keep: frozenset[int], need_now: frozenset[int], need_fut: frozenset[int], w: float) -> float:
-    return (0.5 + 0.5 * (need_now <= keep)) + w * (0.5 + 0.5 * (need_fut <= keep))
+def value(keep, groups):
+    return sum(w * (0.5 + 0.5 * (g <= keep)) for g, w in groups)
 
 
-def expected_value(selector: str, m: int, b: int, need_now, need_fut, w: float) -> float:
-    """Exact expected value; ties among selector-equivalent subsets are broken uniformly."""
-    subsets = [frozenset(c) for c in itertools.combinations(range(m), b)]
-
-    def score(s: frozenset[int]) -> float:
-        if selector == "action_mi":  # information about the CURRENT optimal action only
-            return float(len(s & need_now))  # parity of N: a subset carries it only through N
-        if selector == "regret_aware":  # exact future-decision value of keeping s
-            return value(s, need_now, need_fut, w)
-        if selector in ("reconstruction", "random", "salience"):  # iid events: all subsets tie
-            return 0.0
-        raise ValueError(selector)
-
-    top = max(score(s) for s in subsets)
-    best = [s for s in subsets if score(s) == top]
-    return sum(value(s, need_now, need_fut, w) for s in best) / len(best)
+def subsets():
+    return [frozenset(c) for c in itertools.combinations(range(M), B)]
 
 
-def selection_accuracy(m: int, b: int, need_fut: frozenset[int], n_rollouts: int, seed: int,
-                       reps: int = 400) -> float:
-    """Counterfactual-intervention estimator of evidence value: delta_i = mean over rollouts of
-    reward(keep i) - reward(drop i); keep the top-B estimated. P(selects exactly F)."""
-    ok = 0
+def avg_over_best(score, groups):
+    top = max(score(s) for s in subsets())
+    best = [s for s in subsets() if score(s) == top]
+    return sum(value(s, groups) for s in best) / len(best)
+
+
+def run_regime(now, fut, w, gated=False):
+    groups = [(now, 1.0)] if now else []
+    groups += [(fut, w)]
+    def true_value(s):
+        if not gated:
+            return value(s, groups)
+        r_now = 0.5 + 0.5 * (now <= s) if now else 1.0
+        return r_now + w * r_now * (0.5 + 0.5 * (fut <= s))  # later decision reached only if now succeeds (scaled)
+    ceil = max(true_value(s) for s in subsets())
+    out = {"ceiling": ceil}
+    out["random/reconstruction"] = sum(true_value(s) for s in subsets()) / len(subsets())
+    out["onestep_overlap (|keep & N|)"] = avg_over_best_tv(lambda s: len(s & now), true_value)
+    out["lookahead (now+future needed sets)"] = avg_over_best_tv(
+        lambda s: (now <= s) * 1.0 + w * (fut <= s), true_value)
+    out["future_value (exact, ungated model)"] = avg_over_best_tv(lambda s: value(s, groups), true_value)
+    for rho in (0.25, 0.5, 0.75, 1.0):  # salience correlated with future relevance
+        tot, reps = 0.0, 600
+        for r in range(reps):
+            rng = HashRng("sal", rho, now and sorted(now), sorted(fut), w, r)
+            sc = {i: (rho if i in fut else 0.0) + (1 - rho) * rng.below(1000) / 1000 + rng.below(1000) / 1e7
+                  for i in range(M)}
+            tot += true_value(frozenset(sorted(sc, key=lambda i: -sc[i])[:B]))
+        out[f"salience(rho={rho})"] = tot / reps
+    return out
+
+
+def avg_over_best_tv(score, true_value):
+    top = max(score(s) for s in subsets())
+    best = [s for s in subsets() if score(s) == top]
+    return sum(true_value(s) for s in best) / len(best)
+
+
+def noisy_critic(now, fut, w, sigma, reps=2000):
+    groups = ([(now, 1.0)] if now else []) + [(fut, w)]
+    tot = 0.0
     for r in range(reps):
-        rng = HashRng("g2", seed, m, b, n_rollouts, r)
-        est = []
-        for i in range(m):
-            tot = 0
-            for _ in range(n_rollouts):
-                keep_hit = 1 if i in need_fut else int(rng.below(2))
-                drop_hit = int(rng.below(2))
-                tot += keep_hit - drop_hit
-            est.append((tot / n_rollouts, rng.below(10**6), i))
-        chosen = frozenset(i for _, _, i in sorted(est, reverse=True)[:b])
-        ok += chosen == need_fut
-    return ok / reps
+        rng = HashRng("crit", sigma, r)
+        est = {s: value(s, groups) + sigma * (sum(rng.below(1000) for _ in range(12)) / 1000 - 6)
+               for s in subsets()}
+        tot += value(max(est, key=est.get), groups)
+    return tot / reps
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out", type=Path, default=ROOT / "results/synthetic/g2_toy.json")
-    args = ap.parse_args()
-    m = 8
+def identifiability():
+    """Two non-additive decision groups: per-item leave-one-out Delta from the full context ranks the
+    wrong pair first; subset-level evaluation with n rollouts finds the best subset."""
+    groups = [(frozenset({0, 1}), 1.0), (frozenset({2, 3, 4}), 1.2)]
+    full = frozenset(range(M))
+    loo = {i: value(full, groups) - value(full - {i}, groups) for i in range(M)}
+    pick = frozenset(sorted(range(M), key=lambda i: (-loo[i], i))[:B])
+    best = max(subsets(), key=lambda s: value(s, groups))
+    rec = []
+    for n in (4, 16, 64, 256):
+        ok = 0
+        for r in range(300):
+            rng = HashRng("subset", n, r)
+            est = {}
+            for s in subsets():
+                tot = 0
+                for g, w in groups:
+                    p = 1.0 if g <= s else 0.5
+                    tot += w * sum(int(rng.below(1000) < p * 1000) for _ in range(n)) / n
+                est[s] = tot
+            ok += max(est, key=est.get) == best
+        rec.append({"rollouts_per_subset": n, "P_select_best_subset": ok / 300})
+    return {"loo_delta_from_full": loo, "loo_pick": sorted(pick), "loo_pick_value": value(pick, groups),
+            "best_subset": sorted(best), "best_value": value(best, groups),
+            "random_value": sum(value(s, groups) for s in subsets()) / len(subsets()),
+            "subset_level_selection": rec,
+            "delta_from_empty_context": {i: value(frozenset({i}), groups) - value(frozenset(), groups) for i in range(M)}}
+
+
+def main():
     regimes = {
-        "A_future_only (N empty, F={0,1}); current obs identical, current action identical":
-            (frozenset(), frozenset({0, 1})),
-        "B_aligned (F subset of N)": (frozenset({0, 1}), frozenset({0, 1})),
-        "C_partial_overlap (N={0,2}, F={0,1})": (frozenset({0, 2}), frozenset({0, 1})),
-        "D_conflict (N={2,3}, F={0,1}) budget 2": (frozenset({2, 3}), frozenset({0, 1})),
+        "A_future_only (N empty, F={0,1})": (frozenset(), frozenset({0, 1})),
+        "B_aligned (N=F={0,1})": (frozenset({0, 1}), frozenset({0, 1})),
+        "C_partial (N={0,2}, F={0,1})": (frozenset({0, 2}), frozenset({0, 1})),
+        "D_conflict (N={2,3}, F={0,1})": (frozenset({2, 3}), frozenset({0, 1})),
+        "E_gated (N={2,3}, F={0,1}, later reached only if now succeeds)": (frozenset({2, 3}), frozenset({0, 1})),
+        "F_N_larger_than_B (N={0,1,2}, F={0,1})": (frozenset({0, 1, 2}), frozenset({0, 1})),
     }
-    out = {"mode": "synthetic_theory_toy", "M": m, "budget_B": 2, "rows": [], "recovery": []}
+    out = {"mode": "synthetic_theory_toy", "M": M, "B": B, "rows": [], "noisy_critic_aligned_regime": [],
+           "identifiability": identifiability(),
+           "caveats": ["lookahead selector == future-value selector by construction: the toy does not separate them",
+                       "selectors are idealised, not D&R/EventVLA reproductions"]}
     for name, (nn, ff) in regimes.items():
         for w in (0.5, 1.0, 2.0):
-            row = {"regime": name, "w_future": w}
-            for sel in ("action_mi", "reconstruction", "salience", "regret_aware"):
-                row[sel] = expected_value(sel, m, 2, nn, ff, w)
-            row["ceiling"] = value(ff | nn if len(ff | nn) <= 2 else ff, nn, ff, w)
-            out["rows"].append(row)
-    for n in (1, 2, 4, 8, 16, 32, 64):
-        out["recovery"].append({"rollouts_per_event": n,
-                                "P_select_exactly_F": selection_accuracy(m, 2, frozenset({0, 1}), n, 0),
-                                "chance": 1 / comb(m, 2)})
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(out, indent=1) + "\n")
+            out["rows"].append({"regime": name, "w_future": w, **run_regime(nn, ff, w, gated=name.startswith("E_"))})
+    for sigma in (0.0, 0.25, 0.5, 1.0, 2.0):
+        out["noisy_critic_aligned_regime"].append({"sigma": sigma, "future_value_with_noisy_critic":
+            noisy_critic(frozenset({0, 1}), frozenset({0, 1}), 1.0, sigma), "onestep_overlap": 2.0, "ceiling": 2.0})
+    (ROOT / "results/synthetic/g2_toy.json").write_text(json.dumps(out, indent=1, default=sorted) + "\n")
     for r in out["rows"]:
         if r["w_future"] == 1.0:
-            print({k: (round(v, 3) if isinstance(v, float) else v) for k, v in r.items()})
-    print(out["recovery"])
+            print(r["regime"][:34], {k: round(v, 2) for k, v in r.items() if k not in ("regime", "w_future") and not k.startswith("salience(rho=0.")})
+    print(out["noisy_critic_aligned_regime"]); print(json.dumps(out["identifiability"])[:700])
 
 
 if __name__ == "__main__":
-    import sys
-    sys.path.insert(0, str(ROOT / "src"))
     main()

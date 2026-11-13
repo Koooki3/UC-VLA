@@ -1,0 +1,54 @@
+{
+ "test": "McNemar, two-sided alpha=0.05, power 0.8, Connor normal approximation (the exact test needs slightly more)",
+ "note": "pairs = same simulator seed/state run under both memory conditions; Holm over the family multiplies the required n (use alpha/m as a conservative bound)",
+ "rows": [
+  {
+   "p_discordant": 0.2,
+   "true_difference": 0.05,
+   "pairs_for_80pct_power": 626,
+   "holm_m5_pairs": 932
+  },
+  {
+   "p_discordant": 0.2,
+   "true_difference": 0.1,
+   "pairs_for_80pct_power": 155,
+   "holm_m5_pairs": 231
+  },
+  {
+   "p_discordant": 0.2,
+   "true_difference": 0.15,
+   "pairs_for_80pct_power": 68,
+   "holm_m5_pairs": 101
+  },
+  {
+   "p_discordant": 0.2,
+   "true_difference": 0.2,
+   "pairs_for_80pct_power": 37,
+   "holm_m5_pairs": 56
+  },
+  {
+   "p_discordant": 0.4,
+   "true_difference": 0.05,
+   "pairs_for_80pct_power": 1254,
+   "holm_m5_pairs": 1866
+  },
+  {
+   "p_discordant": 0.4,
+   "true_difference": 0.1,
+   "pairs_for_80pct_power": 312,
+   "holm_m5_pairs": 465
+  },
+  {
+   "p_discordant": 0.4,
+   "true_difference": 0.15,
+   "pairs_for_80pct_power": 138,
+   "holm_m5_pairs": 205
+  },
+  {
+   "p_discordant": 0.4,
+   "true_difference": 0.2,
+   "pairs_for_80pct_power": 77,
+   "holm_m5_pairs": 114
+  }
+ ]
+}

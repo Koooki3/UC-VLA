@@ -1,5 +1,7 @@
 # 27 | G2: future-decision-value compression — minimal theory, novelty audit, falsifiable design (2026-11-13)
 
+> **CORRIGENDUM 2026-11-13 (see `docs/38`):** (1) the delayed-key proposition is true but nearly trivial — it shows only that a *one-step* objective is blind to later-only evidence; a lookahead / whole-episode / chunk-BC objective coincides with future-value selection in the toy, so **novelty against such baselines is not established and P1 must be re-registered against them**; (2) the "≈16 paired rollouts per event for ~0.9" cost statement in §3 is **withdrawn** (it assumed additivity; per-item Δ is non-identifiable under non-additive dependence — use subset-level ranking; corrected toy: P(best subset) 0.78 at 16 and 0.997 at 64 rollouts per subset); (3) equivalence condition 5(a) holds only when the future-decisive evidence fits within what the one-step selector keeps (false when |N| > B); (4) future-value selection can be strictly worse (reachability-gated regime; noisy critic), so P2 needs a margin set by measured critic error; (5) the novelty matrix is to be rebuilt from primary sources. **No GPU request until these are resolved.**
+
 Status: **design only; no learned compressor exists; no GPU.** The only computation is the exact toy `scripts/g2_toy.py` (`results/synthetic/g2_toy.json`). Novelty is an empirical question; this document states when the idea is equivalent to existing work.
 
 ## 1. Setting and objective
