@@ -172,7 +172,8 @@ def pad(batch: Sequence[tuple[np.ndarray, np.ndarray, np.ndarray]]):
 
 def train_model(kind: str, vocab: Vocab, train: Sequence[tuple[Any, int]], val: Sequence[tuple[Any, int]],
                 val_pairs: Sequence[tuple[int, int]], seed: int, slots: int = 4, epochs: int = 60,
-                patience: int = 8, lr: float = 3e-3, batch: int = 64) -> tuple[nn.Module, dict]:
+                patience: int = 8, lr: float = 3e-3, batch: int = 64, ckpt: Any = None,
+                stop_after: int | None = None) -> tuple[nn.Module, dict]:
     """Fit on TRAIN; early-stop on VAL pair-both-correct. Returns (best model, trace)."""
     torch.manual_seed(seed)
     random.seed(seed)
@@ -180,6 +181,14 @@ def train_model(kind: str, vocab: Vocab, train: Sequence[tuple[Any, int]], val: 
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     rng = np.random.default_rng(seed)
     best, best_state, bad, trace = -1.0, None, 0, []
+    start = 0
+    if ckpt is not None and ckpt.exists():  # RESUME: parameters, optimiser, RNG, early-stop state, trace
+        c = torch.load(ckpt, weights_only=False)
+        model.load_state_dict(c["model"])
+        opt.load_state_dict(c["opt"])
+        rng.bit_generator.state = c["np_rng"]
+        torch.set_rng_state(c["torch_rng"])
+        best, best_state, bad, trace, start = c["best"], c["best_state"], c["bad"], c["trace"], c["epoch"]
 
     def predict(rows):
         model.eval()
@@ -190,7 +199,9 @@ def train_model(kind: str, vocab: Vocab, train: Sequence[tuple[Any, int]], val: 
             return torch.cat(out).numpy()
 
     ytr = np.array([y for _, y in train])
-    for ep in range(epochs):
+    for ep in range(start, epochs):
+        if stop_after is not None and ep >= stop_after:
+            raise KeyboardInterrupt("simulated kill")
         model.train()
         order = rng.permutation(len(train))
         total = 0.0
@@ -213,8 +224,15 @@ def train_model(kind: str, vocab: Vocab, train: Sequence[tuple[Any, int]], val: 
             best_state = {k: v.clone() for k, v in model.state_dict().items()}
         else:
             bad += 1
-            if bad >= patience:
-                break
+        if ckpt is not None:  # atomic checkpoint after every epoch
+            tmp = ckpt.with_suffix(".tmp")
+            torch.save({"model": model.state_dict(), "opt": opt.state_dict(),
+                        "np_rng": rng.bit_generator.state, "torch_rng": torch.get_rng_state(),
+                        "best": best, "best_state": best_state, "bad": bad, "trace": trace,
+                        "epoch": ep + 1}, tmp)
+            tmp.replace(ckpt)
+        if bad >= patience:
+            break
     model.load_state_dict(best_state)
     ptr = predict(list(train))
     trace.append({"final_train_acc": float((ptr == ytr).mean()), "best_val_pair_optimal": best,

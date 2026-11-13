@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--extra-train", type=Path, help="yaml of a TRAIN-ONLY generator config (other seed)")
     ap.add_argument("--tag-suffix", default="")
+    ap.add_argument("--ckpt-dir", type=Path, help="per-epoch checkpoints; a re-launch resumes (cluster use)")
     ap.add_argument("--threads", type=int, default=3)
     ap.add_argument("--out", type=Path, default=ROOT / "results/synthetic/g1/runs")
     args = ap.parse_args()
@@ -98,8 +99,15 @@ def main():
     args.out.mkdir(parents=True, exist_ok=True)
     tag = args.arch + (f"{args.slots}" if args.arch == "fixedlatent" else "") + args.tag_suffix
     for seed in args.seeds:
+        if (args.out / f"{tag}_s{seed}.json").exists():
+            print("skip finished", tag, seed, flush=True)
+            continue  # completion = result file present (written last, after training and evaluation)
+        ck = None
+        if args.ckpt_dir:
+            args.ckpt_dir.mkdir(parents=True, exist_ok=True)
+            ck = args.ckpt_dir / f"{tag}_s{seed}.pt"
         model, info = train_model(args.arch, vocab, train, val, val_pairs, seed, args.slots, args.epochs,
-                                  args.patience, args.lr)
+                                  args.patience, args.lr, ckpt=ck)
         pol = LearnedPolicy(model, vocab, tag)
         full, none = Agent(AllHistory(), pol), Agent(NoHistory(), pol)
         res = {"arch": tag, "seed": seed, "spec": pol.spec(), "train": info["trace"][-1],
