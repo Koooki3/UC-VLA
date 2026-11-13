@@ -49,8 +49,8 @@
     },
     {
       "path": "STATUS.md",
-      "bytes": 6079,
-      "sha256": "081cad71a4c83116e1c9179d4b2bb8d7d3e06e329423d27329e99fe49482b026"
+      "bytes": 6497,
+      "sha256": "a16707d60296057aebbddb267f113f39b7c86c150b0cbe2048db11ed2926840a"
     },
     {
       "path": "TASK_PLAN.md",
@@ -96,6 +96,16 @@
       "path": "configs/experiments/E30_recovery_budget_rolling.yaml",
       "bytes": 469,
       "sha256": "cb81a22adbda4d8e434865f74e0617e9ac1c95bd20542655a201fa6ac1a8ab04"
+    },
+    {
+      "path": "configs/sodh/g1_trainaug_mix_1000.yaml",
+      "bytes": 756,
+      "sha256": "1a167a0f6d2f77d2e45e0b86cc07b930f61f19887f2f9311e1b752e33047159f"
+    },
+    {
+      "path": "configs/sodh/g1_trainaug_mix_3000.yaml",
+      "bytes": 756,
+      "sha256": "37570cdf4b3a5d677f305b9bb91fa1cc2c9fbdeeaed489a74c0daa4ff30b16da"
     },
     {
       "path": "configs/sodh/g1_trainaug_track.yaml",
@@ -264,13 +274,13 @@
     },
     {
       "path": "docs/27_G2_THEORY_AND_DESIGN.md",
-      "bytes": 8522,
-      "sha256": "f001e5c3f2b68fb79897fe0a8bb9a1d2126cf4eb79c08db5f2b3d6cd2d78aaca"
+      "bytes": 9584,
+      "sha256": "228145c75be4ac74a0fb13e85ba4579179795d8c8773782935057b75a09bb8ab"
     },
     {
       "path": "docs/28_CLAIM_LEDGER.md",
-      "bytes": 2764,
-      "sha256": "470d1b9b95beae643d2d6df2cdc3ad5082e2b204d39b401edd0276fe9f0463ec"
+      "bytes": 3997,
+      "sha256": "813a27285888943cac36e3459804777d7f6c94ebbfa67fb9b973c61014a7f86b"
     },
     {
       "path": "docs/29_G1_REPORT.md",
@@ -301,6 +311,31 @@
       "path": "docs/34_LEROBOT_IMPORT_AUDIT.md",
       "bytes": 2697,
       "sha256": "a6b5f1086a024162864f3dbe4f31a2039114620f9a5264f1c0a27c66bff04635"
+    },
+    {
+      "path": "docs/35_G1_SCALING_REPORT.md",
+      "bytes": 2041,
+      "sha256": "69b988c3b2adedabd2438a5f06e7caa58b394cb525ebd20720a598ec035fc5d2"
+    },
+    {
+      "path": "docs/36_G1_MIX_PROTOCOL.md",
+      "bytes": 1269,
+      "sha256": "a36f78917b0dbb952753e118505cf48abbaa645ea5ffef59cca775e0fccdfc5f"
+    },
+    {
+      "path": "docs/37_M3_READINESS.md",
+      "bytes": 4815,
+      "sha256": "c8d42c810ad18c17b0b1313db45fb03da759d7063b16ea92cdbbf85b7f6c624e"
+    },
+    {
+      "path": "docs/38_G2_ADVERSARIAL_REVIEW.md",
+      "bytes": 4377,
+      "sha256": "d4b96f9382fd15b586ed2b34cb01e6952517f0d984ad8c0b4340efafc6ed2f0d"
+    },
+    {
+      "path": "docs/39_G1_MIX_REPORT.md",
+      "bytes": 2231,
+      "sha256": "2b3384039d093e9c0c652df5ba55b971fa29d95bb24913d5d3bdc7c3e3318d0a"
     },
     {
       "path": "paper/outline.md",
@@ -518,6 +553,11 @@
       "sha256": "b745546316609a064993bbf51997b9d8af8623d3e998328864639372845a2743"
     },
     {
+      "path": "scripts/aggregate_g1_scale.py",
+      "bytes": 1818,
+      "sha256": "545c996b89d8a14b8ee36f71ee88b5fc52b00749507278725776a07b22d738a0"
+    },
+    {
       "path": "scripts/audit_sodh.py",
       "bytes": 1443,
       "sha256": "6b4fa32c4ba40ebbbb26d7d0529a18b2c9b43828aaa77cac025cbfa8d20ace7a"
@@ -544,8 +584,8 @@
     },
     {
       "path": "scripts/g2_toy.py",
-      "bytes": 4540,
-      "sha256": "4e60eb915c04e4fc329cb55ce855110f66265793835f7107977069f04e4ebf12"
+      "bytes": 6501,
+      "sha256": "858c7a1340cf34959bf7df27e6b922df7f05b22cbd550d4a5c4150d3cc0ba25c"
     },
     {
       "path": "scripts/generate_sodh.py",
@@ -556,6 +596,11 @@
       "path": "scripts/generate_sodh2.py",
       "bytes": 3738,
       "sha256": "93e6a00f1ebc6df34c1dfb348bf3e43cb0e3acb86ba3945e9467ef609fcb51ad"
+    },
+    {
+      "path": "scripts/m3_power.py",
+      "bytes": 1284,
+      "sha256": "c8d314b19aed636ae6d405ccf71720517454987ec7aea3a5016f0fb6b8a2e8bf"
     },
     {
       "path": "scripts/package_manifest.py",
@@ -738,6 +783,11 @@
       "sha256": "90bcc9204e95dcbfb208cd9db5ce276268aa218f65cefd8a3ef8c3990e8e84e9"
     },
     {
+      "path": "src/ucvla/rollout_contract.py",
+      "bytes": 2858,
+      "sha256": "f238dd420a52713e269107b08c43e8439e60502518e8e7466a79e0e46a186dc5"
+    },
+    {
       "path": "src/ucvla/runenv.py",
       "bytes": 1688,
       "sha256": "29907ddb1ca0eb348ecd9fe01858e9ab17fb0425f1e99ab47a05e48a9818dbc5"
@@ -861,6 +911,11 @@
       "path": "tests/test_resume.py",
       "bytes": 1560,
       "sha256": "6837499f77585e8570e1e2de2b0e50861801043ed6d22a2d4f950df31f9dad7c"
+    },
+    {
+      "path": "tests/test_rollout_contract.py",
+      "bytes": 794,
+      "sha256": "4bd6954ac2428c60a40d0baaace1445dedbb35374e56474d048cc37c187bef8d"
     },
     {
       "path": "tests/test_sodh.py",

@@ -23,3 +23,5 @@ Classes: **VSE** Validated Scientific Evidence · **EEE** Established Engineerin
 | 17 | Tracking accuracy of the GRU is data-limited: 0.11→0.33→0.78→0.96 for 0/1k/3k/9k extra track pairs (5 seeds) | EXP | `docs/35`; synthetic; test splits viewed |
 | 18 | Track-only auxiliary data causes multi-task degradation (events 0.55, resume 0.30 at N=9000; some seeds 0.00) | NEG | `docs/35`; cause (task imbalance) is an untested hypothesis |
 | 19 | LeRobot importer aligns timestamps/video exactly and keeps the commanded action invisible at its own tick | EEE | `docs/34`; one dataset; no visual-memory claim |
+| 20 | The multi-task collapse of docs/35 was task imbalance: balanced auxiliary data (1k/3k per family) gives events≈1.00, resume≈0.99–1.00 and track 0.38/0.73 (5 seeds) | EXP | `docs/39`; two pre-registered predictions not met literally (P-M1 two-sided wording, P-M2 0.73<0.75) |
+| 21 | M3 rollouts need ≥155–1,866 paired episodes depending on effect size/discordance; GPU-hours not estimated | EEE (planning arithmetic) | `docs/37`, McNemar approximation |

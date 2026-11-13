@@ -44,3 +44,6 @@ All releasable artefacts, weights included, are to be published permissively (`d
 
 ## LeRobot importer (2026-11-13)
 Importer + audit done on the official sample (`docs/34`): 50 episodes, all checks pass; M1 DoD *LeRobot importer* met for this sample; *image-level audit* partial (statistical, no learned probe). G1-scaling batch running on MLDA (CPU, `docs/33`).
+
+## 2026-11-13 later
+G1 scaling (`docs/35`) and balanced-mixture (`docs/39`) batches done on MLDA; G2 adversarial review (`docs/38`) → Blockers B1/B2 open (comparator strawman; unsupported cost bound withdrawn); M3 readiness (`docs/37`): pilot proposal only, no rollout. Public repository `Koooki3/UC-VLA` is at the first-push state; later commits are local only until re-published via `scripts/prepare_publish.sh`.

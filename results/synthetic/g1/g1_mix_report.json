@@ -1,0 +1,58 @@
+{
+ "+mix1000": {
+  "track": {
+   "mean": 0.383,
+   "min": 0.33,
+   "max": 0.45
+  },
+  "events": {
+   "mean": 1.0,
+   "min": 1.0,
+   "max": 1.0
+  },
+  "resume": {
+   "mean": 0.986,
+   "min": 0.97,
+   "max": 1.0
+  },
+  "memoryless_track": 0.0,
+  "ood_structure": {
+   "track": 0.29,
+   "events": 0.98,
+   "resume": 0.95
+  },
+  "ood_length": {
+   "track": 0.17,
+   "events": 0.57,
+   "resume": 0.97
+  }
+ },
+ "+mix3000": {
+  "track": {
+   "mean": 0.727,
+   "min": 0.61,
+   "max": 0.92
+  },
+  "events": {
+   "mean": 1.0,
+   "min": 1.0,
+   "max": 1.0
+  },
+  "resume": {
+   "mean": 0.997,
+   "min": 0.99,
+   "max": 1.0
+  },
+  "memoryless_track": 0.0,
+  "ood_structure": {
+   "track": 0.56,
+   "events": 0.98,
+   "resume": 0.99
+  },
+  "ood_length": {
+   "track": 0.49,
+   "events": 0.7,
+   "resume": 1.0
+  }
+ }
+}
