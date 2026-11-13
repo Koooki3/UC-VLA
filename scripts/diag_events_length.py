@@ -32,6 +32,11 @@ BLANK = {"phase": "work", "contact": "up", "lamp": "off"}
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--extra", default="configs/sodh/g1_trainaug_mix_3000.yaml")
+    ap.add_argument("--tag", default="baseline")
+    args = ap.parse_args()
     torch.set_num_threads(4)
     eps, pairs, asg = read_dataset(DATA, PairRecord2)
     ad = SODHAdapter(eps, pairs, asg)
@@ -40,7 +45,7 @@ def main():
     train = [example(ad, i, vocab) for i in tr]
     va_p = ad.pairs("val")
     val = [example(ad, e, vocab) for p in va_p for e in (p.episode_a, p.episode_b)]
-    xs = generate_suite2(SODH2Config.from_dict(yaml.safe_load((ROOT / "configs/sodh/g1_trainaug_mix_3000.yaml").read_text())))
+    xs = generate_suite2(SODH2Config.from_dict(yaml.safe_load((ROOT / args.extra).read_text())))
     xad = SODHAdapter(xs.episodes, xs.pairs, {p.pair_id: "train" for p in xs.pairs})
     train += [example(xad, e.episode_id, vocab) for e in xs.episodes]
     train_k = sorted({int(xad.episode(e.episode_id).queries[0].params["target_count"]) for e in xs.episodes if e.provenance["family"] == "events"})
@@ -86,7 +91,7 @@ def main():
             res["padded_indist"][pad] = float(np.mean(oks))
         out["seeds"].append(res)
         print("seed", seed, json.dumps(res["padded_indist"]), flush=True)
-    (ROOT / "results/synthetic/g1/events_length_diagnosis.json").write_text(json.dumps(out, indent=1, default=float) + "\n")
+    (ROOT / f"results/synthetic/g1/events_length_diagnosis_{args.tag}.json").write_text(json.dumps(out, indent=1, default=float) + "\n")
 
 
 if __name__ == "__main__":
