@@ -1,0 +1,12 @@
+# TRAIN-ONLY balanced auxiliary data (never evaluated): 3000 extra pairs per relevant family.
+master_seed: 777002
+generator_version: sodh/2
+n_identity_mappings: 8
+heldout_mappings: [7]
+split_fractions: [0.5, 0.15, 0.35]
+noise_levels: [0.0, 0.1]
+margin_gate: 0.30
+families:
+  track:  {n_id: [3, 5], horizon_id: [8, 16],  horizon_ood_length: [24, 32], pairs_in_dist: 3000, pairs_ood_length: 0, pairs_ood_structure: 0, pairs_heldout: 0}
+  events: {n_id: [2, 2], horizon_id: [10, 18], horizon_ood_length: [26, 36], pairs_in_dist: 3000, pairs_ood_length: 0, pairs_ood_structure: 0, pairs_heldout: 0}
+  resume: {n_id: [3, 5], horizon_id: [14, 22], horizon_ood_length: [30, 40], pairs_in_dist: 3000, pairs_ood_length: 0, pairs_ood_structure: 0, pairs_heldout: 0}
