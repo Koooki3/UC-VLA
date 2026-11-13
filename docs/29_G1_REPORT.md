@@ -1,0 +1,23 @@
+# 29 | G1 report: can a learned context reader use history? (2026-11-13)
+
+Protocol: `docs/25` (frozen before training). Data: frozen SODH v2, TRAIN split only for fitting, VAL for early stopping, 5 seeds per configuration. Reports: `results/synthetic/g1/g1_report.json`, per-run JSON in `runs/` and `followup/`, ledger `evaluation_ledger.jsonl`. **Status: EXPLORATORY / non-confirmatory** — the v2 test splits had been viewed by earlier evaluations, and one scratch smoke run (GRU, seed 0, 25 epochs) saw test numbers before the official runs (hyper-parameters were not changed because of it). Between-seed t-interval (n=5) replaces the per-pair CI in the lower-bound criterion (deviation, conservative for 5 seeds). Item names are canonicalised to list indices (in-context binding): `test_counterfactual` is therefore not an identity-generalisation test for learners.
+
+## Main result (test_id PairOptimal, mean [min,max] over 5 seeds; memoryless = same model with `NoHistory`)
+| model (params) | track | events | resume | memoryless | control | passes registered criteria |
+| --- | --- | --- | --- | --- | --- | --- |
+| GRU (34.8k) | 0.10 [.06,.13] | 0.99 [.96,1.0] | 0.90 [.85,.92] | 0.00 | ok | **yes** (events+resume) |
+| Fixed-latent S=1 (13.5k) | 0.08 | 0.79 [0,1.0] | 0.58 [0,.85] | 0.00 | ok | no (unstable seeds) |
+| Fixed-latent S=2 (14.6k) | 0.10 | 1.00 | 0.70 [.21,.95] | 0.00 | ok | no (seed range) |
+| Fixed-latent S=4 (16.7k) | 0.09 | 0.99 | 0.84 [.67,.91] | 0.00 | ok | **yes** |
+| Fixed-latent S=8 (21.1k) | 0.10 | 0.99 | 0.85 [.77,.91] | 0.00 | ok | **yes** |
+| Causal Transformer (80.8k) | 0.00 | 0.03 | 0.00 | 0.00 | **fails** | no |
+Attribution (GRU/FL≥4, test_id): swap-follow 0.91–1.00 on events/resume (≈0.30 on track); (drop-critical − drop-noncritical) 0.43–0.64; control invariant under swap. **Capacity scaling** (fixed latent): resume 0.58 → 0.70 → 0.84 → 0.85 for S = 1,2,4,8; events saturates at S=2; track unaffected. **Order perturbation** barely hurts events (counting is order-invariant by construction) but costs resume 0.90→0.88 (GRU) — and the registered requirement "order perturbation must cut track by ≥0.15" **cannot be met at base data size because track is not learned**.
+
+## Failure attribution (docs/25 protocol), with follow-ups run once
+- **Track at base size (all models ≈0.1, train acc 0.8–0.9 overall):** *data insufficiency*. With 3,000 extra train-only track pairs (`configs/sodh/g1_trainaug_track.yaml`, other seed, never evaluated) the GRU reaches track PairOptimal **0.93 / 0.64 / 0.75** (3 seeds, high variance), swap-follow 0.96/0.79/0.84, (drop-critical − drop-noncritical) 0.43/0.33/0.45, memoryless 0.00, and order perturbation cuts it to 0.16/0.11/0.15 (i.e. the model uses order). So all registered criteria, including order, hold for the GRU on all three families once track has enough data. The oracle (full-history env success 0.83) shows the benchmark itself is not the limit.
+- **Causal Transformer:** at lr 3e-3 *optimisation failure* (train acc 0.42). At lr 1e-3, 200 epochs it fits (train 0.83–0.99) but generalises worse than the GRU (test_id events 0.71–0.77, resume 0.58–0.68, track ≈0.05): *data insufficiency / weaker inductive bias at 3 seeds*; no claim about Transformers in general.
+- **Length OOD:** events collapses beyond training lengths (GRU 0.31, FL8 0.22) while resume holds (0.89/0.82): counting does not extrapolate in length — a representation/generalisation limit, reported not repaired. **Structural OOD:** GRU events 0.90, resume 0.77 (vs 0.99/0.90 in-dist); GRU+aug track 0.80/0.45/0.60.
+
+## Verdict (exploratory)
+**G1: PASS, with caveats.** Learned recurrent readers (GRU, fixed latent ≥4 slots) learn history-dependent decisions on frozen SODH v2 that are causally attributable to history (swap, deletion, memoryless collapse to 0, control intact); tracking requires more data than the base split provides; the registered 5-seed criteria are met by GRU, FL4, FL8 on 2 of 3 families, and by the GRU on all 3 with train-only augmentation (3 seeds). F8 is resolved *for this model class*: Bag-of-Tokens failed because of representation, recurrent models succeed. **This does not support Decision-Aware Compression (G2), any real VLA, or compression efficiency.** Required before citing as evidence: a sealed, pre-registered confirmatory evaluation set; the length-extrapolation failure analysed; transformer re-examined with more data.
+B2b status: F8 prerequisite now satisfied; F7 ranking instability for events/resume still stands → **B2b stays open** pending a learner-based selector-ranking check.
