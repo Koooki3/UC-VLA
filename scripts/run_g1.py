@@ -69,6 +69,7 @@ def main():
     ap.add_argument("--extra-train", type=Path, help="yaml of a TRAIN-ONLY generator config (other seed)")
     ap.add_argument("--tag-suffix", default="")
     ap.add_argument("--drop-params", nargs="*", default=[], help="withhold these task-parameter keys")
+    ap.add_argument("--eval-dir", type=Path, help="evaluate on this (sealed) dataset instead of the v2 test splits")
     ap.add_argument("--ckpt-dir", type=Path, help="per-epoch checkpoints; a re-launch resumes (cluster use)")
     ap.add_argument("--threads", type=int, default=3)
     ap.add_argument("--out", type=Path, default=ROOT / "results/synthetic/g1/runs")
@@ -76,6 +77,10 @@ def main():
     torch.set_num_threads(args.threads)
     eps, pairs, asg = read_dataset(DATA, PairRecord2)
     ad = SODHAdapter(eps, pairs, asg)
+    ad_eval = ad
+    if args.eval_dir:
+        e2, p2, a2 = read_dataset(args.eval_dir, PairRecord2)
+        ad_eval = SODHAdapter(e2, p2, a2)
     tr_ids = [e for p in ad.pairs("train") for e in (p.episode_a, p.episode_b)]
     va_pairs_rec = ad.pairs("val")
     va_ids = [e for p in va_pairs_rec for e in (p.episode_a, p.episode_b)]
@@ -115,12 +120,12 @@ def main():
                "epochs": len(info["trace"]) - 1, "splits_evaluated": list(TEST), "metrics": {},
                "memoryless": {}, "attribution": {}, "order_perturbation": {}}
         for s in TEST:
-            r = evaluate(ad, full, s, seed)
+            r = evaluate(ad_eval, full, s, seed)
             res["metrics"][s] = pair_metrics(r)
-            res["memoryless"][s] = pair_metrics(evaluate(ad, none, s, seed))
+            res["memoryless"][s] = pair_metrics(evaluate(ad_eval, none, s, seed))
         for s in ("test_id", "test_ood_structure"):
-            res["attribution"][s] = causal_attribution(ad, full, s, seed)
-            res["order_perturbation"][s] = order_perturbation(ad, full, s, seed)
+            res["attribution"][s] = causal_attribution(ad_eval, full, s, seed)
+            res["order_perturbation"][s] = order_perturbation(ad_eval, full, s, seed)
         (args.out / f"{tag}_s{seed}.json").write_text(json.dumps(res, indent=1, default=float))
         m = res["metrics"]["test_id"]
         print(tag, seed, "epochs", res["epochs"], "train_acc", round(res["train"]["final_train_acc"], 2),
