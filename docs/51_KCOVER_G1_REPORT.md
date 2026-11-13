@@ -14,7 +14,7 @@ GRU, docs/25 hyper-parameters, 5 seeds, local CPU, non-sealed splits (explorator
 
 ## Verdicts
 - **P-G1 (events, resume within 0.05): met** (1.00, 1.00).
-- **P-G2 (track ≥ 0.68): NOT met** — mean 0.59, driven by seed 1 collapsing to 0.00 (early-stopped at epoch 25, train accuracy 0.75, val 0.70). The other four seeds are 0.68–0.79 (mean 0.74, i.e. like the reference). Whether the collapse is caused by the widened events data or by seed/lr fragility (docs/49) is **undetermined** (no matched seed-1 control with the 10–18 events data was run).
+- **P-G2 (track ≥ 0.68): NOT met** — mean 0.59, driven by seed 1 collapsing to 0.00 (early-stopped at epoch 25, train accuracy 0.75, val 0.70). The other four seeds are 0.68–0.79 (mean 0.74, i.e. like the reference). Seed-matched reference (docs/39 N=3000, same seed 1, events horizon 10–18): track 0.66, val 0.92, 45 epochs — no collapse. Changing the auxiliary data also changes the batch order and trajectory for the same seed, so this does not isolate the cause: it shows the collapse is **not a property of seed 1 alone** but cannot separate an effect of the widened data from run-to-run optimisation fragility (docs/49). Undetermined; resolving it needs more seeds on both data variants.
 - **P-G3 (events OOD-length > 0.70): met**, 0.85 (seed range 0.65–0.98); the standard metric confirms the docs/47 diagnosis, with the large seed spread remaining.
 - **P-G4 (no events seed at chance): met** (the collapse occurred in track, not events).
 
