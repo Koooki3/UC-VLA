@@ -38,6 +38,7 @@ for f in $(git ls-files '*.md' '*.py' '*.json'); do
   sed -i -E 's#docs/(16|20|22|30|32)([_A-Z]*[A-Za-z_.]*)?#docs/\1 (withheld from the public release)#g' "$f" || true
 done
 sed -i -E '/docs\/(16|20|22)_[A-Z_]+\.md` \|/d; /^\| `docs\/(16|20|22)/d' README.md
+git add -A
 "$PY" scripts/package_manifest.py >/dev/null
 git add -A
 GIT_AUTHOR_NAME="$NAME" GIT_AUTHOR_EMAIL="$EMAIL" GIT_COMMITTER_NAME="$NAME" GIT_COMMITTER_EMAIL="$EMAIL" \
