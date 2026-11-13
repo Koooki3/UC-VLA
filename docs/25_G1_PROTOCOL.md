@@ -1,0 +1,18 @@
+# 25 | G1 pre-registration: can a learned Context Reader use history? (frozen before training)
+
+Date 2026-11-13. Question: does a *learned* model, trained on the train split of frozen SODH v2 only, learn history-dependent decisions that are causally attributable to history? G1 does **not** test Decision-Aware Compression (that is G2) and does not involve any real VLA.
+
+**Epistemic status of the test splits.** The frozen v2 test splits were already evaluated several times (ledger `results/synthetic/v2_eval`, `m2`). Results on them are therefore **exploratory/non-confirmatory** regardless of what we do now. Confirmatory evidence requires a new pre-registered, sealed evaluation set (planned: `sodh_v2` generator, new master seed, generated and hashed but not evaluated until all rules are frozen; not created in this round). Model selection uses **val only**; test splits are evaluated once per final model; every access is appended to `results/synthetic/g1/evaluation_ledger.jsonl`.
+
+## Models (same inputs, split, harness, budgets, causal time)
+A `gru` (hidden 64) · B `ctransformer` (2 layers, d=64, 4 heads, causal mask, positional embedding) · C `fixedlatent` (S memory slots × d=16 with gated per-tick write and attention read; capacity scaling S ∈ {1,2,4,8}). Input per tick = embedding of its (key=value) tokens from a vocabulary built on TRAIN only, with item names **canonicalised to their index in the task's item list** (in-context binding; this removes name-memorisation, so `test_counterfactual` is NOT an identity-generalisation test for learners) + numeric task-parameter vector + task id. Output = logits over option indices, loss = CE to the oracle label. Optimiser Adam, lr 3e-3, batch 64, ≤60 epochs, early stopping on val PairOptimal (patience 8); no other tuning. 5 seeds (0–4). No data augmentation. A train-only extra dataset (different master seed, **not** a test set) may be used for the data-scaling check.
+
+## Evaluations (all through the harness `PolicyAdapter` path, `AllHistory` provider unless stated)
+1 correct history vs memoryless (`NoHistory`) · 2 correct vs swapped history · 3 critical vs matched non-critical evidence removal · 4 history *order perturbation* (tick contents permuted, timestamps kept) · 5 history-independent negative control (`control` family) · 6 structural OOD (`test_ood_structure`) and length OOD · 7 capacity scaling (C) · 8 5 seeds, clustered bootstrap CI over pairs, between-seed range.
+
+## Pre-registered pass criteria (per architecture, mean over seeds, `test_id`)
+For ≥ 2 of the 3 relevant families: PairOptimal ≥ 0.60 **and** 95 % lower CI > 0.20; swap-follow ≥ 0.70; (drop-critical − drop-noncritical) ≥ 0.20; memoryless PairOptimal ≤ 0.05; `control` accuracy ≥ 0.95 and invariant under swap. G1 passes if ≥ 1 architecture meets all, with between-seed range of PairOptimal ≤ 0.25. Order perturbation must reduce `track` PairOptimal by ≥ 0.15 (otherwise the model is not using order).
+## Failure attribution protocol (decided now)
+Train PairOptimal low after capacity/epoch increase within the budget → *representation or optimisation failure* (resolved by larger capacity/epochs: optimisation; by architecture swap: representation). Train high, val low → *data insufficiency / overfitting* (check with the train-only extra data). Oracle itself fine, learners fail everywhere including control → *pipeline bug*. A cell where the oracle's own margin/success is low → *benchmark construct limit* (reported, not repaired).
+## Exit
+If no architecture passes: report a negative result (G1 NO-GO), classify the cause by the protocol, do **not** edit v2. A pass is evidence that history dependence is learnable on this benchmark — nothing about compression or real VLAs.
