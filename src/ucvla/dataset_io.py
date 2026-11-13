@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import sys
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
@@ -46,7 +45,6 @@ def write_dataset(out_dir: Path, episodes: Sequence[EpisodeRecord], pairs: Seque
         "schema_version": episodes[0].schema_version if episodes else None,
         "files": {n: sha256_hex(d) for n, d in sorted(blobs.items())},
         "counts": {"episodes": len(episodes), "pairs": len(pairs)},
-        "python": sys.version.split()[0],
         **extra,
     }
     write_once(out_dir / "manifest.json", manifest_bytes(manifest))
