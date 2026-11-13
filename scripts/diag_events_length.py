@@ -36,6 +36,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--extra", default="configs/sodh/g1_trainaug_mix_3000.yaml")
     ap.add_argument("--tag", default="baseline")
+    ap.add_argument("--lr", type=float, default=3e-3)
+    ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
     args = ap.parse_args()
     torch.set_num_threads(4)
     eps, pairs, asg = read_dataset(DATA, PairRecord2)
@@ -50,10 +52,10 @@ def main():
     train += [example(xad, e.episode_id, vocab) for e in xs.episodes]
     train_k = sorted({int(xad.episode(e.episode_id).queries[0].params["target_count"]) for e in xs.episodes if e.provenance["family"] == "events"})
     out = {"train_K_range": [train_k[0], train_k[-1]], "seeds": []}
-    for seed in range(3):
-        model, _ = train_model("gru", vocab, train, val, [(2 * i, 2 * i + 1) for i in range(len(va_p))], seed)
+    for seed in args.seeds:
+        model, tr_trace = train_model("gru", vocab, train, val, [(2 * i, 2 * i + 1) for i in range(len(va_p))], seed, lr=args.lr)
         agent = Agent(AllHistory(), LearnedPolicy(model, vocab, "gru"))
-        res = {"by_K": {}, "by_horizon": {}, "padded_indist": {}}
+        res = {"seed": seed, "lr": args.lr, "n_epochs": len(tr_trace), "by_K": {}, "by_horizon": {}, "padded_indist": {}}
         for split in ("test_id", "test_ood_length"):
             byk, byh = defaultdict(list), defaultdict(list)
             for p in ad.pairs(split):
