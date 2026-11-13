@@ -38,3 +38,6 @@ All results are `mode: synthetic` unless a record says `real_data_*` (schema che
 1. Project licence and git author-identity/history policy before any remote (`docs/24`). 2. Whether to approve a LeRobot-format official sample. 3. Gemma terms / whether to pursue SmolVLA, RDT-1B or Octo as an openly releasable backbone (licence checks pending). 4. Whether to authorise simulator replay (M3) — needs compute/licence plan. 5. Approval of SODH v3 (longer horizons) vs staying on v2.
 
 Verify: `make smoke PYTHON=.venv/bin/python`.
+
+## Release scope (2026-11-13)
+All releasable artefacts, weights included, are to be published permissively (`docs/26`). Hence: pi0/pi0.5 excluded for released weights; SmolVLA-derived weights blocked pending a data-licence audit; from-scratch models on synthetic data are releasable; MLDA and ROSE are authorised for large runs (ROSE shared-account responsibility with the operator); first cluster step = resume smoke test on one MLDA GPU (not yet run).
